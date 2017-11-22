@@ -1,0 +1,343 @@
+################################################################################
+#    source/boot/Makefile
+#    Create By czyong, yjtao
+#    2012.09.17
+################################################################################
+
+#
+#  import variable.
+#
+ 
+#  CFG_HI_BOOT_ENV_STARTADDR
+#  CFG_HI_BOOT_ENV_SIZE
+#  CFG_HI_BOOT_ENV_RANGE
+#  CFG_HI_EXPORT_FLAG
+#  CFG_HI_BOOT_REG_NAME
+#  CROSS_COMPILE
+#  CFG_HI_ETH_UP_PHYADDR
+#  CFG_HI_ETH_DOWN_PHYADDR
+#  HI_ADVCA_FUNCTION_RELEASE //FIX ME:CA
+#  HI_ADVCA_FUNCTION_DEBUG   //FIX ME:CA
+#  CFG_HI_ADVCA_TYPE         //FIX ME:CA
+#  CFG_HI_CHIP_TYPE          //FIX ME:product,take out
+#  CFG_HI_SDK_VERSION        //FIX ME:product,take out
+#  CFG_HI_BUILD_WITH_PRODUCT
+#  CFG_HI_BOOT_COMPRESSED
+
+ifeq ($(CFG_HI_EXPORT_FLAG),)
+SDK_DIR := $(shell pwd)/../..
+include $(SDK_DIR)/base.mak
+endif
+CROSS_COMPILE  ?= arm-hisiv200-linux-
+CONFIG_SYSREG  := $(if $(CFG_HI_BOOT_REG_NAME),$(CFG_HI_BOOT_REG_NAME),hi3716mtst3bvera_hi3716mv300_ddr3_256mbyte_16bit_4layers.reg) 
+ifneq ($(BOOT_ADVCA_PROGRAMMER),y) 
+CONFIG_PRODUCT_WITH_BOOT := $(CFG_HI_BUILD_WITH_PRODUCT)
+endif
+CONFIG_COMPRESS_BOOT := $(CFG_HI_BOOT_COMPRESSED)
+
+########################## CONFIG_GODBOX_PLATFORM ##############################
+ifeq ($(findstring hi3712,$(CFG_HI_CHIP_TYPE)), hi3712)
+CONFIG_HI3712_PLATFORM := y
+endif
+
+ifeq ($(findstring hi3716c,$(CFG_HI_CHIP_TYPE)), hi3716c)
+CONFIG_HI3716X_PLATFORM := y
+endif
+
+ifeq ($(findstring hi3716h,$(CFG_HI_CHIP_TYPE)), hi3716h)
+CONFIG_HI3716X_PLATFORM := y
+endif
+
+ifeq ($(findstring hi3716m,$(CFG_HI_CHIP_TYPE)), hi3716m)
+CONFIG_HI3716X_PLATFORM := y
+endif
+
+ifeq ($(findstring hi3715,$(CFG_HI_CHIP_TYPE)), hi3715)
+CONFIG_HI3715_PLATFORM := y
+endif
+
+HI3712        := 1
+HI3715        := 2
+HI3716C       := 3
+HI3716H       := 4 
+HI3716M       := 5
+HI3716MV310   := 6
+HI3716MV320   := 7
+HI3110EV500   := 8
+HI3716MV330   := 9
+
+################################################################################
+
+TARGET := $(if $(CONFIG_COMPRESS_BOOT),mini-boot.bin,fastboot-burn.bin)
+
+#
+# local variable.
+#
+CURRDIR        = $(shell pwd)
+
+ifneq ($(O),)
+OBJ_DIR := $(O)
+BUILD_DIR := $(OBJ_DIR)
+OBJ_TARGET := $(OBJ_DIR)/fastboot-burn.bin
+BOOT_DIR := $(OBJ_DIR)
+export BOOT_DIR
+else
+BUILD_DIR := $(CURRDIR)
+endif
+
+FASTBOOT       = $(BUILD_DIR)/fastboot
+PRODUCT        = $(BUILD_DIR)/product
+
+SYSREGDIR      = $(CURRDIR)/sysreg
+LIBSPRODUCT    = $(PRODUCT)/libproduct.a
+PREFIX         = $(CURRDIR)/../../pub/image
+BOOTCONFIG     = hi3716mv310
+SYSREG         = $(SYSREGDIR)/$(CONFIG_SYSREG)
+CONFIG_FILE    = $(FASTBOOT)/include/configs/$(BOOTCONFIG)_config.h
+CONFIG_EXPORT  = $(FASTBOOT)/include/configs/export.sh
+
+export FASTBOOT PRODUCT
+
+################################################################################
+
+MKFLAGS    := ARCH=arm CROSS_COMPILE=$(CROSS_COMPILE) \
+              LIBSPRODUCT=$(LIBSPRODUCT) \
+              CONFIG_COMPRESS_BOOT=$(CFG_HI_BOOT_COMPRESSED) \
+              O=
+
+ifeq ($(BOOT_ADVCA_PROGRAMMER),y)
+    MKFLAGS += CONFIG_BOOTROM_CA_SUPPORT=y
+endif
+
+################################################################################
+PHONYS += install all product fastboot mini-boot prepare copy_code
+
+install: all
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	@cp -fv $(FASTBOOT)/$(TARGET) $(PREFIX)/fastboot-burn.bin
+ifeq (y, $(CFG_HI_BOOTLOADER_SUPPORT))
+	@cp -fv $(FASTBOOT)/$(TARGET) $(SDK_DIR)/tools/windows/HiPro-serial/HiPro-serial_cn/program.bin
+	@cp -fv $(FASTBOOT)/$(TARGET) $(SDK_DIR)/tools/windows/HiPro-serial/HiPro-serial_en/program.bin
+endif
+
+all: \
+   $(if $(OBJ_DIR), copy_code,) \
+   $(if $(CONFIG_COMPRESS_BOOT),mini-boot,fastboot)
+ifneq ($(OBJ_DIR),)
+	@cp -f $(FASTBOOT)/$(TARGET) $(OBJ_TARGET)
+endif
+
+copy_code:
+	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
+	-@cp -rf $(CURRDIR)/fastboot $(OBJ_DIR)
+	-@cp -rf $(CURRDIR)/product $(OBJ_DIR)
+
+product: prepare
+	make -C $(FASTBOOT) $(MKFLAGS) $(BOOTCONFIG)_config
+	make -C $(PRODUCT) $(MKFLAGS) O=$(O)
+
+fastboot: \
+	prepare \
+	$(if $(CONFIG_PRODUCT_WITH_BOOT),product,)
+	make -C $(FASTBOOT) $(MKFLAGS) $(BOOTCONFIG)
+
+mini-boot: fastboot
+	make -C $(FASTBOOT) $(MKFLAGS) mini-boot.bin
+
+advca_programmer_install: \
+		prepare \
+		$(if $(OBJ_DIR), copy_code,) \
+		$(if $(CONFIG_COMPRESS_BOOT),mini-boot,fastboot)
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	@cp -fv $(FASTBOOT)/$(TARGET) $(PREFIX)/advca_programmer.bin
+ifeq ($(OBJ_DIR),)
+	make -C $(PRODUCT)  $(MKFLAGS) clean
+	make -C $(FASTBOOT) $(MKFLAGS) distclean
+	make -C $(FASTBOOT) $(MKFLAGS) mini-boot.clean
+	-@rm -f $(FASTBOOT)/*.reg
+else
+	-@rm -rf $(OBJ_DIR)
+endif
+
+
+prepare: \
+    $(SYSREG) \
+    $(CONFIG_FILE)
+	@rm -f $(FASTBOOT)/*.reg
+	@cp -fv $(SYSREG) $(FASTBOOT)
+
+#####################for dobule bootloader######################################
+first_bootloader_install:first_bootloader
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	@cp -fv $(FASTBOOT)/$(TARGET) $(PREFIX)/fastboot-burn.bin
+ifeq ($(OBJ_DIR),)
+	make -C $(PRODUCT)  $(MKFLAGS) clean
+	make -C $(FASTBOOT) $(MKFLAGS) distclean
+	make -C $(FASTBOOT) $(MKFLAGS) mini-boot.clean
+	-@rm -f $(FASTBOOT)/*.reg
+else
+	-@rm -rf $(OBJ_DIR)
+endif
+		
+second_bootloader_install: second_bootloader
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	$(MKIMAGE) -A arm -O linux -C none  -T kernel -a 0x80a00000 -e 0x80a00000 -n 'bootloader' -d $(FASTBOOT)/$(TARGET) $(PREFIX)/bootloader.bin
+
+first_bootloader: \
+   $(if $(OBJ_DIR), copy_code,) \
+   $(if $(CONFIG_COMPRESS_BOOT),mini-boot_first,first_boot)
+ifneq ($(OBJ_DIR),)
+	@cp -f $(FASTBOOT)/$(TARGET) $(OBJ_TARGET)
+endif
+
+product_firstboot: prepare
+	make -C $(FASTBOOT) $(MKFLAGS) $(BOOTCONFIG)_config
+	make -C $(PRODUCT) $(MKFLAGS) CFG_HI_LOADER_FIRSTBOOT=y O=$(O)
+
+first_boot: \
+	prepare \
+	$(if $(CONFIG_PRODUCT_WITH_BOOT),product_firstboot,)
+	make -C $(FASTBOOT) $(MKFLAGS) $(BOOTCONFIG)
+
+mini-boot_first: first_boot
+	make -C $(FASTBOOT) $(MKFLAGS) mini-boot.bin
+
+second_bootloader: \
+   $(if $(OBJ_DIR), copy_code,) \
+   $(if $(CONFIG_COMPRESS_BOOT),mini-boot_second,second_boot)
+ifneq ($(OBJ_DIR),)
+	@cp -f $(FASTBOOT)/$(TARGET) $(OBJ_TARGET)
+endif
+
+product_secondboot: prepare
+	make -C $(FASTBOOT) $(MKFLAGS) $(BOOTCONFIG)_config
+	make -C $(PRODUCT) $(MKFLAGS) CFG_HI_LOADER_SECONDBOOT=y O=$(O)
+
+second_boot: \
+	prepare \
+	$(if $(CONFIG_PRODUCT_WITH_BOOT),product_secondboot,)
+	make -C $(FASTBOOT) $(MKFLAGS) $(BOOTCONFIG)
+
+mini-boot_second: second_boot
+	make -C $(FASTBOOT) $(MKFLAGS) mini-boot.bin
+#####################end dobule bootloader######################################
+
+################################################################################
+
+$(CONFIG_FILE): $(if $(OBJ_DIR), copy_code,) force
+	@test ! -f $(CONFIG_FILE) || rm -rvf $(CONFIG_FILE)
+	chmod 0755 $(CONFIG_EXPORT)
+	@$(CONFIG_EXPORT) "SDK_VERSION_STRING=\"$(CFG_HI_SDK_VERSION)\"" \
+		"SDK Version" $@
+	@$(CONFIG_EXPORT) "CONFIG_NAND_SUPPORT=$(CFG_HI_NAND_SUPPORT)" \
+		"nand flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_SPI_NAND_SUPPORT=$(CFG_HI_NAND_SPI_NAND_SUPPORT)" \
+		"SPI_NAND flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_SPIFLASH_SUPPORT=$(CFG_HI_SPI_SUPPORT)" \
+		"spi flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_NET_SUPPORT=$(CFG_HI_ETH_SUPPORT)" \
+		"eth support" $@
+	@$(CONFIG_EXPORT) "HISFV_PHY_U=$(CFG_HI_ETH_UP_PHYADDR)" \
+		"eth upport phy address" $@
+	@$(CONFIG_EXPORT) "HISFV_PHY_D=$(CFG_HI_ETH_DOWN_PHYADDR)" \
+		"eth downport phy address" $@
+	@$(CONFIG_EXPORT) "CONFIG_EMMC_SUPPORT=$(CFG_HI_EMMC_SUPPORT)" \
+		"emmc flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_USB_SUPPORT=$(CFG_HI_BOOT_USB_SUPPORT)" \
+		"usb support" $@
+	@$(CONFIG_EXPORT) "CONFIG_FAT_SUPPORT=$(CFG_HI_BOOT_FAT_SUPPORT)" \
+		"fat filesystem support" $@
+	@$(CONFIG_EXPORT) "CONFIG_USB_HOST_ETHER=$(CFG_HI_BOOT_USB2ETHER)" \
+		"usb2eth support" $@
+	@$(CONFIG_EXPORT) "CFG_ENV_ADDR=$(CFG_HI_BOOT_ENV_STARTADDR)" \
+		"boot environment variables start address" $@
+	@$(CONFIG_EXPORT) "CFG_ENV_SIZE=$(CFG_HI_BOOT_ENV_SIZE)" \
+		"boot environment variables size" $@
+	@$(CONFIG_EXPORT) "CFG_ENV_RANGE=$(CFG_HI_BOOT_ENV_RANGE)" \
+		"boot environment variables range" $@
+	@$(CONFIG_EXPORT) "CONFIG_ENV_BACKUP=$(CFG_HI_BOOT_ENV_BAK_SUPPORT)" \
+		"Bakup boot environment variables support" $@
+	@$(CONFIG_EXPORT) "CFG_ENV_BACKUP_ADDR=$(CFG_HI_BOOT_ENV_STARTADDR_BAKUP)" \
+		"Bakup boot environment variables start address" $@
+	@$(CONFIG_EXPORT) "CONFIG_PRODUCT_WITH_BOOT=$(CONFIG_PRODUCT_WITH_BOOT)" \
+		"build product with boot" $@
+	@$(CONFIG_EXPORT) "HI3716MV310_FPGA=$(CFG_HI3716MV330_FPGA)" \
+		"enable Hi3716mv310 fpga" $@
+	@$(CONFIG_EXPORT) "hi3712=$(HI3712)"   "macro for hi3712" $@
+	@$(CONFIG_EXPORT) "hi3715=$(HI3715)"   "macro for hi3715" $@
+	@$(CONFIG_EXPORT) "hi3716c=$(HI3716C)" "macro for hi3716c" $@
+	@$(CONFIG_EXPORT) "hi3716h=$(HI3716H)" "macro for hi3716h" $@
+	@$(CONFIG_EXPORT) "hi3716m=$(HI3716M)" "macro for hi3716m" $@
+	@$(CONFIG_EXPORT) "hi3716m310=$(HI3716MV310)" "macro for hi3716mv310" $@
+	@$(CONFIG_EXPORT) "hi3716m320=$(HI3716MV320)" "macro for hi3716mv320" $@
+	@$(CONFIG_EXPORT) "hi3110ev500=$(HI3110EV500)" "macro for hi3110ev500" $@
+	@$(CONFIG_EXPORT) "hi3716mv330=$(HI3716MV330)" "macro for hi3716mv330" $@
+	@$(CONFIG_EXPORT) "CONFIG_CHIP_TYPE=$(CFG_HI_CHIP_TYPE)" \
+		"chip type" $@
+	@$(CONFIG_EXPORT) "CONFIG_BOOT_REG_NAME=$(CFG_HI_BOOT_REG_NAME)" \
+		"boot regfile name" $@
+	@$(CONFIG_EXPORT) "CONFIG_HI3712_PLATFORM=$(CONFIG_HI3712_PLATFORM)" \
+		"platform hi3712" $@
+	@$(CONFIG_EXPORT) "CONFIG_HI3716X_PLATFORM=$(CONFIG_HI3716X_PLATFORM)" \
+		"platform hi3716c/h/m" $@
+	@$(CONFIG_EXPORT) "CONFIG_HI3715_PLATFORM=$(CONFIG_HI3715_PLATFORM)" \
+		"platform hi3715" $@
+ifeq ($(CFG_HI_FORCE_ENV_TO_MEDIA), y)
+ifeq ($(CFG_FORCE_ENV_IN_NAND), y)
+	@$(CONFIG_EXPORT) "CONFIG_FORCE_ENV_IN_NAND=$(CFG_FORCE_ENV_IN_NAND)" \
+		"Force env to Nand" $@
+endif
+ifeq ($(CFG_FORCE_ENV_IN_SPI), y)
+	@$(CONFIG_EXPORT) "CONFIG_FORCE_ENV_IN_SPI=$(CFG_FORCE_ENV_IN_SPI)" \
+		"Force env to SPI Flash " $@
+endif
+ifeq ($(CFG_FORCE_ENV_IN_EMMC), y)
+	@$(CONFIG_EXPORT) "CONFIG_FORCE_ENV_IN_EMMC=$(CFG_FORCE_ENV_IN_EMMC)" \
+		"Force env to eMMC" $@
+endif
+endif
+
+#+++++++++++++++++++++ADVCA compile options+++++++++++++++++++++++++++++++++++++++++++++
+ifneq ($(BOOT_ADVCA_PROGRAMMER),y)
+ifeq ($(CFG_HI_ADVCA_SUPPORT),y)
+	@$(CONFIG_EXPORT) "CONFIG_SUPPORT_CA=$(CFG_HI_ADVCA_TYPE)" \
+		"CA type" $@
+	@$(CONFIG_EXPORT) "CONFIG_SUPPORT_CA_$(CFG_HI_ADVCA_TYPE)=y" \
+		"CA type" $@
+
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE,$(CFG_HI_CFLAGS)),-DHI_ADVCA_FUNCTION_RELEASE)
+	@$(CONFIG_EXPORT) "CONFIG_SUPPORT_CA_RELEASE=y" \
+		"CA relase" $@
+endif
+
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_DEBUG,$(CFG_HI_CFLAGS)),-DHI_ADVCA_FUNCTION_DEBUG)
+	@$(CONFIG_EXPORT) "CONFIG_SUPPORT_CA_DEBUG=y" \
+		"CA debug" $@
+endif
+endif
+endif
+force: ;
+
+################################################################################
+PHONYS += uninstall clean distclean
+
+uninstall:
+	-@rm -f $(PREFIX)/fastboot-burn.bin
+
+distclean: clean
+
+clean :
+ifeq ($(OBJ_DIR),)
+ifeq ($(CONFIG_PRODUCT_WITH_BOOT),y)
+	make -C $(PRODUCT)  $(MKFLAGS) clean
+endif
+	make -C $(FASTBOOT) $(MKFLAGS) distclean
+	make -C $(FASTBOOT) $(MKFLAGS) mini-boot.clean
+	-@rm -f $(FASTBOOT)/*.reg
+else
+	-@rm -rf $(OBJ_DIR)
+endif
+
+################################################################################
+.PHONY: $(PHONYS)
+################################################################################

@@ -1,0 +1,32 @@
+#===============================================================================
+# export variable
+#===============================================================================
+ifeq ($(CFG_HI_EXPORT_FLAG),)
+SDK_DIR ?= $(CURDIR)/../../..
+
+include $(SDK_DIR)/cfg.mak
+include $(SDK_DIR)/base.mak
+endif
+
+HEADER_FILES := ./include/hi_resampler.h
+
+.PHONY:clean all install uninstall
+
+all:
+	@echo "make resampler done!"
+
+install:all
+	$(AT)cp -f ./lib/$(CFG_HI_TOOLCHAINS_NAME)/libhi_resampler.a  $(STATIC_LIB_DIR)/
+ifndef CFG_HI_STATIC_LIB_ONLY
+	$(AT)cp -f ./lib/$(CFG_HI_TOOLCHAINS_NAME)/libhi_resampler.so   $(SHARED_LIB_DIR)/
+endif
+	$(AT)cp -f $(HEADER_FILES)                      $(INCLUDE_DIR)/
+	
+uninstall:
+ifndef CFG_HI_STATIC_LIB_ONLY
+	$(AT)rm -rf $(SHARED_LIB_DIR)/libhi_resampler.so
+endif
+	$(AT)rm -rf $(STATIC_LIB_DIR)/libhi_resampler.a
+	$(foreach file, $(HEADER_FILES), $(AT)rm -rf $(INCLUDE_DIR)/$(notdir $(file)))
+clean:
+	@echo "clean resampler done!"			

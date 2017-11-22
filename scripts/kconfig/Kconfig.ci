@@ -1,0 +1,27 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "CI/CI+ Config"
+#--------------------------------
+
+config HI_CIPLUS_SUPPORT
+	bool "CI/CI+ Support"
+	default n
+	
+config  HI_CI_DEV_CIMAX
+	bool "CIMAX"
+	depends on HI_CIPLUS_SUPPORT
+	default y
+
+config  HI_CI_DEV_CIMAXPLUS
+	bool "CIMAXPLUS"
+	depends on HI_CIPLUS_SUPPORT
+	default n
+
+config  HI_CI_DEV_HICI
+	bool "HICI"
+	depends on HI_CIPLUS_SUPPORT
+	default n
+
+#--------------------------------
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+

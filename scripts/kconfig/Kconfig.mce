@@ -1,0 +1,7 @@
+  config  HI_MCE_SUPPORT
+		bool "MCE Support"
+		depends on HI_MSP_BUILDIN
+		default n
+
+	help
+		HI_ADEC_MAX_INSTANCE and HI_VDEC_MAX_INSTANCE must be set to bigger than 1 to support smooth transition.

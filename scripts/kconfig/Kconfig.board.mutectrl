@@ -1,0 +1,27 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menuconfig HI_SND_MUTECTL_SUPPORT
+	bool "Snd Mute Control Support"
+	default n
+
+
+config HI_SND_MUTECTL_GPIO
+	hex  "Snd Mute Control Gpio"
+	depends on HI_SND_MUTECTL_SUPPORT
+	default 0x17
+	help
+	  Mute control gpio,hardware related setting.0x17 is for hisi demoB.
+		        board_type            level	gpio_pin (gpio_pin = gpio_group * 8 + gpio_num)
+		 BOARD_TYPE_hi3716MV330	 	0       0x17(GPIO2_7)
+
+
+config HI_SND_MUTECTL_LEVEL
+	int "Snd Mute Control Level (0, 1)"
+	depends on HI_SND_MUTECTL_SUPPORT
+	range 0 1
+	default 0
+	help
+	  mute control gpio,hardware related setting.0 is for hisi demoB.
+		        board_type            level	gpio_pin (gpio_pin = gpio_group * 8 + gpio_num)
+		 BOARD_TYPE_hi3716MV330 	0       0x17(GPIO2_7)
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++	

@@ -1,0 +1,221 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+menu "Frontend Config"
+
+#--------------------------------
+config HI_DISEQC_SUPPORT
+	bool "DISEQC Support"
+	default n
+	help
+#--------------------------------
+menu "Tuner Config"
+
+config  HI_TUNER_TYPE_XG_3BL
+	bool "XG_3BL Support"
+	default y
+
+config  HI_TUNER_TYPE_CD1616
+	bool "CD1616 Support"
+	default y
+
+config  HI_TUNER_TYPE_ALPS_TDAE
+	bool "ALPS_TDAE Support"
+	default y
+
+config  HI_TUNER_TYPE_TDCC
+	bool "TDCC Support"
+	default y
+
+config  HI_TUNER_TYPE_TDA18250
+	bool "TDA18250 Support"
+	default y
+
+config  HI_TUNER_TYPE_TDA18250B
+	bool "TDA18250B Support"
+	default y
+
+config  HI_TUNER_TYPE_CD1616_LF_GIH_4
+	bool "CD1616_LF_GIH_4 Support"
+	default y
+	
+config  HI_TUNER_TYPE_MT2081
+	bool "MT2081 Support"
+	default y
+	
+config  HI_TUNER_TYPE_TMX7070X
+	bool "TMX7070X Support"
+	default y
+	
+config  HI_TUNER_TYPE_R820C
+	bool "R820C Support"
+	default y
+
+config  HI_TUNER_TYPE_R836
+	bool "R836 Support"
+	default y
+			
+config  HI_TUNER_TYPE_MXL203
+	bool "MXL203 Support"
+	default y
+
+config  HI_TUNER_TYPE_AV2011
+	bool "AV2011 Support"
+	default y
+
+config  HI_TUNER_TYPE_SHARP7903
+	bool "SHARP7903 Support"
+	default y
+
+config  HI_TUNER_TYPE_M88TS2022
+	bool "M88TS2022 Support"
+	default y
+
+config  HI_TUNER_TYPE_RDA5815
+	bool "RDA5815 Support"
+	default y
+
+config  HI_TUNER_TYPE_MXL603
+	bool "MXL603 Support"
+	default y
+
+config  HI_TUNER_TYPE_MXL608
+        bool "MXL608 Support"
+        default n
+
+config  HI_TUNER_TYPE_TDA6651
+	bool "TDA6651 Support"
+	default y
+
+config  HI_TUNER_TYPE_MXL214
+	bool "MXL214 Support"
+	default y
+	
+config  HI_TUNER_TYPE_MXL254
+	bool "MXL254 Support"
+	default y
+	
+config  HI_TUNER_TYPE_TDA18280
+	bool "TDA18280 Support"
+	default n
+	
+config  HI_TUNER_TYPE_TDA18215
+	bool "TDA18215 Support"
+	default n
+	
+config  HI_TUNER_TYPE_M88TC3800
+	bool "M88TC3800 Support"
+	default n
+
+config  HI_TUNER_TYPE_SI2144
+	bool "SI2144 Support"
+	default n
+	
+config  HI_TUNER_TYPE_TDA18275A
+	bool "TDA18275A Support"
+	default n
+	
+config  HI_TUNER_TYPE_MXL661
+	bool "MXL661 Support"
+	default n	
+	
+config  HI_TUNER_TYPE_SI2150
+	bool "SI2150 Support"
+	default n	
+		
+config  HI_TUNER_TYPE_R850
+	bool "R850 Support"
+	default n
+	
+endmenu
+
+#--------------------------------
+menu "Demod Config"
+
+config  HI_DEMOD_TYPE_HI3130I
+	bool "HI3130I Support"
+	default y
+
+config  HI_DEMOD_TYPE_HI3130E
+	bool "HI3130E Support"
+	default y
+
+config  HI_DEMOD_TYPE_J83B
+	bool "J83B Support"
+	depends on !HI3716MV330
+	default y
+
+config  HI_DEMOD_TYPE_AVL6211
+	bool "AVL6211 Support"
+	default y
+
+config  HI_DEMOD_TYPE_MXL101
+	bool "MXL101 Support"
+	default y
+
+config  HI_DEMOD_TYPE_MN88472
+	bool "MN88472 Support"
+	default y
+
+config  HI_DEMOD_TYPE_IT9133
+	bool "IT9133 Support"
+	depends on !HI_DEMOD_TYPE_IT9170
+	default y
+	help
+	  NOTE: IT9133 and IT9170 can't be selected together.
+
+config  HI_DEMOD_TYPE_IT9170
+	bool "IT9170 Support"
+	default n
+	help
+	  NOTE: IT9133 and IT9170 can't be selected together.
+	
+config  HI_DEMOD_TYPE_HI3136
+	bool "HI3136 Support"
+	default y
+
+config  HI_DEMOD_TYPE_HI3137
+	bool "HI3137 Support"
+	select HI_GPIOI2C_SUPPORT
+	default y
+	
+config  HI_DEMOD_TYPE_MXL214
+	bool "MXL214 Support"
+	select HI_GPIOI2C_SUPPORT
+	default y
+	
+config  HI_DEMOD_TYPE_MXL254
+	bool "MXL254 Support"
+	select HI_GPIOI2C_SUPPORT
+	default y
+	
+config  HI_DEMOD_TYPE_TDA18280
+	bool "TDA18280 Support"
+	select HI_GPIOI2C_SUPPORT
+	default n
+	
+config  HI_DEMOD_TYPE_HI3138
+	bool "HI3138 Support"
+	select HI_GPIOI2C_SUPPORT
+	default y
+
+config  HI_DEMOD_TYPE_ATBM8869
+	bool "ATBM8869 Support"
+	select HI_GPIOI2C_SUPPORT
+	default n
+	
+endmenu
+
+menu "LNB Chip Config"
+config  HI_LNB_CTRL_ISL9492
+         bool "ISL9492 Support"
+         default y
+
+config  HI_LNB_CTRL_MPS8125
+         bool "MPS8125 Support"
+         default n
+endmenu
+
+endmenu
+#--------------------------------
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+

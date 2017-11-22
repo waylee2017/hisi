@@ -1,0 +1,355 @@
+
+                              发布包使用说明      
+
+在使用SDK之前，请务必仔细阅读此文档。
+=========================================
+编译SDK
+=========================================
+1. linux服务器需求
+   ---Linux发行版  推荐ubuntu 10及以上版本
+   ---glibc        推荐2.11.1版本 
+   ---GNU Make     推荐3.8.1及以上版本
+   ---shell:       必须为bash
+      修改linux服务器默认sh为bash的方法
+      rm -f /bin/sh
+      ln -s /bin/bash  /bin/sh
+   ---正确配置并启动ssh samba nfs服务
+   ---如果需要打开wifi功能，请安装bison (GNU Bison) 2.5、flex 2.5.35和byacc 1.9
+         
+2. 准备
+2.1 安装交叉编译工具链  
+   ./server_install
+   【注意事项】
+    ---使用root权限或者sudo权限执行
+    ---执行完成后，强烈建议重启linux服务器或者重新登录服务器
+    ---安装交叉编译工具链会覆盖之前安装过的同名编译器
+    ---交叉编译工具链安装后对所有使用该服务器的用户有效
+	
+2.3 安装编译过程中使用到的其他工具
+    make tools_install
+    该操作会生成编译过程中使用到的其他工具
+    
+3. 配置
+3.1 选择配置文件
+    configs目录下提供了针对demo板的默认配置文件
+    cp  configs/xxxx.cfg  ./cfg.mak
+   
+3.2 查看和修改SDK配置
+    make menuconfig
+    如果修改了配置选项，在退出menuconfig菜单时会提示"Do you wish to save your new SDK configuration?"
+    选择Yes所有修改会保存在./cfg.mak文件中;选择No放弃修改。
+
+4. 编译
+    支持一键式编译和分步编译
+4.1 一键式编译
+    make build
+    对于编译过的版本，如果需要更新配置文件编译新的版本，请运行make rebuild编译。
+4.2 分步骤编译
+    make prepare           准备编译文件 编译其他目标前必须运行该命令
+    make hiboot_install    编译boot   生成fastboot-burn.bin
+    make linux_install     编译linux  生成hi_kernel.bin
+    make rootfs_install    编译rootfs 生成基本的rootfs目录 包括基本目录结构、busybox、C库、utils、基本启动脚本等
+    make common_install    编译common 生成common的库和驱动
+    make msp_install       编译msp    生成msp各个模块的库和驱动
+    make component_install 编译component  生成component的库和驱动
+    make rootbox_install   编译rootbox 生成用于制作根文件系统镜像的文件夹rootbox
+    make fs                编译fs      生成用于烧写flash的根文件系统镜像 rootbox_xxx.jffs2/rootbox_xxx.yaffs/rootbox_xxx.cramfs
+    make sample            编译sample  生成各个sample的可执行程序 位于sample的各个子目录下
+    make signature         高安镜像签名，使用高安配置文件编译好镜像后会自动完成签名。该命令可以单独完成签名功能
+    
+   【注意事项】
+    ---用户可以根据自己的需要修改rootbox.mk，决定rootbox中放置的内容
+    ---make msp_install M=xxx 可以单独编译某个模块  如make msp_install M=demux 
+    ---make component_install M=xxx 可以单独编译某个组件
+    ---分步骤编译时，编译所有目标前必须先make prepare 准备好编译内容
+    ---分步骤编译时，编译common msp component之前必须先make linux_install
+    ---更详细的编译命令 请参考make help
+    
+4.3 单独编译内核 
+     如果用户需要修改内核默认配置，可以使用以下方法单独编译内核镜像
+  1> 解压缩SDK中的内核:
+     cd source/kenel/
+     tar -xf linux-3.10.y.tar.bz2 
+  
+  2> 选择配置文件:
+     假设使用的配置文件名称为hixxxx_yyy_defconfig
+     cp ./linux-3.10.y.patch/arch/arm/configs/hixxxx/hixxxx_yyy_defconfig ./linux-3.10.y/arch/arm/configs
+     cd ./linux-3.10.y
+	           
+  3> 打开内核配置菜单:
+     cp arch/arm/configs/hixxxx_yyy_defconfig .config
+     make ARCH=arm CROSS_COMPILE=arm-hisiv200-linux- menuconfig
+     
+  4> 编译内核:
+     make ARCH=arm CROSS_COMPILE=arm-hisiv200-linux- uImage -j 128
+     注意: 不要用 zImage, 否则内核无法启动。
+     
+  5> 编译后的镜像文件为: arch/arm/boot/uImage
+
+=========================================
+烧写镜像
+=========================================
+   单板上没有烧写boot或者boot已经损坏时，必须使用HiTool工具烧写；boot可用时，可以选择使用HiTool工具烧写或者使用命令行烧写。
+   
+1. HiTool工具烧写
+   HiTool工具安装文件位置  tools/windows/HiTool
+   使用方法参考《HiTool工具快速入门视频.exe》
+
+2. Boot命令行烧写
+   单板启动时，按着键盘CTRL+C可以进入到boot的命令行模式
+   fastboot# 
+   输入help 可以查看boot命令行下支持的所有命令
+   输入help xxx 可以查看xxx命令的详细帮助信息
+   boot命令行下支持通过tab键补全命令
+	
+2.1 配置网络参数
+    setenv serverip xxx.xxx.xxx.xxx
+    setenv ipaddr xxx.xxx.xxx.xxx
+    setenv gatewayip xxx.xxx.xxx.xxx
+    setenv ethaddr 00:xx:xx:xx:xx:xx
+    setenv netmask 255.255.xxx.0
+    配置完成后用ping xxx.xxx.xxx.xxx 测试单板与ftp服务器之间的连通性。
+
+2.2.分区地址
+    假设flash上分区分配如下：
+    分区名称        偏移         大小
+    boot:           0x00000000   0x0080000   
+    bootargs:       0x00080000   0x0100000   
+    kernel: 	    0x00100000   0x0400000   
+    rootfs:    	    0x00500000   0x3C00000   
+	
+   【注意事项】
+    ---偏移是相对flash的首地址的偏移
+    ---flash可以为spi/nand，用户需要根据单板配置合理安排分区
+    ---烧写命令中的flash地址和系统启动参数中的分区表都需要与具体单板的flash分区规划对应
+    ---本文档中供的烧录命令和启动参数仅是示例，请根据您的flash使用方案确认烧录命令和启动参数
+    ---推荐使用HiTool工具烧录，工具存放于tools\windows\HiTool目录下
+    ---pub\image\目录下提供各种样机不同配置的默认分区表,启动参数在本文档下面“设置系统启动参数”小结有提供
+
+2.3.烧写命令
+    假设内存起始地址为0x80000000,为boot预留0x2000000,0x82000000以后的空间可以用于镜像下载
+    nand flash:
+    命令：
+        获取帮助：help nand
+        擦除：nand erase startpos length
+        读取：nand read ddroffset start length
+        写入：nand write ddroffset start length
+
+    下载boot：
+        mw.b 82000000 ff 80000                         //将0x82000000写为0xff，写0x80000
+        tftp 82000000 fastboot-burn.bin                //将fastboot-burn.bin下载到0x82000000
+        nand erase 0 100000                            //擦写flash上0x0起始的0x100000空间
+        nand write 82000000 0 80000                    //把0x82000000起始长度为0x80000的内容(fastboot-burn.bin)写入nand flash 0x0起始的位置
+        慎重一点，最好先确认下载到内存成功，然后再擦除flash
+
+    下载linux：
+        mw.b 82000000 ff 400000                         
+        tftp 82000000 hi_kernel.bin                     
+        nand erase 100000 400000                        
+        nand write 82000000 100000 400000               
+
+    下载文件系统(使用yaffs)：
+        mw.b 82000000 ff 3c00000              		
+        tftp 82000000 rootfs.yaffs          		
+        nand erase 500000 3C00000              		
+        nand write.yaffs 82000000 500000 $(filesize)  	//把0x82000000起始长度为$(filesize)的内容(rootfs.yaffs)写入nand flash 0x500000位置，
+		                                                  boot会自动识别$(filesize)为rootfs.yaffs的大小。
+   【注意事项】
+    ---nand flash上使用yaffs/cramfs/squashfs文件系统 														  
+
+    spi flash:
+    命令：
+        获取帮助：help sf
+        探测：sf probe 0
+        擦除：sf erase startpos length
+        读取：sf read ddroffset start length
+        写入：sf write ddroffset start length
+
+    下载uboot：
+        sf probe 0                         //探测一下是否存在spi flash
+        mw.b 82000000 ff 80000             //将0x82000000写为0xff，写0x80000
+        tftp 82000000 fastboot-burn.bin    //将fastboot-burn.bin下载到0x82000000
+        sf erase 0 80000                  //擦写flash上0x0起始的0x80000空间
+        sf write 82000000 0 80000          //把0x82000000起始长度为0x80000的内容(fastboot-burn.bin)写入nand flash 0x0起始的位置
+        慎重一点，最好先确认下载到内存成功，然后再擦除flash
+
+    下载linux：
+        sf probe 0 
+        mw.b 82000000 ff 400000              
+        tftp 82000000 hi_kernel.bin          
+        sf erase 100000 400000               
+        sf write 82000000 100000 400000      
+
+    下载文件系统：
+        sf probe 0                          
+        mw.b 82000000 ff b00000             
+        tftp 82000000 rootfs.jffs2          
+        sf erase 500000 b00000              
+        sf write 82000000 500000 b00000     
+    
+   【注意事项】
+    ---spi flash上使用jffs2/cramfs/squashfs文件系统 
+	 
+=========================================
+设置系统启动参数
+=========================================
+   必须正确设置bootargs参数或者烧写bootargs镜像才能保证系统正常启动
+
+1. bootargs变量介绍
+   以下面bootargs为例说明各个变量的含义
+   'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),4M(kernel),60M(rootfs),1M(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   各变量含义如下
+   mem
+      整个DDR被划分为两部分：系统内存和mmz。mem用于指定系统内存大小，mmz用于指定mmz区域大小。
+      用户需要根据单板配置及内存占用情况合理配置mem和mmz大小。优先保证MMZ大小，剩余的都划分给mem。例如单板总内存大小为256M，分配给mem 96M(0x80000000~0x86000000)，mmz 160M
+   mmz: 
+      格式ddr,0,startpos,size 表示从startpos起始的大小为size的内存空间划分给mmz使用。例如mmz=ddr,0,0x86000000,160M表示从0x86000000(96M)起始的160M大小为mmz空间
+   console：
+      控制台参数。console=ttyAMA0,115200表示使用串口0作为控制台设备 波特率为115200
+   root：
+      表示根文件系统所在的设备分区 例如/dev/mtdblock2表示/dev/mtdblock2为根文件系统 对应mtdparts中的rootfs分区
+	 【注意事项】
+	  mtdparts中的分区从0开始编号。如果单板上有spiflash，即使spi flash上没有划分分区，spi flash也会对应/dev/mtdblock0
+   rootfstype：
+      根文件系统类型 此处为yaffs
+   mtdparts：
+      flash上的分区划分 格式 mtdparts=flashtype:size(name),size(name),...,-(others);flashtype:size(name),size(name),...,-(others);...
+   MuteCtl_GPIO: 可选
+      定义静音电路使用的GPIO管脚及有效电平 格式 MuteCtl_GPIO=0xXXY 其中0xXX表示使用的GPIO管脚号 0xY表示电平	
+	  如果bootargs传递了该变量，以bootargs传递的值为准，否则以配置文件中cfg.mak的配置为准  
+      
+2. 启动参数的设置
+   假设bootargs的内容为'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),4M(kernel),60M(rootfs),1M(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   设置启动参数的命令如下
+   setenv bootargs 'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),4M(kernel),60M(rootfs),1M(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   setenv bootcmd 'nand read 0x82000000 0x100000 0x400000;bootm 0x82000000'  //bootcmd命令加载内核到0x82000000,然后跳转到0x82000000执行
+   saveenv
+   
+   启动参数例子：
+   ---hi3716mv310demo 单板: spi flash 8M  ddr 128M 
+      	setenv bootargs 'mem=62M console=ttyAMA0,115200 root=/dev/romblock8 rootfstype=squashfs mtdparts=hi_sfc:256K(boot),64K(bootargs),64K(loaderdb),64K(loaderdbbak),64K(stbid),64K(baseparam),128K(logo),1920K(kernel),-(rootfs) mmz=ddr,0,0x83e00000,66M'
+	setenv bootcmd 'sf probe 0;sf read 0x82000000 0xb0000 0x1e0000;bootm 0x82000000'
+   ---hi3716mv310demo 单板: nand flash 128M  ddr 256M
+	setenv bootargs 'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock8 rootfstype=yaffs2 mtdparts=hinand:640K(boot),128K(bootargs),128K(stbid),8M(loader),8M(loaderbak),128K(loaderdb),128K(loaderdbbak),6M(kernel),60m(rootfs),128K(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+	setenv bootcmd 'nand read 0x82000000 0x1120000 0x600000;bootm 0x82000000'
+   ---UBI文件系统参数设置样例：
+   	setenv bootargs 'mem=96M console=ttyAMA0,115200 ubi.mtd=rootfs root=ubi0:ubifs rootfstype=ubifs mtdparts=hinand:640K(boot),128K(bootargs),128K(stbid),8M(loader),8M(loaderbak),128K(loaderdb),128K(loaderdbbak),5M(kernel),96m(rootfs),128K(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   
+   烧写pub/images目录下面的bootargs_xxx.bin到flash的启动参数分区也可以设置好启动参数，分区地址和大小可以在make menuconfig->boot中查看。该镜像使用tools/linux/utils/mkbootargs工具制作，该目录下也有生成不同配置的txt文档，在目录下运行./mkbootargs可以查看使用说明。
+3. 重启系统	
+    在boot命令行下执行reset或按单板复位键，系统复位重启引导进入HiLinux，显示如下字样表示启动成功
+    Welcome to HiLinux.
+    # 
+
+=========================================
+使用SPI-NAND器件
+=========================================   
+    1. 在根目录下执行make menuconfig，选中SPI-NAND
+    Board  --->
+	Flash Config  --->
+		[*] Nand Flash Support  --->
+			[*]   SPI_NAND Flash support //选中SPI-NAND的支持
+			(0x20000) Block Size         //配置SPI-NAND的blocksize
+			(2k)  Page Size              //配置SPI-NAND的pagesize
+			(4bit) ECC Type              //配置SPI-NAND的ecctype
+    2. 配置fastboot表格，使用SPI-NAND时，fastboot表格应该选择对应单板的spi的表格，比如xxx_spi.reg。
+    3. 配置kernel配置文件，参考上面4.3 单独编译内核配置下面选项：
+       Device Drivers  --->
+		<*> Memory Technology Device (MTD) support  --->
+			<*>   NAND Device Support  --->
+				<*>   Hisilicon SPI Nand Controller v400 device Support  --->  //选中SPI-NAND驱动支持
+				< >   Hisilicon NAND Controller v610 device Support  --->      //不选中NANDV610驱动
+				< >   Hisilicon NAND Controller v504 device Support  --->      //不选中NANDV504驱动
+    4. 重新编译镜像并烧写到单板。
+
+    烧写镜像方法与普通NAND完全相同。
+
+=========================================
+修改用户密码
+=========================================
+   修改用户密码需要root用户权限。
+1. 先以root用户登陆
+2. 执行passwd $USERNAME 命令，连续输入两次密码，提示"Password for $USERNAME changed by root"，即表示密码修改成功。
+   如果单板没有passwd命令，请修改busybox对应的配置文件，把CONFIG_PASSWD配置项选中，重新编译rootfs镜像烧录到单板。
+   
+   如果需要批量修改用户密码，方法如下：
+1. 首先按照上述方法修改用户密码；
+2. 将/etc/shadow文件替换掉SDK中的pub/rootbox/etc/shadow；
+3. 在SDK顶层执行make fs编译文件系统镜像，使用生产的镜像烧录单板。该镜像也可以作为批量生产用的母片镜像。
+
+=========================================
+显示用户登陆界面
+=========================================
+1. 修改/etc/inittab，使用"::respawn:/sbin/getty -L ttyS000 115200 vt100"，替换掉"::respawn:-/bin/sh"
+2. 重新启动系统
+
+=========================================
+关闭telnetd服务
+=========================================
+1. 修改busybox配置文件，去掉配置项CONFIG_TELNETD；
+2. 修改/etc/init.d/S90modules,注释以下几行，不启动telnetd服务：
+#TELNETD=$(type -p telnetd)
+#if [ -f "${TELNETD}" ]; then
+#    ${TELNETD}&
+#else
+#    echo "Not find telnetd"
+#fi
+
+=========================================
+挂载NFS调试程序
+=========================================
+   启动HiLinux后 使用下面命令配置网络并挂载NFS进行程序调试
+1. 配置单板网络
+   ifconfig eth0 hw ether 00:xx:xx:xx:xx:xx;               设置eth0的MAC地址 网络中MAC地址要唯一
+   ifconfig eth0 xxx.xxx.xxx.xxx netmask 255.255.xxx.0;    设置eth0的ip地址和子网掩码
+   route add default gw xxx.xxx.xxx.x;                     设置网络默认路由 跨网络访问时必须设置
+
+2. 挂载NFS    
+   假设SDK代码根目录在交叉编译服务器上的路径为/xxx/sdk_root，下面命令可以将sdk_root通过NFS挂载在单板根文件系统的/mnt目录下
+   mount -t nfs -o nolock -o tcp xxx.xxx.xxx.xxx:/xxx/sdk_root /mnt     
+   请确保单板与服务器之间网络连通，并且服务器上的NFS服务已经正确配置
+
+3. 增加动态库文件搜索路径 /mnt/pub/libs/share   
+   export LD_LIBRARY_PATH="/mnt/pub/libs/share:$LD_LIBRARY_PATH"  
+
+4. 替换模块ko
+   cd /mnt/pub/kmod/
+   rmmod xxx.ko
+   insmod xxx.ko
+
+5. 运行sample
+   cd /mnt/sample/xxx
+   ./sample_xxx
+   
+=========================================
+挂载U盘
+=========================================   
+   启动HiLinux后,假设将U盘对应的设备文件/dev/sda挂载在/usb目录下
+1. 加载ko
+   insmod ehci-hcd.ko
+   insmod ohci-hcd.ko 
+   如果要支持NTFS还要加载ufsd.ko   
+   insmod ufsd.ko
+2. 挂载U盘
+   使用FAT32
+   mount -t vfat /dev/sda /usb
+   使用NTFS
+   mount -t ufsd /dev/sda /usb   
+
+=========================================
+开机画面和瞬播
+========================================= 
+请参考《开机画面 开发指南》
+
+=========================================
+HiLoader
+========================================= 	
+请参考《HiLoader 开发指南》
+
+=========================================
+高安SDK芯片使用说明：
+========================================= 
+请参考
+	《04-SDK高安编译和安全运行环境 构建指南.pdf》
+	《05-高安全CA 开发指南.pdf》
+	《CASignTool使用说明.pdf》        

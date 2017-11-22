@@ -1,0 +1,3232 @@
+	.arch armv7-a
+	.fpu softvfp
+	.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+	.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+	.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+	.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+	.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+	.eabi_attribute 26, 2	@ Tag_ABI_enum_size
+	.eabi_attribute 30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute 34, 0	@ Tag_CPU_unaligned_access
+	.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+	.file	"vdm_hal_h264.c"
+@ GNU C (gcc-linaro-4.9-2014.09 + glibc-2.24 (Build by czyong) Wed Dec 21 10:39:16 CST 2016) version 4.9.2 20140904 (prerelease) (arm-gcc492_glibc224-linux-gnueabi)
+@	compiled by GNU C version 4.1.2 20080704 (Red Hat 4.1.2-44), GMP version 5.0.5, MPFR version 3.1.2, MPC version 1.0.1
+@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+@ options passed:  -nostdinc
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/arch/arm/include
+@ -I arch/arm/include/generated -I include
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/arch/arm/include/uapi
+@ -I arch/arm/include/generated/uapi
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/include/uapi
+@ -I include/generated/uapi -I arch/arm/mach-hi3716mv310/include
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/common/include
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/common/drv/include
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/drv/memmap
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/model/scd
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common/softlib
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common/syntax
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiSCDV200
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV100
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R001
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R002
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R003
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/model/rawpacket
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/product/Hi3716MV310_hisiv310/osal/linux_kernel
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/product/Hi3716MV310_hisiv310
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiDNR
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiBTLV100
+@ -I /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common_test/vdecko
+@ -imultilib a9_soft
+@ -iprefix /opt/hisi-linux/x86-arm/arm-histbv310-linux/bin/../lib/gcc/arm-gcc492_glibc224-linux-gnueabi/4.9.2/
+@ -isysroot /opt/hisi-linux/x86-arm/arm-histbv310-linux/bin/../target
+@ -D __KERNEL__ -D __LINUX_ARM_ARCH__=7 -U arm -D CC_HAVE_ASM_GOTO
+@ -D Hi3716MV310 -D ENV_ARMLINUX_KERNEL -D OFF_LINE_DNR_ENABLE
+@ -D SCD_MP4_SLICE_ENABLE -D SUPPORT_JPEG_444 -D VFMW_EXTRA_TYPE_DEFINE
+@ -D PRODUCT_STB -D __VFMW_REGISTER_ISR__ -D VFMW_VDH_V200R004_SUPPORT
+@ -D VFMW_H264_SUPPORT -D VFMW_MPEG2_SUPPORT -D VFMW_MPEG4_SUPPORT
+@ -D VFMW_AVS_SUPPORT -D VFMW_VC1_SUPPORT -D VFMW_BPD_H_SUPPORT
+@ -D VFMW_REAL8_SUPPORT -D VFMW_REAL9_SUPPORT -D VFMW_VP6_SUPPORT
+@ -D VFMW_VP8_SUPPORT -D VFMW_DIVX3_SUPPORT -D VFMW_DNR_SUPPORT
+@ -D VFMW_H263_SUPPORT -D VFMW_JPEG_SUPPORT -D VFMW_RAW_SUPPORT
+@ -D VFMW_USER_SUPPORT -D CFG_MAX_CHAN_NUM=4 -D CFG_MAX_CHAN_NUM=4
+@ -D VFMW_DPRINT_SUPPORT -D VFMW_AVSPLUS_SUPPORT -D VFMW_SYSTEM_REG_DISABLE
+@ -D REPAIR_ENABLE -D _FORTIFY_SOURCE=2 -D CHIP_TYPE_hi3716mv310
+@ -D SDK_VERSION=HiSTBLinuxV100R006C00SPC052 -D HI_LOG_SUPPORT=1
+@ -D HI_LOG_LEVEL=4 -D HI_PROC_SUPPORT=1 -D HI_PNG_DECODER_SUPPORT
+@ -D HI_KEYLED_SUPPORT -D HI_HDCP_SUPPORT -D HI_SCI_SUPPORT
+@ -D HI_GPIOI2C_SUPPORT -D HI_IR_S2_SUPPORT -D HI_DSC_SUPPORT -D MODULE
+@ -D KBUILD_STR(s)=#s -D KBUILD_BASENAME=KBUILD_STR(vdm_hal_h264)
+@ -D KBUILD_MODNAME=KBUILD_STR(hi_vfmw)
+@ -isystem /opt/hisi-linux/x86-arm/arm-histbv310-linux/bin/../lib/gcc/arm-gcc492_glibc224-linux-gnueabi/4.9.2/include
+@ -include /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/include/linux/kconfig.h
+@ -MD /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/.vdm_hal_h264.o.d
+@ /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/vdm_hal_h264.c
+@ -mlittle-endian -mabi=aapcs-linux -mno-thumb-interwork -marm
+@ -march=armv7-a -mfloat-abi=soft -mtls-dialect=gnu -mno-unaligned-access
+@ -mword-relocations
+@ -auxbase-strip /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/vdm_hal_h264.o
+@ -O2 -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs
+@ -Werror=implicit-function-declaration -Wno-format-security
+@ -Wframe-larger-than=1024 -Wno-unused-but-set-variable
+@ -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-aliasing
+@ -fno-common -fno-dwarf2-cfi-asm -funwind-tables -fno-stack-protector
+@ -fomit-frame-pointer -fno-strict-overflow -fconserve-stack -fno-pic
+@ -fverbose-asm -fno-delete-null-pointer-checks -fdiagnostics-color=auto
+@ -fno-aggressive-loop-optimizations -fno-tree-vrp
+@ options enabled:  -fauto-inc-dec -fbranch-count-reg -fcaller-saves
+@ -fcombine-stack-adjustments -fcompare-elim -fcprop-registers
+@ -fcrossjumping -fcse-follow-jumps -fdefer-pop -fdevirtualize
+@ -fdevirtualize-speculatively -fearly-inlining
+@ -feliminate-unused-debug-types -fexpensive-optimizations
+@ -fforward-propagate -ffunction-cse -fgcse -fgcse-lm -fgnu-runtime
+@ -fgnu-unique -fguess-branch-probability -fhoist-adjacent-loads -fident
+@ -fif-conversion -fif-conversion2 -findirect-inlining -finline
+@ -finline-atomics -finline-functions-called-once -finline-small-functions
+@ -fipa-cp -fipa-profile -fipa-pure-const -fipa-reference -fipa-sra
+@ -fira-hoist-pressure -fira-share-save-slots -fira-share-spill-slots
+@ -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+@ -fleading-underscore -fmath-errno -fmerge-constants -fmerge-debug-strings
+@ -fmove-loop-invariants -fomit-frame-pointer -foptimize-sibling-calls
+@ -foptimize-strlen -fpartial-inlining -fpeephole -fpeephole2
+@ -fprefetch-loop-arrays -freg-struct-return -freorder-blocks
+@ -freorder-functions -frerun-cse-after-loop
+@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+@ -fsched-pressure -fsched-rank-heuristic -fsched-spec
+@ -fsched-spec-insn-heuristic -fsched-stalled-insns-dep -fschedule-insns
+@ -fschedule-insns2 -fsection-anchors -fshow-column -fshrink-wrap
+@ -fsigned-zeros -fsplit-ivs-in-unroller -fsplit-wide-types
+@ -fstrict-volatile-bitfields -fsync-libcalls -fthread-jumps
+@ -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp -ftree-builtin-call-dce
+@ -ftree-ccp -ftree-ch -ftree-coalesce-vars -ftree-copy-prop
+@ -ftree-copyrename -ftree-cselim -ftree-dce -ftree-dominator-opts
+@ -ftree-dse -ftree-forwprop -ftree-fre -ftree-loop-if-convert
+@ -ftree-loop-im -ftree-loop-ivcanon -ftree-loop-optimize
+@ -ftree-parallelize-loops= -ftree-phiprop -ftree-pre -ftree-pta
+@ -ftree-reassoc -ftree-scev-cprop -ftree-sink -ftree-slsr -ftree-sra
+@ -ftree-switch-conversion -ftree-tail-merge -ftree-ter -funit-at-a-time
+@ -funwind-tables -fverbose-asm -fzero-initialized-in-bss -marm -mglibc
+@ -mlittle-endian -mlra -mpic-data-is-text-relative -msched-prolog
+@ -mvectorize-with-neon-quad -mword-relocations
+
+	.text
+	.align	2
+	.global	Write_V200R004_CabacTab
+	.type	Write_V200R004_CabacTab, %function
+Write_V200R004_CabacTab:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	bl	MEM_Phy2Vir	@
+	cmp	r0, #0	@,
+	beq	.L5	@,
+	mov	r2, #5120	@,
+	ldr	r1, .L6	@,
+	ldmfd	sp!, {r4, lr}	@
+	b	memcpy	@
+.L5:
+	mov	r2, #250	@,
+	ldr	r1, .L6+4	@,
+	mov	r0, #22	@,
+	ldmfd	sp!, {r4, lr}	@
+	b	dprint_vfmw	@
+.L7:
+	.align	2
+.L6:
+	.word	.LANCHOR0
+	.word	.LC0
+	.fnend
+	.size	Write_V200R004_CabacTab, .-Write_V200R004_CabacTab
+	.align	2
+	.global	H264HAL_V200R004_InitHal
+	.type	H264HAL_V200R004_InitHal, %function
+H264HAL_V200R004_InitHal:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	ldr	r0, [r0, #1076]	@, pHwMem_2(D)->H264MnAddr
+	bl	Write_V200R004_CabacTab	@
+	mov	r0, #0	@,
+	ldmfd	sp!, {r4, pc}	@
+	.fnend
+	.size	H264HAL_V200R004_InitHal, .-H264HAL_V200R004_InitHal
+	.align	2
+	.global	Get_V200R004_VirAddr
+	.type	Get_V200R004_VirAddr, %function
+Get_V200R004_VirAddr:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	add	r0, r1, r0, lsl #2	@, pbase_vir_addr, Dn,
+	bx	lr	@
+	.fnend
+	.size	Get_V200R004_VirAddr, .-Get_V200R004_VirAddr
+	.align	2
+	.global	H264HAL_V200R004_CutSliceChain
+	.type	H264HAL_V200R004_CutSliceChain, %function
+H264HAL_V200R004_CutSliceChain:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	bl	MEM_Phy2Vir	@
+	subs	r3, r0, #0	@ pSLOT_BASE,
+	beq	.L15	@,
+	mov	r0, #0	@ tmp116,
+	str	r0, [r3, #252]	@ tmp116, MEM[(HI_U32 *)pSLOT_BASE_6 + 252B]
+	ldmfd	sp!, {r4, pc}	@
+.L15:
+	ldr	r3, .L16	@,
+	movw	r2, #313	@,
+	ldr	r1, .L16+4	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34206,
+	ldmfd	sp!, {r4, pc}	@
+.L17:
+	.align	2
+.L16:
+	.word	.LC1
+	.word	.LC2
+	.fnend
+	.size	H264HAL_V200R004_CutSliceChain, .-H264HAL_V200R004_CutSliceChain
+	.align	2
+	.global	Write_V200R004_Qmatrix
+	.type	Write_V200R004_Qmatrix, %function
+Write_V200R004_Qmatrix:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	cmp	r1, #0	@ size
+	bxeq	lr	@
+	sub	r0, r0, #4	@ ivtmp.79, qmatrix,
+	sub	r3, r3, #4	@ ivtmp.85, vir_addr,
+	mov	r2, #0	@ i,
+.L20:
+	add	r2, r2, #1	@ i, i,
+	ldr	ip, [r0, #4]!	@ D.34225, MEM[base: _23, offset: 0B]
+	cmp	r2, r1	@ i, size
+	str	ip, [r3, #4]!	@ D.34225, MEM[base: _24, offset: 0B]
+	bne	.L20	@,
+	bx	lr	@
+	.fnend
+	.size	Write_V200R004_Qmatrix, .-Write_V200R004_Qmatrix
+	.align	2
+	.global	H264HAL_SetSliceMsgStreamAddrInfo
+	.type	H264HAL_SetSliceMsgStreamAddrInfo, %function
+H264HAL_SetSliceMsgStreamAddrInfo:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	ldr	r3, [r1, #8]	@ pSlcPara_5(D)->valid_bitlen, pSlcPara_5(D)->valid_bitlen
+	cmp	r3, #0	@ pSlcPara_5(D)->valid_bitlen,
+	bne	.L24	@,
+	str	r3, [r2]	@ pSlcPara_5(D)->valid_bitlen, MEM[(volatile HI_S32 *)pSLOT_20(D)]
+	str	r3, [r2, #4]	@ pSlcPara_5(D)->valid_bitlen, MEM[(volatile HI_S32 *)pSLOT_20(D) + 4B]
+	str	r3, [r2, #8]	@ pSlcPara_5(D)->valid_bitlen, MEM[(volatile HI_S32 *)pSLOT_20(D) + 8B]
+	ldr	r3, [r1, #12]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B], MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B]
+	cmp	r3, #0	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B],
+	beq	.L26	@,
+.L29:
+	ldr	lr, [r1, #28]	@ D.34230, MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 28B]
+	ldr	r3, [r1, #20]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 20B], MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 20B]
+	ldr	ip, [r0, #916]	@ pParam_7(D)->stream_base_addr, pParam_7(D)->stream_base_addr
+	bic	r0, lr, #15	@ stream_start_addr, D.34230,
+	add	r3, r3, lr, lsl #3	@ D.34230, MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 20B], D.34230,
+	and	r3, r3, #127	@ D.34231, D.34230,
+	str	r3, [r2, #16]	@ D.34231, MEM[(volatile HI_S32 *)pSLOT_20(D) + 16B]
+	ldr	r1, [r1, #12]	@ D.34231, MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B]
+	bic	r3, ip, #15	@ stream_base_addr, pParam_7(D)->stream_base_addr,
+	rsb	r3, r3, r0	@ D.34231, stream_base_addr, stream_start_addr
+	str	r1, [r2, #20]	@ D.34231, MEM[(volatile HI_S32 *)pSLOT_20(D) + 20B]
+	str	r3, [r2, #12]	@ D.34231, MEM[(volatile HI_S32 *)pSLOT_20(D) + 12B]
+	ldmfd	sp!, {r4, pc}	@
+.L24:
+	ldr	r4, [r1, #24]	@ D.34230, pSlcPara_5(D)->bytespos
+	ldr	r3, [r1, #16]	@ pSlcPara_5(D)->bitsoffset, pSlcPara_5(D)->bitsoffset
+	ldr	lr, [r0, #916]	@ pParam_7(D)->stream_base_addr, pParam_7(D)->stream_base_addr
+	bic	ip, r4, #15	@ stream_start_addr, D.34230,
+	add	r3, r3, r4, lsl #3	@ D.34230, pSlcPara_5(D)->bitsoffset, D.34230,
+	and	r3, r3, #127	@ D.34231, D.34230,
+	str	r3, [r2, #4]	@ D.34231, MEM[(volatile HI_S32 *)pSLOT_20(D) + 4B]
+	ldr	r4, [r1, #8]	@ D.34231, pSlcPara_5(D)->valid_bitlen
+	bic	r3, lr, #15	@ stream_base_addr, pParam_7(D)->stream_base_addr,
+	rsb	r3, r3, ip	@ D.34231, stream_base_addr, stream_start_addr
+	str	r4, [r2, #8]	@ D.34231, MEM[(volatile HI_S32 *)pSLOT_20(D) + 8B]
+	str	r3, [r2]	@ D.34231, MEM[(volatile HI_S32 *)pSLOT_20(D)]
+	ldr	r3, [r1, #12]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B], MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B]
+	cmp	r3, #0	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B],
+	bne	.L29	@,
+.L26:
+	str	r3, [r2, #12]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B], MEM[(volatile HI_S32 *)pSLOT_20(D) + 12B]
+	str	r3, [r2, #16]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B], MEM[(volatile HI_S32 *)pSLOT_20(D) + 16B]
+	str	r3, [r2, #20]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)pSlcPara_5(D) + 12B], MEM[(volatile HI_S32 *)pSLOT_20(D) + 20B]
+	ldmfd	sp!, {r4, pc}	@
+	.fnend
+	.size	H264HAL_SetSliceMsgStreamAddrInfo, .-H264HAL_SetSliceMsgStreamAddrInfo
+	.align	2
+	.global	H264HAL_SetSliceMsgMvAddrInfo
+	.type	H264HAL_SetSliceMsgMvAddrInfo, %function
+H264HAL_SetSliceMsgMvAddrInfo:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	ldrb	ip, [r1]	@ zero_extendqisi2	@ D.34235, pSlcPara_4(D)->slice_type
+	ldr	r3, .L46	@ tmp137,
+	ldr	r3, [r3, ip, asl #2]	@ tmp139, g_SliceTypeForPMV
+	cmp	r3, #2	@ tmp139,
+	movne	r1, #0	@ D.34235,
+	movne	r3, r1	@ D.34235, D.34235
+	beq	.L44	@,
+.L43:
+	str	r3, [r2, #32]	@ D.34235, MEM[(volatile HI_S32 *)pSLOT_34(D) + 32B]
+	str	r1, [r2, #36]	@ D.34235, MEM[(volatile HI_S32 *)pSLOT_34(D) + 36B]
+	bx	lr	@
+.L44:
+	ldrb	r3, [r0]	@ zero_extendqisi2	@ pParam_8(D)->pic_structure, pParam_8(D)->pic_structure
+	cmp	r3, #0	@ pParam_8(D)->pic_structure,
+	beq	.L45	@,
+	ldr	r3, [r1, #2776]	@ *pSlcPara_4(D), *pSlcPara_4(D)
+	bic	r3, r3, #-16777216	@ D.34236, *pSlcPara_4(D),
+	bic	r3, r3, #255	@ D.34236, D.34236,
+	cmp	r3, #768	@ D.34236,
+	beq	.L34	@,
+	ldrb	r3, [r1, #2776]	@ zero_extendqisi2	@ pSlcPara_4(D)->declist[1][0].list_structure, pSlcPara_4(D)->declist[1][0].list_structure
+	cmp	r3, #1	@ pSlcPara_4(D)->declist[1][0].list_structure,
+	beq	.L34	@,
+	str	lr, [sp, #-4]!	@,
+	.save {lr}
+	ldr	ip, [r1, #2788]	@ pSlcPara_4(D)->declist[1][0].pmv_address_idc, pSlcPara_4(D)->declist[1][0].pmv_address_idc
+	mov	r1, #0	@ D.34235,
+	ldr	lr, [r0, #908]	@ pParam_8(D)->half_pmvblk_offset, pParam_8(D)->half_pmvblk_offset
+	add	ip, ip, #206	@ tmp153, pSlcPara_4(D)->declist[1][0].pmv_address_idc,
+	ldr	r3, [r0, ip, asl #2]	@ tmp156, pParam_8(D)->PmvPhyAddr
+	add	r3, r3, lr	@ D.34236, tmp156, pParam_8(D)->half_pmvblk_offset
+	bic	r3, r3, #15	@ D.34235, D.34236,
+	str	r3, [r2, #32]	@ D.34235, MEM[(volatile HI_S32 *)pSLOT_34(D) + 32B]
+	str	r1, [r2, #36]	@ D.34235, MEM[(volatile HI_S32 *)pSLOT_34(D) + 36B]
+	ldr	pc, [sp], #4	@
+.L45:
+	ldrb	r3, [r1, #2778]	@ zero_extendqisi2	@ pSlcPara_4(D)->declist[1][0].frame_structure, pSlcPara_4(D)->declist[1][0].frame_structure
+	cmp	r3, #3	@ pSlcPara_4(D)->declist[1][0].frame_structure,
+	beq	.L33	@,
+.L34:
+	ldr	r3, [r1, #2788]	@ pSlcPara_4(D)->declist[1][0].pmv_address_idc, pSlcPara_4(D)->declist[1][0].pmv_address_idc
+	mov	r1, #0	@ D.34235,
+	add	r3, r3, #206	@ tmp142, pSlcPara_4(D)->declist[1][0].pmv_address_idc,
+	ldr	r3, [r0, r3, asl #2]	@ tmp144, pParam_8(D)->PmvPhyAddr
+	bic	r3, r3, #15	@ D.34235, tmp144,
+	str	r3, [r2, #32]	@ D.34235, MEM[(volatile HI_S32 *)pSLOT_34(D) + 32B]
+	str	r1, [r2, #36]	@ D.34235, MEM[(volatile HI_S32 *)pSLOT_34(D) + 36B]
+	bx	lr	@
+.L33:
+	ldr	r3, [r1, #2788]	@ pSlcPara_4(D)->declist[1][0].pmv_address_idc, pSlcPara_4(D)->declist[1][0].pmv_address_idc
+	ldr	r1, [r0, #908]	@ pParam_8(D)->half_pmvblk_offset, pParam_8(D)->half_pmvblk_offset
+	add	r3, r3, #206	@ tmp145, pSlcPara_4(D)->declist[1][0].pmv_address_idc,
+	ldr	r3, [r0, r3, asl #2]	@ D.34236, pParam_8(D)->PmvPhyAddr
+	add	r1, r3, r1	@ D.34236, D.34236, pParam_8(D)->half_pmvblk_offset
+	bic	r3, r3, #15	@ D.34235, D.34236,
+	bic	r1, r1, #15	@ D.34235, D.34236,
+	b	.L43	@
+.L47:
+	.align	2
+.L46:
+	.word	.LANCHOR1
+	.fnend
+	.size	H264HAL_SetSliceMsgMvAddrInfo, .-H264HAL_SetSliceMsgMvAddrInfo
+	.global	__aeabi_idiv
+	.align	2
+	.global	H264HAL_SetSliceMsgEndMbInSlice
+	.type	H264HAL_SetSliceMsgEndMbInSlice, %function
+H264HAL_SetSliceMsgEndMbInSlice:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	ldr	ip, [r1, #4056]	@ pSlcPara_6(D)->pNextSlice, pSlcPara_6(D)->pNextSlice
+	cmp	ip, #0	@ pSlcPara_6(D)->pNextSlice,
+	beq	.L49	@,
+	mov	r1, #0	@ D.34239,
+	str	r3, [r2, #176]	@ tmp, MEM[(volatile HI_S32 *)pSLOT_21(D) + 176B]
+	mov	r0, r1	@, D.34239
+	bx	lr	@
+.L49:
+	str	lr, [sp, #-4]!	@,
+	.save {lr}
+	.pad #12
+	sub	sp, sp, #12	@,,
+	ldr	r0, [r0, #920]	@ D.34242, pParam_10(D)->mbtodec
+	ldrb	r1, [r1, #1]	@ zero_extendqisi2	@ D.34239, pSlcPara_6(D)->MbaffFrameFlag
+	cmp	r0, #262144	@ D.34242,
+	str	r2, [sp, #4]	@ pSLOT, %sfp
+	addgt	r1, r1, #1	@, D.34239,
+	addle	r1, r1, #1	@, D.34239,
+	movwgt	r0, #65535	@,
+	suble	r0, r0, #1	@, D.34242,
+	movtgt	r0, 3	@,
+	bl	__aeabi_idiv	@
+	ldr	r2, [sp, #4]	@ pSLOT, %sfp
+	mov	r1, #0	@ D.34239,
+	str	r0, [r2, #176]	@ tmp, MEM[(volatile HI_S32 *)pSLOT_21(D) + 176B]
+	mov	r0, r1	@, D.34239
+	add	sp, sp, #12	@,,
+	@ sp needed	@
+	ldr	pc, [sp], #4	@
+	.fnend
+	.size	H264HAL_SetSliceMsgEndMbInSlice, .-H264HAL_SetSliceMsgEndMbInSlice
+	.align	2
+	.global	H264HAL_WriteSliceMsgRefPicField
+	.type	H264HAL_WriteSliceMsgRefPicField, %function
+H264HAL_WriteSliceMsgRefPicField:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	add	r6, r1, r3, lsl #2	@ D.34263, pSlcPara, list,
+	add	r8, r3, #3	@ D.34259, list,
+	mov	r7, r3, asl #3	@ D.34259, list,
+	ldr	ip, [r6, #52]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)_154 + 52B], MEM[(struct H264_DEC_SLICE_PARAM_S *)_154 + 52B]
+	add	r7, r7, #20	@ Dn_0, D.34259,
+	mov	r8, r8, asl #2	@ Dn_num, D.34259,
+	cmp	ip, #0	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)_154 + 52B],
+	ldmeqfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+	mov	ip, r3, asl #10	@ tmp255, list,
+	ldr	r9, .L95	@ tmp335,
+	add	r3, ip, r3, lsl #7	@ D.34264, tmp255, list,
+	mov	ip, #0	@ i,
+	add	r1, r1, r3	@ ivtmp.102, pSlcPara, D.34264
+	mov	r4, ip	@ tmp1, i
+	mov	r5, ip	@ tmp, i
+	b	.L77	@
+.L60:
+	cmp	r3, #2	@ D.34260,
+	beq	.L68	@,
+	and	r3, ip, #3	@ D.34259, i,
+	and	lr, ip, #7	@ D.34259, i,
+.L67:
+	cmp	lr, #7	@ D.34259,
+	streq	r5, [r2, r8, asl #2]	@ tmp, *_116
+	addeq	r8, r8, #1	@ Dn_num, Dn_num,
+	add	ip, ip, #1	@ i, i,
+	moveq	r5, #0	@ tmp,
+	cmp	r3, #3	@ D.34259,
+	streq	r4, [r2, r7, asl #2]	@ tmp1, *_122
+	addeq	r7, r7, #1	@ Dn_0, Dn_0,
+	ldr	r3, [r6, #52]	@ D.34259, MEM[(struct H264_DEC_SLICE_PARAM_S *)_154 + 52B]
+	moveq	r4, #0	@ tmp1,
+	add	r1, r1, #36	@ ivtmp.102, ivtmp.102,
+	cmp	r3, ip	@ D.34259, i
+	bls	.L94	@,
+.L77:
+	ldrb	r3, [r1, #1624]	@ zero_extendqisi2	@ D.34260, MEM[base: _147, offset: 1624B]
+	cmp	r3, #1	@ D.34260,
+	bne	.L60	@,
+	ldrb	r3, [r1, #1625]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1625B], MEM[base: _147, offset: 1625B]
+	cmp	r3, #3	@ MEM[base: _147, offset: 1625B],
+	beq	.L61	@,
+	ldrb	fp, [r1, #1628]	@ zero_extendqisi2	@ D.34260, MEM[base: _147, offset: 1628B]
+	and	lr, ip, #7	@ D.34259, i,
+	ldr	r10, [r0, #32]	@ pParam_41(D)->mb_adaptive_frame_field_flag, pParam_41(D)->mb_adaptive_frame_field_flag
+	ldrb	r3, [r1, #1629]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1629B], MEM[base: _147, offset: 1629B]
+	add	r10, r10, fp, lsl #1	@ tmp262, pParam_41(D)->mb_adaptive_frame_field_flag, D.34260,
+.L92:
+	cmp	r3, #1	@ MEM[base: _147, offset: 1629B],
+	add	r10, r9, r10, lsl #2	@ tmp279, tmp335, tmp277,
+	moveq	r3, #8	@ D.34258,
+	movne	r3, #0	@ D.34258,
+	ldr	r10, [r10, #12]	@ tmp282, g_ListStructField
+	cmp	fp, #1	@ MEM[base: _147, offset: 1628B],
+	moveq	fp, #4	@ D.34258,
+	movne	fp, #0	@ D.34258,
+	orr	fp, fp, r3	@ D.34258, D.34258, D.34258
+	and	r3, r10, #3	@ D.34259, tmp282,
+	orr	r3, fp, r3	@ D.34259, D.34258, D.34259
+	mov	r10, lr, asl #2	@ D.34259, D.34259,
+	orr	r5, r5, r3, asl r10	@ tmp, tmp, D.34259,
+	ldr	r10, [r1, #1644]	@ MEM[base: _147, offset: 1644B], MEM[base: _147, offset: 1644B]
+	and	r3, ip, #3	@ D.34259, i,
+	mov	r10, r10, asl #1	@ D.34259, MEM[base: _147, offset: 1644B],
+	add	fp, r3, r3, lsl #2	@ D.34259, D.34259, D.34259,
+	and	r10, r10, #31	@ D.34259, D.34259,
+	orr	r4, r4, r10, asl fp	@ tmp1, tmp1, D.34259,
+	b	.L67	@
+.L68:
+	ldrb	r3, [r1, #1625]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1625B], MEM[base: _147, offset: 1625B]
+	cmp	r3, #3	@ MEM[base: _147, offset: 1625B],
+	beq	.L69	@,
+	ldrb	fp, [r1, #1630]	@ zero_extendqisi2	@ D.34260, MEM[base: _147, offset: 1630B]
+	and	lr, ip, #7	@ D.34259, i,
+	ldr	r10, [r0, #32]	@ pParam_41(D)->mb_adaptive_frame_field_flag, pParam_41(D)->mb_adaptive_frame_field_flag
+	ldrb	r3, [r1, #1631]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1631B], MEM[base: _147, offset: 1631B]
+	add	r10, r10, fp, lsl #1	@ tmp298, pParam_41(D)->mb_adaptive_frame_field_flag, D.34260,
+.L93:
+	cmp	r3, #1	@ MEM[base: _147, offset: 1631B],
+	add	r10, r9, r10, lsl #2	@ tmp315, tmp335, tmp313,
+	moveq	r3, #8	@ D.34258,
+	movne	r3, #0	@ D.34258,
+	ldr	r10, [r10, #12]	@ tmp318, g_ListStructField
+	cmp	fp, #1	@ MEM[base: _147, offset: 1630B],
+	moveq	fp, #4	@ D.34258,
+	movne	fp, #0	@ D.34258,
+	orr	fp, fp, r3	@ D.34258, D.34258, D.34258
+	and	r3, r10, #3	@ D.34259, tmp318,
+	orr	r3, fp, r3	@ D.34259, D.34258, D.34259
+	mov	r10, lr, asl #2	@ D.34259, D.34259,
+	orr	r5, r5, r3, asl r10	@ tmp, tmp, D.34259,
+	ldr	r10, [r1, #1644]	@ MEM[base: _147, offset: 1644B], MEM[base: _147, offset: 1644B]
+	and	r3, ip, #3	@ D.34259, i,
+	mov	r10, r10, asl #1	@ D.34259, MEM[base: _147, offset: 1644B],
+	add	fp, r3, r3, lsl #2	@ D.34259, D.34259, D.34259,
+	and	r10, r10, #30	@ D.34259, D.34259,
+	orr	r10, r10, #1	@ D.34259, D.34259,
+	orr	r4, r4, r10, asl fp	@ tmp1, tmp1, D.34259,
+	b	.L67	@
+.L94:
+	tst	r3, #7	@ D.34259,
+	strne	r5, [r2, r8, asl #2]	@ tmp, *_130
+	strne	r4, [r2, r7, asl #2]	@ tmp1, *_134
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L61:
+	ldrb	fp, [r1, #1626]	@ zero_extendqisi2	@ D.34258, MEM[base: _147, offset: 1626B]
+	and	lr, ip, #7	@ D.34259, i,
+	ldr	r10, [r0, #32]	@ pParam_41(D)->mb_adaptive_frame_field_flag, pParam_41(D)->mb_adaptive_frame_field_flag
+	ldrb	r3, [r1, #1629]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1629B], MEM[base: _147, offset: 1629B]
+	add	r10, r10, fp, lsl #1	@ tmp277, pParam_41(D)->mb_adaptive_frame_field_flag, D.34258,
+	ldrb	fp, [r1, #1628]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1628B], MEM[base: _147, offset: 1628B]
+	b	.L92	@
+.L69:
+	ldrb	fp, [r1, #1626]	@ zero_extendqisi2	@ D.34258, MEM[base: _147, offset: 1626B]
+	and	lr, ip, #7	@ D.34259, i,
+	ldr	r10, [r0, #32]	@ pParam_41(D)->mb_adaptive_frame_field_flag, pParam_41(D)->mb_adaptive_frame_field_flag
+	ldrb	r3, [r1, #1631]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1631B], MEM[base: _147, offset: 1631B]
+	add	r10, r10, fp, lsl #1	@ tmp313, pParam_41(D)->mb_adaptive_frame_field_flag, D.34258,
+	ldrb	fp, [r1, #1630]	@ zero_extendqisi2	@ MEM[base: _147, offset: 1630B], MEM[base: _147, offset: 1630B]
+	b	.L93	@
+.L96:
+	.align	2
+.L95:
+	.word	.LANCHOR1
+	.fnend
+	.size	H264HAL_WriteSliceMsgRefPicField, .-H264HAL_WriteSliceMsgRefPicField
+	.align	2
+	.global	H264HAL_SetSliceMsgRefPicFrame
+	.type	H264HAL_SetSliceMsgRefPicFrame, %function
+H264HAL_SetSliceMsgRefPicFrame:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	add	r8, r1, r3, lsl #2	@ D.34279, pSlcPara, list,
+	.pad #12
+	sub	sp, sp, #12	@,,
+	add	r10, r3, #3	@ D.34275, list,
+	ldr	ip, [r8, #52]	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)_87 + 52B], MEM[(struct H264_DEC_SLICE_PARAM_S *)_87 + 52B]
+	mov	r9, r3, asl #3	@ D.34275, list,
+	str	r2, [sp, #4]	@ pSLOT, %sfp
+	mov	r10, r10, asl #2	@ Dn_num, D.34275,
+	cmp	ip, #0	@ MEM[(struct H264_DEC_SLICE_PARAM_S *)_87 + 52B],
+	add	r9, r9, #20	@ Dn_0, D.34275,
+	beq	.L97	@,
+	mov	r2, r3, asl #10	@ tmp167, list,
+	ldr	fp, .L111	@ tmp194,
+	add	r3, r2, r3, lsl #7	@ D.34280, tmp167, list,
+	mov	r5, #0	@ i,
+	add	r1, r1, r3	@ ivtmp.116, pSlcPara, D.34280
+	mov	r6, r5	@ tmp1, i
+	mov	r7, r5	@ tmp, i
+.L103:
+	ldrb	ip, [r1, #1626]	@ zero_extendqisi2	@ D.34277, MEM[base: _91, offset: 1626B]
+	and	r3, r5, #7	@ D.34275, i,
+	ldr	r2, [r0, #32]	@ pParam_26(D)->mb_adaptive_frame_field_flag, pParam_26(D)->mb_adaptive_frame_field_flag
+	and	lr, r5, #3	@ D.34275, i,
+	add	r5, r5, #1	@ i, i,
+	add	r1, r1, #36	@ ivtmp.116, ivtmp.116,
+	add	ip, r2, ip, lsl #1	@ tmp173, pParam_26(D)->mb_adaptive_frame_field_flag, D.34277,
+	ldrb	r2, [r1, #1591]	@ zero_extendqisi2	@ MEM[base: _91, offset: 1627B], MEM[base: _91, offset: 1627B]
+	add	ip, fp, ip, lsl #2	@ tmp175, tmp194, tmp173,
+	cmp	r2, #1	@ MEM[base: _91, offset: 1627B],
+	ldr	r2, [r1, #1608]	@ MEM[base: _91, offset: 1644B], MEM[base: _91, offset: 1644B]
+	ldr	ip, [ip, #44]	@ tmp178, g_ListStructFrame
+	moveq	r4, #8	@ D.34274,
+	movne	r4, #0	@ D.34274,
+	cmp	r3, #7	@ D.34275,
+	and	ip, ip, #3	@ D.34275, tmp178,
+	mov	r3, r3, asl #2	@ D.34275, D.34275,
+	orr	ip, r4, ip	@ D.34275, D.34274, D.34275
+	mov	r2, r2, asl #1	@ D.34275, MEM[base: _91, offset: 1644B],
+	and	r2, r2, #31	@ D.34275, D.34275,
+	add	r4, lr, lr, lsl #2	@ D.34275, D.34275, D.34275,
+	orr	r7, r7, ip, asl r3	@ tmp, tmp, D.34275,
+	ldreq	r3, [sp, #4]	@ pSLOT, %sfp
+	orr	r6, r6, r2, asl r4	@ tmp1, tmp1, D.34275,
+	streq	r7, [r3, r10, asl #2]	@ tmp, *_46
+	addeq	r10, r10, #1	@ Dn_num, Dn_num,
+	moveq	r7, #0	@ tmp,
+	cmp	lr, #3	@ D.34275,
+	ldreq	r3, [sp, #4]	@ pSLOT, %sfp
+	streq	r6, [r3, r9, asl #2]	@ tmp1, *_51
+	addeq	r9, r9, #1	@ Dn_0, Dn_0,
+	ldr	r3, [r8, #52]	@ D.34275, MEM[(struct H264_DEC_SLICE_PARAM_S *)_87 + 52B]
+	moveq	r6, #0	@ tmp1,
+	cmp	r3, r5	@ D.34275, i
+	bhi	.L103	@,
+	tst	r3, #7	@ D.34275,
+	ldrne	r3, [sp, #4]	@ pSLOT, %sfp
+	strne	r7, [r3, r10, asl #2]	@ tmp, *_59
+	strne	r6, [r3, r9, asl #2]	@ tmp1, *_63
+.L97:
+	add	sp, sp, #12	@,,
+	@ sp needed	@
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L112:
+	.align	2
+.L111:
+	.word	.LANCHOR1
+	.fnend
+	.size	H264HAL_SetSliceMsgRefPicFrame, .-H264HAL_SetSliceMsgRefPicFrame
+	.align	2
+	.global	H264HAL_SetSliceMsgRefPicInfo
+	.type	H264HAL_SetSliceMsgRefPicInfo, %function
+H264HAL_SetSliceMsgRefPicInfo:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, lr}	@,
+	.save {r4, r5, r6, lr}
+	mov	r4, r0	@ pParam, pParam
+	ldrb	r3, [r0]	@ zero_extendqisi2	@ pParam_2(D)->pic_structure, pParam_2(D)->pic_structure
+	mov	r5, r1	@ pSlcPara, pSlcPara
+	mov	r6, r2	@ pSLOT, pSLOT
+	cmp	r3, #0	@ pParam_2(D)->pic_structure,
+	bne	.L114	@,
+	bl	H264HAL_SetSliceMsgRefPicFrame	@
+	ldr	r3, .L119	@ tmp121,
+	ldrb	r2, [r5]	@ zero_extendqisi2	@ D.34288, pSlcPara_4(D)->slice_type
+	ldr	r3, [r3, r2, asl #2]	@ tmp123, g_SliceTypeForPMV
+	cmp	r3, #2	@ tmp123,
+	ldmnefd	sp!, {r4, r5, r6, pc}	@
+	mov	r2, r6	@, pSLOT
+	mov	r1, r5	@, pSlcPara
+	mov	r0, r4	@, pParam
+	mov	r3, #1	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	H264HAL_SetSliceMsgRefPicFrame	@
+.L114:
+	mov	r3, #0	@,
+	bl	H264HAL_WriteSliceMsgRefPicField	@
+	ldr	r3, .L119	@ tmp124,
+	ldrb	r2, [r5]	@ zero_extendqisi2	@ D.34288, pSlcPara_4(D)->slice_type
+	ldr	r3, [r3, r2, asl #2]	@ tmp126, g_SliceTypeForPMV
+	cmp	r3, #2	@ tmp126,
+	ldmnefd	sp!, {r4, r5, r6, pc}	@
+	mov	r2, r6	@, pSLOT
+	mov	r1, r5	@, pSlcPara
+	mov	r0, r4	@, pParam
+	mov	r3, #1	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	H264HAL_WriteSliceMsgRefPicField	@
+.L120:
+	.align	2
+.L119:
+	.word	.LANCHOR1
+	.fnend
+	.size	H264HAL_SetSliceMsgRefPicInfo, .-H264HAL_SetSliceMsgRefPicInfo
+	.align	2
+	.global	H264HAL_SetSliceMsgAPCInfo
+	.type	H264HAL_SetSliceMsgAPCInfo, %function
+H264HAL_SetSliceMsgAPCInfo:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, lr}	@,
+	.save {r4, r5, lr}
+	mov	r3, #0	@ i,
+	ldr	lr, [r1, #3928]!	@ pSlcPara_9(D)->Apc2RefIdx, pSlcPara_9(D)->Apc2RefIdx
+	mov	r5, #36	@ Dn_num,
+	and	lr, lr, #31	@ tmp, pSlcPara_9(D)->Apc2RefIdx,
+	b	.L122	@
+.L124:
+	ldr	ip, [r1, #4]!	@ MEM[base: _31, offset: 0B], MEM[base: _31, offset: 0B]
+	cmp	r0, #3	@ D.34306,
+	and	r0, ip, #31	@ D.34306, MEM[base: _31, offset: 0B],
+	orr	lr, lr, r0, asl r4	@ tmp, tmp, D.34306,
+	streq	lr, [r2, r5, asl #2]	@ tmp, *_19
+	addeq	r5, r5, #1	@ Dn_num, Dn_num,
+	moveq	lr, #0	@ tmp,
+.L122:
+	add	r3, r3, #1	@ i, i,
+	and	r0, r3, #3	@ D.34306, i,
+	cmp	r3, #32	@ i,
+	add	r4, r0, r0, lsl #2	@ D.34306, D.34306, D.34306,
+	bne	.L124	@,
+	ldmfd	sp!, {r4, r5, pc}	@
+	.fnend
+	.size	H264HAL_SetSliceMsgAPCInfo, .-H264HAL_SetSliceMsgAPCInfo
+	.align	2
+	.global	H264HAL_SetSliceMsgWPInfo
+	.type	H264HAL_SetSliceMsgWPInfo, %function
+H264HAL_SetSliceMsgWPInfo:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	.pad #12
+	sub	sp, sp, #12	@,,
+	ldr	r3, [r0, #284]	@ pParam_2(D)->weighted_pred_flag, pParam_2(D)->weighted_pred_flag
+	cmp	r3, #0	@ pParam_2(D)->weighted_pred_flag,
+	beq	.L127	@,
+	ldr	r3, .L151	@ tmp312,
+	mov	ip, r3	@ tmp312, tmp312
+	str	r3, [sp, #4]	@ tmp312, %sfp
+	ldrb	r3, [r1]	@ zero_extendqisi2	@ D.34439, pSlcPara_4(D)->slice_type
+	ldr	r3, [ip, r3, asl #2]	@ tmp243, g_SliceTypeForPMV
+	cmp	r3, #1	@ tmp243,
+	beq	.L128	@,
+.L127:
+	ldr	r3, [r0, #288]	@ pParam_2(D)->weighted_bipred_idc, pParam_2(D)->weighted_bipred_idc
+	cmp	r3, #1	@ pParam_2(D)->weighted_bipred_idc,
+	beq	.L149	@,
+.L126:
+	add	sp, sp, #12	@,,
+	@ sp needed	@
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L149:
+	ldr	r3, .L151	@ tmp312,
+	mov	r0, r3	@ tmp312, tmp312
+	str	r3, [sp, #4]	@ tmp312, %sfp
+	ldrb	r3, [r1]	@ zero_extendqisi2	@ D.34439, pSlcPara_4(D)->slice_type
+	ldr	r3, [r0, r3, asl #2]	@ tmp247, g_SliceTypeForPMV
+	cmp	r3, #2	@ tmp247,
+	bne	.L126	@,
+.L128:
+	mov	ip, #0	@ ivtmp.202,
+	add	fp, r1, #852	@ ivtmp.200, pSlcPara,
+	add	r10, r1, #84	@ ivtmp.209, pSlcPara,
+	add	r9, r1, #980	@ ivtmp.218, pSlcPara,
+	add	r8, r1, #212	@ ivtmp.225, pSlcPara,
+	mov	r6, ip	@ i, ivtmp.202
+	mov	r7, r1	@ ivtmp.147, pSlcPara
+	mov	lr, r1	@ ivtmp.205, pSlcPara
+.L131:
+	ldr	r0, [fp, #4]!	@ MEM[base: _170, offset: 0B], MEM[base: _170, offset: 0B]
+	add	r4, ip, #256	@ D.34442, ivtmp.202,
+	ldr	r5, [r10, #4]!	@ MEM[base: _169, offset: 0B], MEM[base: _169, offset: 0B]
+	add	r6, r6, #1	@ i, i,
+	ldr	r3, [r1, #80]	@ pSlcPara_4(D)->luma_log2_weight_denom, pSlcPara_4(D)->luma_log2_weight_denom
+	add	lr, lr, #4	@ ivtmp.205, ivtmp.205,
+	uxtb	r0, r0	@ D.34439, MEM[base: _170, offset: 0B]
+	ubfx	r5, r5, #0, #9	@ D.34439, MEM[base: _169, offset: 0B],,
+	and	r3, r3, #7	@ D.34437, pSlcPara_4(D)->luma_log2_weight_denom,
+	mov	r0, r0, asl #12	@ D.34439, D.34439,
+	orr	r0, r0, r5, asl #3	@ D.34439, D.34439, D.34439,
+	orr	r3, r0, r3	@ D.34439, D.34439, D.34437
+	str	r3, [r2, r4]	@ D.34439, MEM[(volatile HI_S32 *)_167]
+	ldr	r3, [r9, #4]!	@ MEM[base: _176, offset: 0B], MEM[base: _176, offset: 0B]
+	add	r4, ip, #512	@ D.34442, ivtmp.202,
+	ldr	r5, [r8, #4]!	@ MEM[base: _177, offset: 0B], MEM[base: _177, offset: 0B]
+	add	r0, ip, #768	@ D.34442, ivtmp.202,
+	add	ip, ip, #4	@ ivtmp.202, ivtmp.202,
+	uxtb	r3, r3	@ D.34439, MEM[base: _176, offset: 0B]
+	ubfx	r5, r5, #0, #9	@ D.34439, MEM[base: _177, offset: 0B],,
+	mov	r3, r3, asl #12	@ D.34439, D.34439,
+	orr	r3, r3, r5, asl #3	@ D.34439, D.34439, D.34439,
+	ldr	r5, [r1, #84]	@ tmp357, pSlcPara_4(D)->chroma_log2_weight_denom
+	and	r5, r5, #7	@ D.34437, tmp357,
+	orr	r3, r3, r5	@ D.34439, D.34439, D.34437
+	str	r3, [r2, r4]	@ D.34439, MEM[(volatile HI_S32 *)_179]
+	ldr	r3, [lr, #340]	@ MEM[base: _180, offset: 344B], MEM[base: _180, offset: 344B]
+	ldrb	r4, [lr, #1108]	@ zero_extendqisi2	@ D.34439, MEM[base: _180, offset: 1112B]
+	ubfx	r3, r3, #0, #9	@ D.34439, MEM[base: _180, offset: 344B],,
+	orr	r3, r3, r4, asl #9	@ D.34439, D.34439, D.34439,
+	str	r3, [r2, r0]	@ D.34439, MEM[(volatile HI_S32 *)_183]
+	ldr	r3, [r1, #44]	@ pSlcPara_4(D)->num_ref_idx_l0_active_minus1, pSlcPara_4(D)->num_ref_idx_l0_active_minus1
+	cmp	r6, r3	@ i, pSlcPara_4(D)->num_ref_idx_l0_active_minus1
+	bls	.L131	@,
+	ldrb	r3, [r1]	@ zero_extendqisi2	@ D.34439, pSlcPara_4(D)->slice_type
+	ldr	r0, [sp, #4]	@ tmp312, %sfp
+	ldr	r3, [r0, r3, asl #2]	@ tmp277, g_SliceTypeForPMV
+	cmp	r3, #2	@ tmp277,
+	beq	.L150	@,
+.L132:
+	mov	r4, r1	@ pSlcPara, pSlcPara
+	mov	r5, r2	@ pSLOT_BASE, pSLOT_BASE
+	mov	r0, #4	@,
+	ldr	r2, [r1, #84]	@, pSlcPara_4(D)->chroma_log2_weight_denom
+	ldr	r1, .L151+4	@,
+	bl	dprint_vfmw	@
+	ldr	r2, [r4, #44]	@ D.34437, pSlcPara_4(D)->num_ref_idx_l0_active_minus1
+	mov	r3, #0	@ i,
+.L134:
+	add	r3, r3, #1	@ i, i,
+	cmp	r3, r2	@ i, D.34437
+	bls	.L134	@,
+	ldrb	r3, [r4]	@ zero_extendqisi2	@ D.34439, pSlcPara_4(D)->slice_type
+	ldr	r2, [sp, #4]	@ tmp312, %sfp
+	ldr	r3, [r2, r3, asl #2]	@ tmp282, g_SliceTypeForPMV
+	cmp	r3, #2	@ tmp282,
+	bne	.L126	@,
+	ldr	r2, [r4, #40]	@ D.34437, pSlcPara_4(D)->num_ref_idx_l1_active_minus1
+	mov	r3, #0	@ i,
+.L135:
+	add	r3, r3, #1	@ i, i,
+	cmp	r3, r2	@ i, D.34437
+	bls	.L135	@,
+	add	r8, r4, #1232	@ ivtmp.142, pSlcPara,
+	add	r6, r4, #1360	@ ivtmp.160, pSlcPara,
+	mov	ip, #0	@ ivtmp.144,
+	add	r8, r8, #4	@ ivtmp.142, ivtmp.142,
+	add	r6, r6, #4	@ ivtmp.160, ivtmp.160,
+	add	r10, r4, #468	@ ivtmp.151, pSlcPara,
+	add	r9, r4, #596	@ ivtmp.167, pSlcPara,
+	mov	lr, ip	@ i, ivtmp.144
+.L136:
+	ldr	r3, [r8, #4]!	@ MEM[base: _138, offset: 0B], MEM[base: _138, offset: 0B]
+	add	r0, ip, #384	@ D.34442, ivtmp.144,
+	ldr	r2, [r10, #4]!	@ MEM[base: _137, offset: 0B], MEM[base: _137, offset: 0B]
+	add	fp, ip, #640	@ D.34442, ivtmp.144,
+	ldr	r1, [r4, #80]	@ pSlcPara_4(D)->luma_log2_weight_denom, pSlcPara_4(D)->luma_log2_weight_denom
+	add	lr, lr, #1	@ i, i,
+	uxtb	r3, r3	@ D.34439, MEM[base: _138, offset: 0B]
+	ubfx	r2, r2, #0, #9	@ D.34439, MEM[base: _137, offset: 0B],,
+	and	r1, r1, #7	@ D.34437, pSlcPara_4(D)->luma_log2_weight_denom,
+	add	r7, r7, #4	@ ivtmp.147, ivtmp.147,
+	mov	r3, r3, asl #12	@ D.34439, D.34439,
+	orr	r3, r3, r2, asl #3	@ D.34439, D.34439, D.34439,
+	add	r2, ip, #896	@ D.34442, ivtmp.144,
+	orr	r3, r3, r1	@ D.34439, D.34439, D.34437
+	str	r3, [r5, r0]	@ D.34439, MEM[(volatile HI_S32 *)_134]
+	ldr	r1, [r6, #4]!	@ MEM[base: _132, offset: 0B], MEM[base: _132, offset: 0B]
+	add	ip, ip, #4	@ ivtmp.144, ivtmp.144,
+	ldr	r3, [r9, #4]!	@ MEM[base: _130, offset: 0B], MEM[base: _130, offset: 0B]
+	ldr	r0, [r4, #84]	@ pSlcPara_4(D)->chroma_log2_weight_denom, pSlcPara_4(D)->chroma_log2_weight_denom
+	uxtb	r1, r1	@ D.34439, MEM[base: _132, offset: 0B]
+	ubfx	r3, r3, #0, #9	@ D.34439, MEM[base: _130, offset: 0B],,
+	and	r0, r0, #7	@ D.34437, pSlcPara_4(D)->chroma_log2_weight_denom,
+	mov	r1, r1, asl #12	@ D.34439, D.34439,
+	orr	r3, r1, r3, asl #3	@ D.34439, D.34439, D.34439,
+	orr	r3, r3, r0	@ D.34439, D.34439, D.34437
+	str	r3, [r5, fp]	@ D.34439, MEM[(volatile HI_S32 *)_127]
+	ldr	r3, [r7, #724]	@ MEM[base: _126, offset: 728B], MEM[base: _126, offset: 728B]
+	ldrb	r1, [r7, #1492]	@ zero_extendqisi2	@ D.34439, MEM[base: _126, offset: 1496B]
+	ubfx	r3, r3, #0, #9	@ D.34439, MEM[base: _126, offset: 728B],,
+	orr	r3, r3, r1, asl #9	@ D.34439, D.34439, D.34439,
+	str	r3, [r5, r2]	@ D.34439, MEM[(volatile HI_S32 *)_116]
+	ldr	r3, [r4, #40]	@ pSlcPara_4(D)->num_ref_idx_l1_active_minus1, pSlcPara_4(D)->num_ref_idx_l1_active_minus1
+	cmp	lr, r3	@ i, pSlcPara_4(D)->num_ref_idx_l1_active_minus1
+	bls	.L136	@,
+	b	.L126	@
+.L150:
+	ldr	r0, [r1, #40]	@ D.34437, pSlcPara_4(D)->num_ref_idx_l1_active_minus1
+	mov	r3, #0	@ i,
+.L133:
+	add	r3, r3, #1	@ i, i,
+	cmp	r3, r0	@ i, D.34437
+	bls	.L133	@,
+	b	.L132	@
+.L152:
+	.align	2
+.L151:
+	.word	.LANCHOR1
+	.word	.LC3
+	.fnend
+	.size	H264HAL_SetSliceMsgWPInfo, .-H264HAL_SetSliceMsgWPInfo
+	.align	2
+	.global	H264HAL_CheckParaValid
+	.type	H264HAL_CheckParaValid, %function
+H264HAL_CheckParaValid:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	subs	r3, r0, #0	@ pParam, pParam
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	beq	.L160	@,
+	ldr	r2, [r3, #28]	@ pParam_3(D)->pic_width_in_mb, pParam_3(D)->pic_width_in_mb
+	cmp	r2, #512	@ pParam_3(D)->pic_width_in_mb,
+	bhi	.L161	@,
+	ldr	r2, [r3, #20]	@ pParam_3(D)->pic_height_in_mb, pParam_3(D)->pic_height_in_mb
+	cmp	r2, #512	@ pParam_3(D)->pic_height_in_mb,
+	bhi	.L162	@,
+	ldr	r0, [r3, #1124]	@ pParam_3(D)->pFirstSlice, pParam_3(D)->pFirstSlice
+	cmp	r0, #0	@ pParam_3(D)->pFirstSlice,
+	beq	.L163	@,
+	mov	r0, #0	@ D.34449,
+	ldmfd	sp!, {r4, pc}	@
+.L161:
+	ldr	r3, .L164	@,
+	movw	r2, #751	@,
+	ldr	r1, .L164+4	@,
+	mov	r0, #0	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34449,
+	ldmfd	sp!, {r4, pc}	@
+.L162:
+	ldr	r3, .L164	@,
+	mov	r2, #752	@,
+	ldr	r1, .L164+4	@,
+	mov	r0, #0	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34449,
+	ldmfd	sp!, {r4, pc}	@
+.L160:
+	ldr	r3, .L164+8	@,
+	movw	r2, #750	@,
+	ldr	r1, .L164+4	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34449,
+	ldmfd	sp!, {r4, pc}	@
+.L163:
+	ldr	r3, .L164+12	@,
+	movw	r2, #753	@,
+	ldr	r1, .L164+4	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34449,
+	ldmfd	sp!, {r4, pc}	@
+.L165:
+	.align	2
+.L164:
+	.word	.LC5
+	.word	.LC2
+	.word	.LC4
+	.word	.LC6
+	.fnend
+	.size	H264HAL_CheckParaValid, .-H264HAL_CheckParaValid
+	.align	2
+	.global	H264HAL_GetVdmRegVirAddr
+	.type	H264HAL_GetVdmRegVirAddr, %function
+H264HAL_GetVdmRegVirAddr:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r1, #1	@ VdhId,
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	bhi	.L174	@,
+	ldr	r3, [r0]	@ pHwMem_7(D)->pVdmRegVirAddr, pHwMem_7(D)->pVdmRegVirAddr
+	mov	r4, r0	@ pHwMem, pHwMem
+	cmp	r3, #0	@ pHwMem_7(D)->pVdmRegVirAddr,
+	beq	.L170	@,
+.L171:
+	mov	r0, #0	@ D.34461,
+	ldmfd	sp!, {r4, pc}	@
+.L170:
+	mov	r0, #0	@,
+	movt	r0, 4115	@,
+	bl	MEM_Phy2Vir	@
+	cmp	r0, #0	@ D.34463,
+	str	r0, [r4]	@ D.34463, pHwMem_7(D)->pVdmRegVirAddr
+	bne	.L171	@,
+	ldr	r1, .L175	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34461,
+	ldmfd	sp!, {r4, pc}	@
+.L174:
+	ldr	r1, .L175+4	@,
+	mov	r0, #0	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34461,
+	ldmfd	sp!, {r4, pc}	@
+.L176:
+	.align	2
+.L175:
+	.word	.LC8
+	.word	.LC7
+	.fnend
+	.size	H264HAL_GetVdmRegVirAddr, .-H264HAL_GetVdmRegVirAddr
+	.align	2
+	.global	H264HAL_V200R004_CfgVdmReg
+	.type	H264HAL_V200R004_CfgVdmReg, %function
+H264HAL_V200R004_CfgVdmReg:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, r10, lr}
+	.pad #8
+	sub	sp, sp, #8	@,,
+	ldr	r3, [r0, #920]	@ D.34488, pParam_9(D)->mbtodec
+	mov	r6, r2	@ VdhId, VdhId
+	mov	r2, #0	@ tmp261,
+	str	r2, [sp, #4]	@ tmp261, D32
+	cmp	r3, #262144	@ D.34488,
+	movw	r4, #1140	@ tmp281,
+	suble	r2, r3, #1	@ D.34487, D.34488,
+	ldr	r3, [sp, #4]	@ tmp262,
+	movwgt	r2, #65535	@ D.34487,
+	ubfxle	r2, r2, #0, #20	@ D.34487, D.34487,,
+	movtgt	r2, 3	@ D.34487,
+	bfi	r3, r2, #0, #20	@ tmp262, D.34487,,
+	mul	r4, r4, r6	@ tmp280, tmp281, VdhId
+	mov	r2, r3, lsr #24	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].load_qmatrix_flag, tmp262,
+	str	r3, [sp, #4]	@ tmp262,
+	and	r2, r2, #62	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].coef_idx_detect_en, MEM[(struct BASIC_V200R004_CFG0 *)&D32].load_qmatrix_flag,
+	mov	r3, r3, lsr #16	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].marker_bit_detect_en, tmp262,
+	orr	r2, r2, #65	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].vop_type_detect_en, MEM[(struct BASIC_V200R004_CFG0 *)&D32].coef_idx_detect_en,
+	and	r3, r3, #191	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].ac_last_detect_en, MEM[(struct BASIC_V200R004_CFG0 *)&D32].marker_bit_detect_en,
+	bfc	r2, #1, #1	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].vop_type_detect_en,,
+	bfc	r3, #7, #1	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].ac_last_detect_en,,
+	strb	r2, [sp, #7]	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].vop_type_detect_en, MEM[(struct BASIC_V200R004_CFG0 *)&D32].vop_type_detect_en
+	strb	r3, [sp, #6]	@ MEM[(struct BASIC_V200R004_CFG0 *)&D32].ac_last_detect_en, MEM[(struct BASIC_V200R004_CFG0 *)&D32].ac_last_detect_en
+	mov	r5, r0	@ pParam, pParam
+	ldr	r3, [sp, #4]	@ D.34488, D32
+	mov	r9, r1	@ pHwMem, pHwMem
+	ldr	r7, .L190	@ tmp467,
+	mov	r0, #3	@,
+	ldr	r1, .L190+4	@,
+	mov	r8, #0	@ tmp285,
+	str	r3, [r5, #1136]	@ D.34488, pParam_9(D)->basic_cfg0
+	mov	r2, r3	@, D.34488
+	ldr	ip, [r7, r4]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [ip, #8]	@ D.34488, *_32
+	bl	dprint_vfmw	@
+	str	r8, [sp, #4]	@ tmp285, D32
+	ldrh	ip, [sp, #6]	@, MEM[(struct BASIC_V200R004_CFG1 *)&D32].max_slcgrp_num
+	mov	r1, #1	@ tmp303,
+	ldr	r2, [r5, #912]	@ pParam_9(D)->imgstride, pParam_9(D)->imgstride
+	mov	r3, #0	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].video_standard,
+	bfi	ip, r1, #0, #12	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].max_slcgrp_num, tmp303,,
+	bfi	r3, r8, #0, #4	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].video_standard, tmp285,,
+	strb	r3, [sp, #4]	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].video_standard, MEM[(struct BASIC_V200R004_CFG1 *)&D32].video_standard
+	mov	r0, #3	@,
+	mov	r3, ip, lsr #8	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].line_num_output_en, MEM[(struct BASIC_V200R004_CFG1 *)&D32].max_slcgrp_num,
+	ldrh	r1, [sp, #4]	@, MEM[(struct BASIC_V200R004_CFG1 *)&D32].ddr_stride
+	and	r3, r3, #239	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].dblk_1d_en, MEM[(struct BASIC_V200R004_CFG1 *)&D32].line_num_output_en,
+	strh	ip, [sp, #6]	@ movhi	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].max_slcgrp_num, MEM[(struct BASIC_V200R004_CFG1 *)&D32].max_slcgrp_num
+	orr	r3, r3, #32	@ tmp308, MEM[(struct BASIC_V200R004_CFG1 *)&D32].dblk_1d_en,
+	mov	r2, r2, lsr #6	@ D.34489, pParam_9(D)->imgstride,
+	strb	r3, [sp, #7]	@ tmp308, MEM[(struct BASIC_V200R004_CFG1 *)&D32].dblk_1d_en
+	bfi	r1, r2, #4, #10	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].ddr_stride, D.34489,,
+	ldr	lr, [r5, #1384]	@ pParam_9(D)->Compress_en, pParam_9(D)->Compress_en
+	uxtb	r3, r3	@ tmp311, tmp308
+	ldrb	ip, [r5, #2]	@ zero_extendqisi2	@ pParam_9(D)->NewPicFlag, pParam_9(D)->NewPicFlag
+	mov	r2, r1, lsr #8	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].fst_slc_grp, MEM[(struct BASIC_V200R004_CFG1 *)&D32].ddr_stride,
+	bfi	r3, lr, #6, #1	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].compress_en, pParam_9(D)->Compress_en,,
+	strh	r1, [sp, #4]	@ movhi	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].ddr_stride, MEM[(struct BASIC_V200R004_CFG1 *)&D32].ddr_stride
+	bfi	r2, ip, #6, #1	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].fst_slc_grp, pParam_9(D)->NewPicFlag,,
+	ldr	ip, [r7, r4]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	mvn	r3, r3, asl #25	@ tmp315, MEM[(struct BASIC_V200R004_CFG1 *)&D32].compress_en,
+	bfi	r2, r8, #7, #1	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].mv_output_en, tmp285,,
+	mvn	r3, r3, lsr #25	@ tmp315, tmp315,
+	strb	r2, [sp, #5]	@ MEM[(struct BASIC_V200R004_CFG1 *)&D32].mv_output_en, MEM[(struct BASIC_V200R004_CFG1 *)&D32].mv_output_en
+	strb	r3, [sp, #7]	@ tmp315, MEM[(struct BASIC_V200R004_CFG1 *)&D32].ppfd_en
+	ldr	r3, [sp, #4]	@ D.34488, D32
+	ldr	r1, .L190+8	@,
+	str	r3, [r5, #1140]	@ D.34488, pParam_9(D)->basic_cfg1
+	mov	r2, r3	@, D.34488
+	str	r3, [ip, #12]	@ D.34488, *_64
+	bl	dprint_vfmw	@
+	ldr	r3, [r9, #44]	@ pHwMem_68(D)->MsgSlotAddr, pHwMem_68(D)->MsgSlotAddr
+	ldr	ip, [r7, r4]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	mov	r0, #3	@,
+	bic	r3, r3, #15	@ D.34489, pHwMem_68(D)->MsgSlotAddr,
+	ldr	r1, .L190+12	@,
+	str	r3, [r5, #1144]	@ D.34489, pParam_9(D)->avm_addr
+	mov	r2, r3	@, D.34489
+	str	r3, [ip, #16]	@ D.34489, *_77
+	bl	dprint_vfmw	@
+	ldr	r3, [r9, #28]	@ pHwMem_68(D)->MsgSlotAddr, pHwMem_68(D)->MsgSlotAddr
+	ldr	ip, [r7, r4]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	mov	r0, #3	@,
+	bic	r3, r3, #15	@ D.34489, pHwMem_68(D)->MsgSlotAddr,
+	ldr	r1, .L190+16	@,
+	str	r3, [r5, #1148]	@ D.34489, pParam_9(D)->vam_addr
+	mov	r2, r3	@, D.34489
+	str	r3, [ip, #20]	@ D.34489, *_89
+	bl	dprint_vfmw	@
+	ldr	r3, [r5, #916]	@ pParam_9(D)->stream_base_addr, pParam_9(D)->stream_base_addr
+	ldr	ip, [r7, r4]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	mov	r0, #3	@,
+	bic	r3, r3, #15	@ D.34489, pParam_9(D)->stream_base_addr,
+	ldr	r1, .L190+20	@,
+	str	r3, [r5, #1152]	@ D.34489, pParam_9(D)->stream_base_addr_reg_tmp
+	mov	r2, r3	@, D.34489
+	str	r3, [ip, #24]	@ D.34489, *_101
+	str	r3, [sp, #4]	@ D.34489, MEM[(struct STREAM_V200R004_BASE_ADDR *)&D32].stream_base_addr
+	bl	dprint_vfmw	@
+	ldr	r3, [r5, #28]	@ pParam_9(D)->pic_width_in_mb, pParam_9(D)->pic_width_in_mb
+	cmp	r3, #120	@ pParam_9(D)->pic_width_in_mb,
+	strhi	r8, [sp, #4]	@ tmp285, D32
+	movls	r3, #65536	@ tmp346,
+	strls	r3, [sp, #4]	@ tmp346, D32
+	cmp	r6, #0	@ VdhId,
+	beq	.L189	@,
+.L181:
+	movw	r8, #1140	@ tmp361,
+	movw	r3, #3075	@ tmp352,
+	mul	r8, r8, r6	@ tmp360, tmp361, VdhId
+	movt	r3, 48	@ tmp352,
+	str	r3, [r5, #1160]	@ tmp352, pParam_9(D)->sed_to
+	mov	r0, #3	@,
+	str	r3, [r5, #1164]	@ tmp352, pParam_9(D)->itrans_to
+	mov	r4, #0	@ tmp428,
+	str	r3, [r5, #1168]	@ tmp352, pParam_9(D)->pmv_to
+	str	r3, [r5, #1172]	@ tmp352, pParam_9(D)->prc_to
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [r5, #1176]	@ tmp352, pParam_9(D)->rcn_to
+	str	r3, [r5, #1180]	@ tmp352, pParam_9(D)->dblk_to
+	str	r3, [r5, #1184]	@ tmp352, pParam_9(D)->ppfd_to
+	str	r3, [r2, #60]	@ tmp352, *_126
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	ldr	r1, .L190+24	@,
+	str	r3, [r2, #64]	@ tmp352, *_131
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [r2, #68]	@ tmp352, *_136
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [r2, #72]	@ tmp352, *_141
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [r2, #76]	@ tmp352, *_146
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [r2, #80]	@ tmp352, *_151
+	ldr	r2, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r3, [r2, #84]	@ tmp352, *_156
+	ldr	r3, [r5, #292]	@ pParam_9(D)->CurrPicImgIdc, pParam_9(D)->CurrPicImgIdc
+	ldr	ip, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	add	r3, r5, r3, lsl #2	@ tmp403, pParam, pParam_9(D)->CurrPicImgIdc,
+	ldr	r2, [r3, #308]	@ tmp405, pParam_9(D)->ImgPhyAddr
+	bic	r2, r2, #15	@ D.34489, tmp405,
+	str	r2, [r5, #1188]	@ D.34489, pParam_9(D)->ystaddr_1d
+	str	r2, [ip, #96]	@ D.34489, *_167
+	bl	dprint_vfmw	@
+	ldr	r3, [r5, #912]	@ D.34489, pParam_9(D)->imgstride
+	ldr	ip, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	mov	r0, #3	@,
+	ldr	r10, [r5, #24]	@ height_in_mb, pParam_9(D)->frame_height_in_mb
+	str	r3, [r5, #1192]	@ D.34489, pParam_9(D)->ystride_1d
+	mov	r2, r3	@, D.34489
+	str	r3, [ip, #100]	@ D.34489, *_178
+	add	r10, r10, #1	@ D.34489, height_in_mb,
+	ldr	r1, .L190+28	@,
+	bl	dprint_vfmw	@
+	ldr	r3, [r5, #912]	@ pParam_9(D)->imgstride, pParam_9(D)->imgstride
+	mov	r10, r10, lsr #1	@ D.34489, D.34489,
+	ldr	ip, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	ldr	r1, .L190+32	@,
+	mov	r0, #3	@,
+	mov	r3, r3, asl #1	@ D.34489, pParam_9(D)->imgstride,
+	mul	r3, r10, r3	@ D.34489, D.34489, D.34489
+	str	r3, [r5, #1196]	@ D.34489, pParam_9(D)->uvoffset_1d
+	mov	r2, r3	@, D.34489
+	str	r3, [ip, #104]	@ D.34489, *_192
+	bl	dprint_vfmw	@
+	ldr	r3, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	r4, [r5, #1200]	@ tmp428, pParam_9(D)->prcnum_1d_cnt
+	mov	r0, #3	@,
+	ldr	r1, .L190+36	@,
+	str	r4, [r3, #108]	@ tmp428, *_200
+	ldr	r3, [r9, #1100]	@ pHwMem_68(D)->PpfdBufAddr, pHwMem_68(D)->PpfdBufAddr
+	ldr	ip, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	bic	r3, r3, #15	@ D.34489, pHwMem_68(D)->PpfdBufAddr,
+	str	r3, [r5, #1212]	@ D.34489, pParam_9(D)->ppfd_buf_addr
+	mov	r2, r3	@, D.34489
+	str	r3, [ip, #128]	@ D.34489, *_210
+	bl	dprint_vfmw	@
+	ldr	r3, [r9, #1104]	@ pHwMem_68(D)->PpfdBufLen, pHwMem_68(D)->PpfdBufLen
+	str	r4, [sp, #4]	@ tmp428, D32
+	mov	r0, #3	@,
+	ldr	ip, [r7, r8]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	strh	r3, [sp, #4]	@ movhi	@ pHwMem_68(D)->PpfdBufLen, MEM[(struct PPFD_V200R004_BUF_LEN *)&D32].ppfd_buf_len
+	ldr	r3, [sp, #4]	@ D.34488, D32
+	ldr	r1, .L190+40	@,
+	str	r3, [r5, #1216]	@ D.34488, pParam_9(D)->ppfd_buf_len
+	mov	r2, r3	@, D.34488
+	str	r3, [ip, #132]	@ D.34488, *_223
+	bl	dprint_vfmw	@
+	add	r1, r5, #1248	@ ivtmp.260, pParam,
+	add	r1, r1, #4	@ ivtmp.260, ivtmp.260,
+	mov	r3, r4	@ ivtmp.268, tmp428
+	mov	ip, r4	@ D.34486, ivtmp.268
+.L185:
+	ldr	r0, [r1, #4]!	@ MEM[base: _170, offset: 0B], MEM[base: _170, offset: 0B]
+	and	r0, r0, #3	@ D.34489, MEM[base: _170, offset: 0B],
+	orr	ip, ip, r0, asl r3	@ D.34486, D.34486, D.34489,
+	add	r3, r3, #2	@ ivtmp.268, ivtmp.268,
+	cmp	r3, #32	@ ivtmp.268,
+	bne	.L185	@,
+	movw	r3, #1140	@ tmp456,
+	mov	r2, ip	@, D.34486
+	mul	r6, r3, r6	@ tmp455, tmp456, VdhId
+	ldr	r1, .L190+44	@,
+	mov	r0, #3	@,
+	ldr	r3, [r7, r6]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	str	ip, [r3, #148]	@ D.34486, *_240
+	bl	dprint_vfmw	@
+	ldr	ip, [r7, r6]	@ g_HwMem[VdhId_28(D)].pVdmRegVirAddr, g_HwMem[VdhId_28(D)].pVdmRegVirAddr
+	mov	r3, #0	@ tmp465,
+	ldr	r1, .L190+48	@,
+	mov	r2, r3	@, tmp465
+	mov	r0, #3	@,
+	str	r3, [ip, #152]	@ tmp465, *_248
+	add	sp, sp, #8	@,,
+	@ sp needed	@
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, lr}	@
+	b	dprint_vfmw	@
+.L189:
+	movw	r0, #49156	@,
+	movt	r0, 4115	@,
+	bl	MEM_ReadPhyWord	@
+	ldr	r3, [sp, #4]	@ D32, D32
+	cmp	r3, #0	@ D32,
+	ldr	r3, .L190+52	@ tmp349,
+	biceq	r1, r0, #65536	@ datTmp, datTmp,
+	orrne	r1, r0, #65536	@ datTmp, datTmp,
+	ldr	r0, [r3]	@ s_RegPhyBaseAddr, s_RegPhyBaseAddr
+	add	r0, r0, #4	@, s_RegPhyBaseAddr,
+	bl	MEM_WritePhyWord	@
+	b	.L181	@
+.L191:
+	.align	2
+.L190:
+	.word	g_HwMem
+	.word	.LC9
+	.word	.LC10
+	.word	.LC11
+	.word	.LC12
+	.word	.LC13
+	.word	.LC14
+	.word	.LC15
+	.word	.LC16
+	.word	.LC17
+	.word	.LC18
+	.word	.LC19
+	.word	.LC20
+	.word	s_RegPhyBaseAddr
+	.fnend
+	.size	H264HAL_V200R004_CfgVdmReg, .-H264HAL_V200R004_CfgVdmReg
+	.align	2
+	.global	H264HAL_FindNextSlicePara
+	.type	H264HAL_FindNextSlicePara, %function
+H264HAL_FindNextSlicePara:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r2, r1	@ currIdx, SliceParaNum
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	ldr	lr, [r0, #48]	@ first_mb_in_slice, pSlicePara_6(D)->first_mb_in_slice
+	str	r2, [r3]	@ currIdx, *nextIdx_8(D)
+	ldmgefd	sp!, {r4, pc}	@
+	ldr	r0, [r0, #4056]	@ pSlicePara, pSlicePara_6(D)->pNextSlice
+	cmp	r0, #0	@ pSlicePara,
+	beq	.L196	@,
+	ldr	ip, [r0, #48]	@ pSlicePara_21->first_mb_in_slice, pSlicePara_21->first_mb_in_slice
+	cmp	lr, ip	@ first_mb_in_slice, pSlicePara_21->first_mb_in_slice
+	ldmccfd	sp!, {r4, pc}	@
+	add	r2, r2, #1	@ ivtmp.272, currIdx,
+	b	.L195	@
+.L197:
+	ldr	r0, [r0, #4056]	@ pSlicePara, pSlicePara_27->pNextSlice
+	cmp	r0, #0	@ pSlicePara,
+	beq	.L196	@,
+	ldr	ip, [r0, #48]	@ pSlicePara_13->first_mb_in_slice, pSlicePara_13->first_mb_in_slice
+	cmp	lr, ip	@ first_mb_in_slice, pSlicePara_13->first_mb_in_slice
+	ldmccfd	sp!, {r4, pc}	@
+.L195:
+	cmp	r2, r1	@ ivtmp.272, SliceParaNum
+	str	r2, [r3]	@ ivtmp.272, *nextIdx_8(D)
+	add	r2, r2, #1	@ ivtmp.272, ivtmp.272,
+	bne	.L197	@,
+	ldmfd	sp!, {r4, pc}	@
+.L196:
+	mov	r2, #1020	@,
+	ldr	r1, .L202	@,
+	mov	r0, #1	@,
+	bl	dprint_vfmw	@
+	mov	r0, #0	@ pSlicePara,
+	ldmfd	sp!, {r4, pc}	@
+.L203:
+	.align	2
+.L202:
+	.word	.LC21
+	.fnend
+	.size	H264HAL_FindNextSlicePara, .-H264HAL_FindNextSlicePara
+	.align	2
+	.global	H264HAL_V200R004_SetPicMsg
+	.type	H264HAL_V200R004_SetPicMsg, %function
+H264HAL_V200R004_SetPicMsg:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+	.save {r4, r5, r6, r7, r8, lr}
+	mov	r4, r0	@ pParam, pParam
+	mov	r0, r2	@, PicMsgSlotPhy
+	mov	r5, r1	@ pHwMem, pHwMem
+	mov	r6, r3	@ FstSlcMsgSlotPhy, FstSlcMsgSlotPhy
+	bl	MEM_Phy2Vir	@
+	subs	ip, r0, #0	@ pSLOT,
+	beq	.L234	@,
+	ldrb	r7, [r4]	@ zero_extendqisi2	@ D.34593, pParam_20(D)->pic_structure
+	bic	r6, r6, #15	@ D.34593, FstSlcMsgSlotPhy,
+	ldr	r3, [r4, #32]	@ pParam_20(D)->mb_adaptive_frame_field_flag, pParam_20(D)->mb_adaptive_frame_field_flag
+	ldr	lr, [r4, #36]	@ pParam_20(D)->transform_8x8_mode_flag, pParam_20(D)->transform_8x8_mode_flag
+	ldr	r8, [r4, #40]	@ pParam_20(D)->entropy_coding_mode_flag, pParam_20(D)->entropy_coding_mode_flag
+	add	r3, r3, r7, lsl #1	@ tmp259, pParam_20(D)->mb_adaptive_frame_field_flag, D.34593,
+	ldr	r7, .L235	@ tmp256,
+	ldr	r1, [r4, #44]	@ pParam_20(D)->constrained_intra_pred_flag, pParam_20(D)->constrained_intra_pred_flag
+	mov	lr, lr, asl #28	@ D.34589, pParam_20(D)->transform_8x8_mode_flag,
+	ldr	r0, [r4, #28]	@ pParam_20(D)->pic_width_in_mb, pParam_20(D)->pic_width_in_mb
+	add	r7, r7, r3, lsl #2	@ tmp261, tmp256, tmp259,
+	ldr	r2, [r4, #20]	@ pParam_20(D)->pic_height_in_mb, pParam_20(D)->pic_height_in_mb
+	orr	lr, lr, r8, asl #27	@ D.34589, D.34589, pParam_20(D)->entropy_coding_mode_flag,
+	ldr	r3, [r4, #16]	@ D.34591, pParam_20(D)->nal_ref_idc
+	orr	r1, lr, r1, asl #26	@ D.34589, D.34589, pParam_20(D)->constrained_intra_pred_flag,
+	sub	r0, r0, #1	@ D.34589, pParam_20(D)->pic_width_in_mb,
+	sub	r2, r2, #1	@ D.34589, pParam_20(D)->pic_height_in_mb,
+	ldr	lr, [r7, #76]	@ tmp264, g_StructTrans
+	cmp	r3, #0	@ D.34591,
+	orr	r1, r1, r0	@ D.34589, D.34589, D.34589
+	ldrb	r0, [r4, #1]	@ zero_extendqisi2	@ pParam_20(D)->chroma_format_idc, pParam_20(D)->chroma_format_idc
+	orr	r1, r1, r2, asl #16	@ D.34589, D.34589, D.34589,
+	movne	r3, #-2147483648	@ D.34591,
+	orr	r2, r1, lr, asl #14	@ D.34589, D.34589, tmp264,
+	cmp	r0, #1	@ pParam_20(D)->chroma_format_idc,
+	orr	r2, r2, r3	@ D.34589, D.34589, D.34591
+	moveq	r3, #33554432	@ D.34591,
+	movne	r3, #0	@ D.34591,
+	orr	r2, r2, r3	@ D.34593, D.34589, D.34591
+	str	r2, [ip]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18]
+	ldr	r3, [r4, #296]	@ pParam_20(D)->CurrPicImg2DAddr, pParam_20(D)->CurrPicImg2DAddr
+	bic	r3, r3, #15	@ D.34593, pParam_20(D)->CurrPicImg2DAddr,
+	str	r3, [ip, #4]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 4B]
+	ldr	r3, [r4, #48]	@ D.34593, pParam_20(D)->ThisPoc
+	str	r3, [ip, #8]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 8B]
+	ldr	r3, [r4, #32]	@ pParam_20(D)->mb_adaptive_frame_field_flag, pParam_20(D)->mb_adaptive_frame_field_flag
+	cmp	r3, #0	@ pParam_20(D)->mb_adaptive_frame_field_flag,
+	streq	r3, [ip, #12]	@ pParam_20(D)->mb_adaptive_frame_field_flag, MEM[(volatile HI_S32 *)pSLOT_18 + 12B]
+	ldrne	r3, [r4, #52]	@ D.34593, pParam_20(D)->TopPoc
+	strne	r3, [ip, #12]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 12B]
+	ldrne	r3, [r4, #56]	@ D.34593, pParam_20(D)->BottomPoc
+	str	r3, [ip, #16]	@ pParam_20(D)->mb_adaptive_frame_field_flag,
+	ldr	r3, [r5, #1080]	@ pHwMem_61(D)->SedTopAddr, pHwMem_61(D)->SedTopAddr
+	bic	r3, r3, #15	@ D.34593, pHwMem_61(D)->SedTopAddr,
+	str	r3, [ip, #20]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 20B]
+	ldr	r3, [r5, #1084]	@ pHwMem_61(D)->PmvTopAddr, pHwMem_61(D)->PmvTopAddr
+	bic	r3, r3, #15	@ D.34593, pHwMem_61(D)->PmvTopAddr,
+	str	r3, [ip, #24]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 24B]
+	ldrb	r3, [r4]	@ zero_extendqisi2	@ pParam_20(D)->pic_structure, pParam_20(D)->pic_structure
+	cmp	r3, #2	@ pParam_20(D)->pic_structure,
+	ldreq	r2, [r4, #300]	@ pParam_20(D)->CurrPicPmvIdc, pParam_20(D)->CurrPicPmvIdc
+	ldrne	r3, [r4, #300]	@ pParam_20(D)->CurrPicPmvIdc, pParam_20(D)->CurrPicPmvIdc
+	addeq	r2, r2, #206	@ tmp277, pParam_20(D)->CurrPicPmvIdc,
+	ldreq	r1, [r4, #908]	@ pParam_20(D)->half_pmvblk_offset, pParam_20(D)->half_pmvblk_offset
+	addne	r3, r3, #206	@ tmp274, pParam_20(D)->CurrPicPmvIdc,
+	ldreq	r3, [r4, r2, asl #2]	@ tmp280, pParam_20(D)->PmvPhyAddr
+	ldrne	r3, [r4, r3, asl #2]	@ tmp276, pParam_20(D)->PmvPhyAddr
+	addeq	r3, r3, r1	@ D.34589, tmp280, pParam_20(D)->half_pmvblk_offset
+	bic	r3, r3, #15	@ tmp, D.34589,
+	str	r3, [ip, #28]	@ tmp, MEM[(volatile HI_S32 *)pSLOT_18 + 28B]
+	ldr	r3, [r5, #1088]	@ pHwMem_61(D)->RcnTopAddr, pHwMem_61(D)->RcnTopAddr
+	bic	r3, r3, #15	@ D.34593, pHwMem_61(D)->RcnTopAddr,
+	str	r3, [ip, #32]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 32B]
+	str	r6, [ip, #36]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 36B]
+	ldr	r3, [r4, #1116]	@ i, pParam_20(D)->ApcSize
+	cmp	r3, #0	@ i,
+	beq	.L213	@,
+	add	r0, r4, #920	@ ivtmp.333, pParam,
+	add	r1, ip, #40	@ ivtmp.341, pSLOT,
+	mov	r2, #0	@ i,
+.L214:
+	ldr	r3, [r0, #4]!	@ MEM[base: _192, offset: 0B], MEM[base: _192, offset: 0B]
+	add	r2, r2, #1	@ i, i,
+	add	r3, r4, r3, lsl #2	@ tmp285, pParam, MEM[base: _192, offset: 0B],
+	ldr	r3, [r3, #308]	@ tmp287, pParam_20(D)->ImgPhyAddr
+	bic	r3, r3, #15	@ D.34593, tmp287,
+	str	r3, [r1], #4	@ D.34593, MEM[(volatile HI_S32 *)_99]
+	ldr	r3, [r4, #1116]	@ i, pParam_20(D)->ApcSize
+	cmp	r3, r2	@ i, i
+	bhi	.L214	@,
+	cmp	r3, #15	@ i,
+	bhi	.L218	@,
+.L213:
+	add	r1, r3, #10	@ D.34595, i,
+	add	r1, ip, r1, lsl #2	@ ivtmp.327, pSLOT, D.34595,
+.L217:
+	ldr	r2, [r4, #924]	@ pParam_20(D)->Apc2Idc, pParam_20(D)->Apc2Idc
+	add	r3, r3, #1	@ i, i,
+	cmp	r3, #15	@ i,
+	add	r2, r4, r2, lsl #2	@ tmp293, pParam, pParam_20(D)->Apc2Idc,
+	ldr	r2, [r2, #308]	@ tmp295, pParam_20(D)->ImgPhyAddr
+	bic	r2, r2, #15	@ D.34593, tmp295,
+	str	r2, [r1], #4	@ D.34593, MEM[(volatile HI_S32 *)_109]
+	bls	.L217	@,
+.L218:
+	ldr	r3, [r5, #1076]	@ pHwMem_61(D)->H264MnAddr, pHwMem_61(D)->H264MnAddr
+	bic	r3, r3, #15	@ D.34593, pHwMem_61(D)->H264MnAddr,
+	str	r3, [ip, #104]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 104B]
+	ldr	r3, [r4, #1116]	@ i, pParam_20(D)->ApcSize
+	cmp	r3, #0	@ i,
+	beq	.L216	@,
+	add	r0, r4, #1040	@ ivtmp.317, pParam,
+	add	lr, r4, #984	@ ivtmp.305, pParam,
+	add	r0, r0, #8	@ ivtmp.317, ivtmp.317,
+	add	r2, ip, #108	@ ivtmp.313, pSLOT,
+	mov	r1, #0	@ i,
+.L219:
+	ldr	r3, [lr, #4]!	@ D.34593, MEM[base: _204, offset: 0B]
+	add	r1, r1, #1	@ i, i,
+	add	r2, r2, #8	@ ivtmp.313, ivtmp.313,
+	str	r3, [r2, #-8]	@ D.34593, MEM[(volatile HI_S32 *)_122]
+	ldr	r3, [r0, #4]!	@ D.34593, MEM[base: _203, offset: 0B]
+	str	r3, [r2, #-4]	@ D.34593, MEM[(volatile HI_S32 *)_201]
+	ldr	r3, [r4, #1116]	@ i, pParam_20(D)->ApcSize
+	cmp	r3, r1	@ i, i
+	bhi	.L219	@,
+	cmp	r3, #15	@ i,
+	bhi	.L222	@,
+.L216:
+	add	r2, ip, r3, lsl #3	@ D.34595, pSLOT, i,
+	mov	r1, #0	@ tmp303,
+	add	r2, r2, #108	@ ivtmp.298, D.34595,
+.L221:
+	add	r3, r3, #1	@ i, i,
+	str	r1, [r2]	@ tmp303, MEM[(volatile HI_S32 *)_135]
+	cmp	r3, #15	@ i,
+	str	r1, [r2, #4]	@ tmp303, MEM[(volatile HI_S32 *)_152]
+	add	r2, r2, #8	@ ivtmp.298, ivtmp.298,
+	bls	.L221	@,
+.L222:
+	ldr	r1, [r5, #1096]	@ pHwMem_61(D)->DblkTopAddr, pHwMem_61(D)->DblkTopAddr
+	add	r2, r4, #56	@ ivtmp.282, pParam,
+	add	r3, ip, #252	@ ivtmp.288, pSLOT,
+	add	r0, ip, #476	@ D.34596, pSLOT,
+	bic	r1, r1, #15	@ D.34593, pHwMem_61(D)->DblkTopAddr,
+	str	r1, [ip, #236]	@ D.34593, MEM[(volatile HI_S32 *)pSLOT_18 + 236B]
+.L220:
+	ldr	r1, [r2, #4]!	@ D.34589, MEM[base: _216, offset: 0B]
+	str	r1, [r3, #4]!	@ D.34589, MEM[base: _215, offset: 0B]
+	cmp	r3, r0	@ ivtmp.288, D.34596
+	bne	.L220	@,
+	mov	r0, #0	@ D.34590,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L234:
+	ldr	r3, .L235+4	@,
+	movw	r2, #1039	@,
+	ldr	r1, .L235+8	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34590,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L236:
+	.align	2
+.L235:
+	.word	.LANCHOR1
+	.word	.LC22
+	.word	.LC2
+	.fnend
+	.size	H264HAL_V200R004_SetPicMsg, .-H264HAL_V200R004_SetPicMsg
+	.align	2
+	.global	H264HAL_V200R004_SetSliceMsg
+	.type	H264HAL_V200R004_SetSliceMsg, %function
+H264HAL_V200R004_SetSliceMsg:
+	.fnstart
+	@ args = 16, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}	@,
+	.save {r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	mov	r6, r0	@ pParam, pParam
+	mov	r0, r3	@, CurrMsgSlotPhy
+	mov	r7, r2	@ pSlcPara, pSlcPara
+	bl	MEM_Phy2Vir	@
+	subs	r8, r0, #0	@ pSLOT_BASE,
+	beq	.L254	@,
+	mov	r2, r8	@, pSLOT_BASE
+	mov	r1, r7	@, pSlcPara
+	mov	r0, r6	@, pParam
+	bl	H264HAL_SetSliceMsgStreamAddrInfo	@
+	ldr	r0, .L256	@ tmp227,
+	ldr	r2, [r7, #48]	@ pSlcPara_9(D)->first_mb_in_slice, pSlcPara_9(D)->first_mb_in_slice
+	ldr	r3, [r7, #32]	@ pSlcPara_9(D)->SliceQPy, pSlcPara_9(D)->SliceQPy
+	ldr	r1, [r7, #36]	@ pSlcPara_9(D)->cabac_init_idc, pSlcPara_9(D)->cabac_init_idc
+	ubfx	r2, r2, #0, #20	@ D.34616, pSlcPara_9(D)->first_mb_in_slice,,
+	ldrb	r0, [r0]	@ zero_extendqisi2	@ g_not_direct_8x8_inference_flag, g_not_direct_8x8_inference_flag
+	and	r1, r1, #3	@ D.34616, pSlcPara_9(D)->cabac_init_idc,
+	orr	r3, r2, r3, asl #26	@ D.34616, D.34616, pSlcPara_9(D)->SliceQPy,
+	cmp	r0, #0	@ g_not_direct_8x8_inference_flag,
+	orr	r3, r3, r1, asl #24	@ D.34617, D.34616, D.34616,
+	str	r3, [r8, #24]	@ D.34617, MEM[(volatile HI_S32 *)pSLOT_BASE_6 + 24B]
+	ldrb	r5, [r7, #3]	@ zero_extendqisi2	@ D.34618, pSlcPara_9(D)->direct_8x8_inference_flag
+	bne	.L241	@,
+	cmp	r5, #0	@ D.34618,
+	beq	.L255	@,
+.L241:
+	ldr	lr, [r7, #56]	@ pSlcPara_9(D)->listXsize, pSlcPara_9(D)->listXsize
+	mov	r2, r8	@, pSLOT_BASE
+	ldr	ip, [r7, #52]	@ pSlcPara_9(D)->listXsize, pSlcPara_9(D)->listXsize
+	mov	r1, r7	@, pSlcPara
+	ldr	r10, [r7, #40]	@ pSlcPara_9(D)->num_ref_idx_l1_active_minus1, pSlcPara_9(D)->num_ref_idx_l1_active_minus1
+	mov	r0, r6	@, pParam
+	ldr	r9, [r7, #44]	@ pSlcPara_9(D)->num_ref_idx_l0_active_minus1, pSlcPara_9(D)->num_ref_idx_l0_active_minus1
+	mov	lr, lr, asl #8	@ D.34616, pSlcPara_9(D)->listXsize,
+	ldrb	fp, [r7]	@ zero_extendqisi2	@ D.34617, pSlcPara_9(D)->slice_type
+	and	r10, r10, #31	@ D.34616, pSlcPara_9(D)->num_ref_idx_l1_active_minus1,
+	ldr	r4, .L256+4	@ tmp293,
+	orr	ip, lr, ip, asl #2	@ D.34616, D.34616, pSlcPara_9(D)->listXsize,
+	and	r9, r9, #31	@ D.34616, pSlcPara_9(D)->num_ref_idx_l0_active_minus1,
+	orr	ip, ip, r10, asl #21	@ D.34616, D.34616, D.34616,
+	ldrb	r10, [r7, #2]	@ zero_extendqisi2	@ D.34617, pSlcPara_9(D)->direct_spatial_mv_pred_flag
+	ldr	lr, [r4, fp, asl #2]	@ tmp249, g_SliceTypeForPMV
+	orr	r3, ip, r9, asl #16	@ D.34616, D.34616, D.34616,
+	orr	r3, r3, lr	@ D.34616, D.34616, tmp249
+	orr	r3, r3, r10, asl #15	@ D.34616, D.34616, D.34617,
+	orr	r3, r3, r5, asl #14	@ D.34617, D.34616, D.34618,
+	str	r3, [r8, #28]	@ D.34617, MEM[(volatile HI_S32 *)pSLOT_BASE_6 + 28B]
+	bl	H264HAL_SetSliceMsgMvAddrInfo	@
+	ldr	r2, [r7, #60]	@ pSlcPara_9(D)->chroma_qp_index_offset, pSlcPara_9(D)->chroma_qp_index_offset
+	ldrb	r3, [r7, #4]	@ zero_extendqisi2	@ D.34617, pSlcPara_9(D)->weight_flag
+	and	r2, r2, #31	@ D.34617, pSlcPara_9(D)->chroma_qp_index_offset,
+	ldr	r1, [r7, #64]	@ pSlcPara_9(D)->second_chroma_qp_index_offset, pSlcPara_9(D)->second_chroma_qp_index_offset
+	mov	r2, r2, asl #5	@ D.34617, D.34617,
+	and	r1, r1, #31	@ D.34617, pSlcPara_9(D)->second_chroma_qp_index_offset,
+	orr	r3, r2, r3, asl #16	@ D.34617, D.34617, D.34617,
+	orr	r3, r3, r1	@ D.34617, D.34617, D.34617
+	str	r3, [r8, #40]	@ D.34617, MEM[(volatile HI_S32 *)pSLOT_BASE_6 + 40B]
+	ldr	r2, [r7, #68]	@ pSlcPara_9(D)->slice_alpha_c0_offset_div2, pSlcPara_9(D)->slice_alpha_c0_offset_div2
+	ldr	r3, [r7, #72]	@ pSlcPara_9(D)->slice_beta_offset_div2, pSlcPara_9(D)->slice_beta_offset_div2
+	and	r2, r2, #15	@ D.34617, pSlcPara_9(D)->slice_alpha_c0_offset_div2,
+	ldr	r1, [r7, #76]	@ pSlcPara_9(D)->disable_deblocking_filter_idc, pSlcPara_9(D)->disable_deblocking_filter_idc
+	and	r3, r3, #15	@ D.34617, pSlcPara_9(D)->slice_beta_offset_div2,
+	mov	r2, r2, asl #16	@ D.34617, D.34617,
+	orr	r3, r2, r3, asl #8	@ D.34617, D.34617, D.34617,
+	orr	r3, r3, r1	@ D.34617, D.34617, pSlcPara_9(D)->disable_deblocking_filter_idc
+	str	r3, [r8, #44]	@ D.34617, MEM[(volatile HI_S32 *)pSLOT_BASE_6 + 44B]
+	ldr	r3, [r7, #4056]	@ pSlcPara_9(D)->pNextSlice, pSlcPara_9(D)->pNextSlice
+	cmp	r3, #0	@ pSlcPara_9(D)->pNextSlice,
+	beq	.L242	@,
+	ldr	r0, [sp, #52]	@ tmp, last_mb_in_slice
+.L243:
+	ldr	r3, [sp, #44]	@ tmp296, NextSlcMsgSlotPhy
+	str	r0, [r8, #176]	@ tmp, MEM[(volatile HI_S32 *)pSLOT_BASE_6 + 176B]
+	bic	r3, r3, #15	@ D.34617, tmp296,
+	str	r3, [r8, #252]	@ D.34617, MEM[(volatile HI_S32 *)pSLOT_BASE_6 + 252B]
+	ldrb	r3, [r7]	@ zero_extendqisi2	@ D.34617, pSlcPara_9(D)->slice_type
+	ldr	r0, [r4, r3, asl #2]	@ tmp282, g_SliceTypeForPMV
+	cmp	r0, #0	@ tmp282,
+	ldmeqfd	sp!, {r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+	mov	r1, r7	@, pSlcPara
+	mov	r2, r8	@, pSLOT_BASE
+	mov	r0, r6	@, pParam
+	mov	r5, r7	@ ivtmp.351, pSlcPara
+	bl	H264HAL_SetSliceMsgRefPicInfo	@
+	ldr	r4, [r5, #3928]!	@ pSlcPara_9(D)->Apc2RefIdx, pSlcPara_9(D)->Apc2RefIdx
+	mov	r3, #0	@ i,
+	mov	r1, #36	@ Dn_num,
+	and	r4, r4, #31	@ tmp, pSlcPara_9(D)->Apc2RefIdx,
+	b	.L246	@
+.L248:
+	ldr	lr, [r5, #4]!	@ MEM[base: _135, offset: 0B], MEM[base: _135, offset: 0B]
+	cmp	ip, #3	@ D.34616,
+	and	ip, lr, #31	@ D.34616, MEM[base: _135, offset: 0B],
+	orr	r4, r4, ip, asl r2	@ tmp, tmp, D.34616,
+	streq	r4, [r8, r1, asl #2]	@ tmp, *_118
+	addeq	r1, r1, #1	@ Dn_num, Dn_num,
+	moveq	r4, #0	@ tmp,
+.L246:
+	add	r3, r3, #1	@ i, i,
+	and	ip, r3, #3	@ D.34616, i,
+	cmp	r3, #32	@ i,
+	add	r2, ip, ip, lsl #2	@ D.34616, D.34616, D.34616,
+	bne	.L248	@,
+	mov	r0, r6	@, pParam
+	mov	r2, r8	@, pSLOT_BASE
+	mov	r1, r7	@, pSlcPara
+	bl	H264HAL_SetSliceMsgWPInfo	@
+	mov	r0, #0	@ D.34615,
+	ldmfd	sp!, {r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L255:
+	ldr	r1, [r6, #24]	@ pParam_8(D)->frame_height_in_mb, pParam_8(D)->frame_height_in_mb
+	movw	r2, #1620	@ tmp232,
+	ldr	r3, [r6, #28]	@ pParam_8(D)->pic_width_in_mb, pParam_8(D)->pic_width_in_mb
+	mul	r3, r3, r1	@ D.34616, pParam_8(D)->pic_width_in_mb, pParam_8(D)->frame_height_in_mb
+	cmp	r3, r2	@ D.34616, tmp232
+	bls	.L241	@,
+	mvn	r0, #0	@ D.34615,
+	ldmfd	sp!, {r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L242:
+	ldr	r0, [r6, #920]	@ D.34617, pParam_8(D)->mbtodec
+	ldrb	r1, [r7, #1]	@ zero_extendqisi2	@ D.34617, pSlcPara_9(D)->MbaffFrameFlag
+	cmp	r0, #262144	@ D.34617,
+	addgt	r1, r1, #1	@, D.34617,
+	addle	r1, r1, #1	@, D.34617,
+	movwgt	r0, #65535	@,
+	suble	r0, r0, #1	@, D.34617,
+	movtgt	r0, 3	@,
+	bl	__aeabi_idiv	@
+	b	.L243	@
+.L254:
+	ldr	r3, .L256+8	@,
+	movw	r2, #1188	@,
+	ldr	r1, .L256+12	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34615,
+	ldmfd	sp!, {r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L257:
+	.align	2
+.L256:
+	.word	g_not_direct_8x8_inference_flag
+	.word	.LANCHOR1
+	.word	.LC1
+	.word	.LC2
+	.fnend
+	.size	H264HAL_V200R004_SetSliceMsg, .-H264HAL_V200R004_SetSliceMsg
+	.align	2
+	.global	H264HAL_V200R004_StartDec
+	.type	H264HAL_V200R004_StartDec, %function
+H264HAL_V200R004_StartDec:
+	.fnstart
+	@ args = 0, pretend = 0, frame = 48
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, r10, fp, lr}
+	.pad #68
+	sub	sp, sp, #68	@,,
+	movw	r7, #1140	@ tmp175,
+	mov	fp, r0	@ pParam, pParam
+	mul	r7, r7, r1	@ tmp174, tmp175, VdhId
+	str	r1, [sp, #52]	@ VdhId, %sfp
+	bl	H264HAL_CheckParaValid	@
+	ldr	r10, .L283	@ tmp284,
+	add	r3, r10, r7	@ pHwMem, tmp284, tmp174
+	str	r3, [sp, #48]	@ pHwMem, %sfp
+	cmn	r0, #1	@,
+	beq	.L279	@,
+	ldr	r9, [sp, #52]	@ VdhId, %sfp
+	ldr	r8, [sp, #48]	@ pHwMem, %sfp
+	mov	r1, r9	@, VdhId
+	mov	r0, r8	@, pHwMem
+	bl	H264HAL_GetVdmRegVirAddr	@
+	cmn	r0, #1	@,
+	beq	.L279	@,
+	ldr	r3, .L283+4	@ tmp177,
+	mov	r0, #3	@,
+	ldr	r1, .L283+8	@,
+	add	r6, r8, #44	@ tmp191, pHwMem,
+	add	r5, r8, #40	@ tmp197, pHwMem,
+	mvn	r4, #0	@ tmp186,
+	ldr	r2, [r3]	@ StartCnt, StartCnt
+	add	r2, r2, #1	@ D.34626, StartCnt,
+	str	r2, [r3]	@ D.34626, StartCnt
+	bl	dprint_vfmw	@
+	mov	r2, r9	@, VdhId
+	mov	r1, r8	@, pHwMem
+	mov	r0, fp	@, pParam
+	bl	H264HAL_V200R004_CfgVdmReg	@
+	ldr	r3, [r7, r10]	@ g_HwMem[VdhId_13(D)].pVdmRegVirAddr, g_HwMem[VdhId_13(D)].pVdmRegVirAddr
+	mov	r1, r8	@, pHwMem
+	mov	r0, fp	@, pParam
+	str	r4, [r3, #32]	@ tmp186, *_29
+	ldr	r3, [r6, #4]	@, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	ldr	r2, [r5, #4]	@, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	bl	H264HAL_V200R004_SetPicMsg	@
+	ldr	ip, [fp, #1124]	@ pSlicePara, pParam_16(D)->pFirstSlice
+	ldr	r7, [ip, #48]	@ D.34629, pSlicePara_34->first_mb_in_slice
+	cmp	r7, #0	@ D.34629,
+	streq	r7, [sp, #40]	@ D.34629, %sfp
+	bne	.L280	@,
+.L262:
+	ldr	r1, [sp, #52]	@ VdhId, %sfp
+	movw	r3, #285	@ tmp285,
+	mov	r2, #0	@ pre_first_mb_in_slice,
+	mov	r7, ip	@ pSlicePara, pSlicePara
+	mov	r6, r2	@ i, pre_first_mb_in_slice
+	str	r2, [sp, #24]	@ pre_first_mb_in_slice, %sfp
+	mul	r5, r3, r1	@ tmp286, tmp285, VdhId
+	ldr	r1, [fp, #1120]	@ D.34625, pParam_16(D)->SliceParaNum
+	ldr	r3, [sp, #40]	@ AddSlice0Flag, %sfp
+	add	r3, r5, r3	@ tmp287, tmp286, AddSlice0Flag
+	str	r3, [sp, #44]	@ tmp287, %sfp
+	str	r5, [sp, #20]	@ tmp286, %sfp
+.L264:
+	ldr	r3, [sp, #40]	@ AddSlice0Flag, %sfp
+	cmp	r6, r1	@ i, D.34625
+	ldr	r2, [sp, #20]	@ tmp286, %sfp
+	add	r9, r3, #5	@ D.34626, AddSlice0Flag,
+	ldr	r3, [sp, #44]	@ tmp287, %sfp
+	add	r8, r9, r6	@ D.34626, D.34626, i
+	add	r3, r3, r6	@ tmp231, tmp287, i
+	add	r2, r2, r8	@ tmp238, tmp286, D.34626
+	add	r3, r10, r3, lsl #2	@ tmp233, tmp284, tmp231,
+	bge	.L281	@,
+	ldr	r3, [r3, #44]	@ prev_slcmsg_phy, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	cmp	r6, #0	@ i,
+	ldr	ip, [r7, #48]	@ D.34629, pSlicePara_1->first_mb_in_slice
+	add	r2, r10, r2, lsl #2	@ tmp240, tmp284, tmp238,
+	movgt	r4, #1	@ tmp245,
+	movle	r4, #0	@ tmp245,
+	str	r3, [sp, #28]	@ prev_slcmsg_phy, %sfp
+	ldr	r3, [sp, #24]	@ pre_first_mb_in_slice, %sfp
+	ldr	r5, .L283	@ tmp227,
+	cmp	ip, r3	@ D.34629, pre_first_mb_in_slice
+	movhi	r4, #0	@, tmp248
+	andls	r4, r4, #1	@,, tmp248, tmp245
+	ldr	r3, [r2, #28]	@ cur_slcmsg_phy, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	cmp	r4, #0	@ tmp248,
+	str	r3, [sp, #32]	@ cur_slcmsg_phy, %sfp
+	bne	.L264	@,
+	add	r3, sp, #60	@,,
+	add	r2, r6, #1	@, i,
+	mov	r0, r7	@, pSlicePara
+	str	ip, [sp, #24]	@ D.34629, %sfp
+	bl	H264HAL_FindNextSlicePara	@
+	ldr	ip, [sp, #24]	@ D.34629, %sfp
+	subs	r3, r0, #0	@ pSlicePara,
+	str	r3, [sp, #36]	@ pSlicePara, %sfp
+	beq	.L279	@,
+	ldr	r2, [fp, #1120]	@ pParam_16(D)->SliceParaNum, pParam_16(D)->SliceParaNum
+	ldr	r6, [sp, #60]	@ i, j
+	ldr	r3, [sp, #20]	@ tmp286, %sfp
+	cmp	r2, r6	@ pParam_16(D)->SliceParaNum, i
+	cmpne	r8, #140	@, D.34626,
+	ldr	r0, [sp, #28]	@ prev_slcmsg_phy, %sfp
+	add	r3, r3, r6	@ tmp267, tmp286, i
+	ldreq	r2, [fp, #20]	@ pParam_16(D)->pic_height_in_mb, pParam_16(D)->pic_height_in_mb
+	add	r9, r3, r9	@ tmp268, tmp267, D.34626
+	ldreq	r3, [fp, #28]	@ pParam_16(D)->pic_width_in_mb, pParam_16(D)->pic_width_in_mb
+	moveq	r1, r4	@ next_slcmsg_phy, tmp248
+	ldrne	r3, [sp, #36]	@ pSlicePara, %sfp
+	add	r5, r5, r9, lsl #2	@ tmp270, tmp227, tmp268,
+	streq	r4, [r7, #4056]	@ tmp248, pSlicePara_1->pNextSlice
+	muleq	r3, r3, r2	@ D.34629, pParam_16(D)->pic_width_in_mb, pParam_16(D)->pic_height_in_mb
+	ldrne	r1, [r5, #28]	@ next_slcmsg_phy, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	ldrne	r3, [r3, #48]	@ pSlicePara_77->first_mb_in_slice, pSlicePara_77->first_mb_in_slice
+	mov	r2, r7	@, pSlicePara
+	ldreq	r6, [fp, #1120]	@ i, pParam_16(D)->SliceParaNum
+	sub	r3, r3, #1	@ last_mb_in_slice, pSlicePara_77->first_mb_in_slice,
+	str	r1, [sp, #4]	@ next_slcmsg_phy,
+	str	r3, [sp, #12]	@ last_mb_in_slice,
+	str	r0, [sp]	@ prev_slcmsg_phy,
+	mov	r0, fp	@, pParam
+	ldr	r3, [sp, #32]	@, %sfp
+	str	ip, [sp, #8]	@ D.34629,
+	ldr	r1, [sp, #48]	@, %sfp
+	bl	H264HAL_V200R004_SetSliceMsg	@
+	ldr	r7, [sp, #36]	@ pSlicePara, %sfp
+	cmp	r0, #0	@,
+	bne	.L268	@,
+	ldr	r1, [fp, #1120]	@ D.34625, pParam_16(D)->SliceParaNum
+	b	.L264	@
+.L281:
+	cmp	r1, #0	@ D.34625,
+	ble	.L270	@,
+	ldr	r0, [sp, #40]	@ AddSlice0Flag, %sfp
+	movw	r3, #285	@ tmp275,
+	ldr	r2, [sp, #52]	@ VdhId, %sfp
+	mla	r3, r3, r2, r0	@ tmp276, tmp275, VdhId, AddSlice0Flag
+	add	r1, r3, r1	@ tmp277, tmp276, D.34625
+	add	r1, r10, r1, lsl #2	@ tmp279, tmp284, tmp277,
+	ldr	r0, [r1, #44]	@, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	bl	H264HAL_V200R004_CutSliceChain	@
+	mov	r0, #0	@ D.34625,
+.L260:
+	add	sp, sp, #68	@,,
+	@ sp needed	@
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L270:
+	ldr	r1, .L283+12	@,
+	mov	r0, #1	@,
+	bl	dprint_vfmw	@
+.L279:
+	mvn	r0, #0	@ D.34625,
+	add	sp, sp, #68	@,,
+	@ sp needed	@
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L280:
+	ldr	r3, [ip, #8]	@ D.34629, pSlicePara_34->valid_bitlen
+	mov	r1, #0	@ tmp199,
+	ldr	r9, [ip, #24]	@ D.34629, pSlicePara_34->bytespos
+	mov	r2, ip	@, pSlicePara
+	str	r1, [ip, #48]	@ tmp199, pSlicePara_34->first_mb_in_slice
+	mov	r8, #1	@ tmp200,
+	str	r3, [sp, #20]	@ D.34629, %sfp
+	add	lr, r7, r4	@ D.34629, D.34629,
+	ldr	r3, [ip, #12]	@ D.34629, pSlicePara_34->valid_bitlen
+	str	r1, [ip, #24]	@ tmp199, pSlicePara_34->bytespos
+	str	r1, [ip, #12]	@ tmp199, pSlicePara_34->valid_bitlen
+	str	r3, [sp, #24]	@ D.34629, %sfp
+	ldr	r3, [ip, #16]	@ D.34629, pSlicePara_34->bitsoffset
+	str	r8, [ip, #8]	@ tmp200, pSlicePara_34->valid_bitlen
+	str	r1, [ip, #16]	@ tmp199, pSlicePara_34->bitsoffset
+	str	r3, [sp, #28]	@ D.34629, %sfp
+	ldr	r3, [ip, #20]	@ D.34629, pSlicePara_34->bitsoffset
+	str	ip, [sp, #40]	@ pSlicePara, %sfp
+	str	r1, [ip, #20]	@ tmp199, pSlicePara_34->bitsoffset
+	str	r3, [sp, #32]	@ D.34629, %sfp
+	ldr	r3, [ip, #28]	@ D.34629, pSlicePara_34->bytespos
+	str	r1, [ip, #28]	@ tmp199, pSlicePara_34->bytespos
+	ldr	ip, [sp, #48]	@ pHwMem, %sfp
+	ldr	r0, [r5, #4]	@ MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	str	r3, [sp, #36]	@ D.34629, %sfp
+	ldr	r5, [ip, #52]	@ MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	ldr	r3, [r6, #4]	@ MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr, MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr
+	str	r1, [sp, #8]	@ tmp199,
+	mov	r1, ip	@, pHwMem
+	str	r0, [sp]	@ MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr,
+	mov	r0, fp	@, pParam
+	str	r5, [sp, #4]	@ MEM[(struct VDMHAL_HWMEM_S *)&g_HwMem][VdhId_13(D)].MsgSlotAddr,
+	str	lr, [sp, #12]	@ D.34629,
+	bl	H264HAL_V200R004_SetSliceMsg	@
+	ldr	ip, [sp, #40]	@ pSlicePara, %sfp
+	cmp	r0, #0	@,
+	bne	.L282	@,
+	ldr	r3, [sp, #20]	@ D.34629, %sfp
+	str	r7, [ip, #48]	@ D.34629, pSlicePara_34->first_mb_in_slice
+	str	r9, [ip, #24]	@ D.34629, pSlicePara_34->bytespos
+	str	r3, [ip, #8]	@ D.34629, pSlicePara_34->valid_bitlen
+	ldr	r3, [sp, #24]	@ D.34629, %sfp
+	str	r8, [sp, #40]	@ tmp200, %sfp
+	str	r3, [ip, #12]	@ D.34629, pSlicePara_34->valid_bitlen
+	ldr	r3, [sp, #28]	@ D.34629, %sfp
+	str	r3, [ip, #16]	@ D.34629, pSlicePara_34->bitsoffset
+	ldr	r3, [sp, #32]	@ D.34629, %sfp
+	str	r3, [ip, #20]	@ D.34629, pSlicePara_34->bitsoffset
+	ldr	r3, [sp, #36]	@ D.34629, %sfp
+	str	r3, [ip, #28]	@ D.34629, pSlicePara_34->bytespos
+	ldr	ip, [fp, #1124]	@ pSlicePara, pParam_16(D)->pFirstSlice
+	b	.L262	@
+.L268:
+	movw	r2, #1407	@,
+	ldr	r1, .L283+16	@,
+	mov	r0, #1	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.34625,
+	add	sp, sp, #68	@,,
+	@ sp needed	@
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, r10, fp, pc}	@
+.L282:
+	mov	r0, r8	@, tmp200
+	movw	r2, #1352	@,
+	ldr	r1, .L283+16	@,
+	bl	dprint_vfmw	@
+	mov	r0, r4	@ D.34625, tmp186
+	b	.L260	@
+.L284:
+	.align	2
+.L283:
+	.word	g_HwMem
+	.word	.LANCHOR2
+	.word	.LC23
+	.word	.LC25
+	.word	.LC24
+	.fnend
+	.size	H264HAL_V200R004_StartDec, .-H264HAL_V200R004_StartDec
+	.global	g_CabacMN
+	.section	.rodata
+	.align	2
+.LANCHOR1 = . + 0
+	.type	g_SliceTypeForPMV, %object
+	.size	g_SliceTypeForPMV, 12
+g_SliceTypeForPMV:
+	.word	1
+	.word	2
+	.word	0
+	.type	g_ListStructField, %object
+	.size	g_ListStructField, 32
+g_ListStructField:
+	.word	0
+	.word	1
+	.word	2
+	.word	2
+	.word	2
+	.word	2
+	.word	2
+	.word	2
+	.type	g_ListStructFrame, %object
+	.size	g_ListStructFrame, 32
+g_ListStructFrame:
+	.word	0
+	.word	1
+	.word	3
+	.word	3
+	.word	3
+	.word	3
+	.word	2
+	.word	2
+	.type	g_StructTrans, %object
+	.size	g_StructTrans, 32
+g_StructTrans:
+	.word	0
+	.word	3
+	.word	1
+	.word	1
+	.word	2
+	.word	2
+	.word	3
+	.word	3
+	.data
+	.align	2
+.LANCHOR0 = . + 0
+	.type	g_CabacMN, %object
+	.size	g_CabacMN, 5120
+g_CabacMN:
+	.word	388044546
+	.word	352326208
+	.word	153820416
+	.word	721207
+	.word	4522025
+	.word	4128831
+	.word	4128768
+	.word	0
+	.word	351339062
+	.word	55239807
+	.word	-378996171
+	.word	-13236429
+	.word	521477919
+	.word	422707200
+	.word	0
+	.word	0
+	.word	87683918
+	.word	-180289218
+	.word	17367089
+	.word	-613020375
+	.word	54458195
+	.word	72745057
+	.word	-112721920
+	.word	0
+	.word	21230414
+	.word	-180289218
+	.word	440602714
+	.word	157864575
+	.word	-328728576
+	.word	0
+	.word	0
+	.word	0
+	.word	204602441
+	.word	288553558
+	.word	-278922691
+	.word	154007875
+	.word	-78971830
+	.word	-78579384
+	.word	20578304
+	.word	0
+	.word	-45745583
+	.word	-178256329
+	.word	121895766
+	.word	39321658
+	.word	-45287842
+	.word	87426117
+	.word	-45023144
+	.word	0
+	.word	370745856
+	.word	268442146
+	.word	320219136
+	.word	721207
+	.word	4522025
+	.word	4128831
+	.word	4128768
+	.word	0
+	.word	351339062
+	.word	55239807
+	.word	-378996171
+	.word	-13236429
+	.word	521477919
+	.word	422707200
+	.word	0
+	.word	0
+	.word	37878343
+	.word	-212925132
+	.word	-32963543
+	.word	-478802647
+	.word	54458195
+	.word	72745057
+	.word	-112721920
+	.word	0
+	.word	-62064057
+	.word	-212925132
+	.word	956442916
+	.word	440783743
+	.word	-245039104
+	.word	0
+	.word	0
+	.word	0
+	.word	154336582
+	.word	171312709
+	.word	-212205516
+	.word	137101122
+	.word	-11730618
+	.word	-27854008
+	.word	3997696
+	.word	0
+	.word	-28968110
+	.word	-161480133
+	.word	38534487
+	.word	-43777736
+	.word	-45417899
+	.word	3931473
+	.word	-111740065
+	.word	0
+	.word	487594240
+	.word	234886184
+	.word	336207104
+	.word	721207
+	.word	4522025
+	.word	4128831
+	.word	4128768
+	.word	0
+	.word	351339062
+	.word	55239807
+	.word	-378996171
+	.word	-13236429
+	.word	521477919
+	.word	422707200
+	.word	0
+	.word	0
+	.word	437320789
+	.word	-395967175
+	.word	-164364994
+	.word	-446493399
+	.word	54458195
+	.word	72745057
+	.word	-112721920
+	.word	0
+	.word	-28640171
+	.word	-395967175
+	.word	905979178
+	.word	207741055
+	.word	-361431040
+	.word	0
+	.word	0
+	.word	0
+	.word	104460105
+	.word	238680669
+	.word	-229049812
+	.word	70714167
+	.word	-61866421
+	.word	-194905806
+	.word	20709376
+	.word	0
+	.word	-178654873
+	.word	-344714439
+	.word	339346516
+	.word	106955071
+	.word	-78253206
+	.word	88016459
+	.word	-44368027
+	.word	0
+	.word	388044546
+	.word	352326208
+	.word	153820416
+	.word	3013710
+	.word	-44040151
+	.word	4128831
+	.word	4128768
+	.word	0
+	.word	351339062
+	.word	55239807
+	.word	-378996171
+	.word	-13236429
+	.word	203950899
+	.word	238747648
+	.word	0
+	.word	0
+	.word	87683918
+	.word	-180289218
+	.word	17367089
+	.word	-613020375
+	.word	54458195
+	.word	72745057
+	.word	-112721920
+	.word	0
+	.word	21230414
+	.word	-180289218
+	.word	440602714
+	.word	157864575
+	.word	-328728576
+	.word	0
+	.word	0
+	.word	0
+	.word	204602441
+	.word	288553558
+	.word	-278922691
+	.word	154007875
+	.word	-78971830
+	.word	-78579384
+	.word	20578304
+	.word	0
+	.word	-45745583
+	.word	-178256329
+	.word	121895766
+	.word	39321658
+	.word	-45287842
+	.word	87426117
+	.word	-45023144
+	.word	0
+	.word	370745856
+	.word	268442146
+	.word	320219136
+	.word	219088691
+	.word	38797353
+	.word	4128831
+	.word	4128768
+	.word	0
+	.word	351339062
+	.word	55239807
+	.word	-378996171
+	.word	-13236429
+	.word	421532977
+	.word	355860480
+	.word	0
+	.word	0
+	.word	37878343
+	.word	-212925132
+	.word	-32963543
+	.word	-478802647
+	.word	54458195
+	.word	72745057
+	.word	-112721920
+	.word	0
+	.word	-62064057
+	.word	-212925132
+	.word	956442916
+	.word	440783743
+	.word	-245039104
+	.word	0
+	.word	0
+	.word	0
+	.word	154336582
+	.word	171312709
+	.word	-212205516
+	.word	137101122
+	.word	-11730618
+	.word	-27854008
+	.word	3997696
+	.word	0
+	.word	-28968110
+	.word	-161480133
+	.word	38534487
+	.word	-43777736
+	.word	-45417899
+	.word	3931473
+	.word	-111740065
+	.word	0
+	.word	487594240
+	.word	234886184
+	.word	336207104
+	.word	119732056
+	.word	-327221207
+	.word	4128831
+	.word	4128768
+	.word	0
+	.word	351339062
+	.word	55239807
+	.word	-378996171
+	.word	-13236429
+	.word	354489138
+	.word	289210368
+	.word	0
+	.word	0
+	.word	437320789
+	.word	-395967175
+	.word	-164364994
+	.word	-446493399
+	.word	54458195
+	.word	72745057
+	.word	-112721920
+	.word	0
+	.word	-28640171
+	.word	-395967175
+	.word	905979178
+	.word	207741055
+	.word	-361431040
+	.word	0
+	.word	0
+	.word	0
+	.word	104460105
+	.word	238680669
+	.word	-229049812
+	.word	70714167
+	.word	-61866421
+	.word	-194905806
+	.word	20709376
+	.word	0
+	.word	-178654873
+	.word	-344714439
+	.word	339346516
+	.word	106955071
+	.word	-78253206
+	.word	88016459
+	.word	-44368027
+	.word	0
+	.word	-276827290
+	.word	5437770
+	.word	-345250433
+	.word	-511711105
+	.word	-295705217
+	.word	-344792449
+	.word	0
+	.word	0
+	.word	-277089165
+	.word	-260377229
+	.word	-45614550
+	.word	-80544458
+	.word	-29491142
+	.word	20971080
+	.word	-11864229
+	.word	0
+	.word	-111282857
+	.word	-45221049
+	.word	-62915516
+	.word	-195757762
+	.word	-113178563
+	.word	87621186
+	.word	20971581
+	.word	-28442624
+	.word	402657033
+	.word	135859474
+	.word	252251411
+	.word	170200082
+	.word	102568993
+	.word	253625389
+	.word	20578366
+	.word	121438208
+	.word	-94504364
+	.word	-129040318
+	.word	-12124098
+	.word	-29557189
+	.word	-78906050
+	.word	-63244478
+	.word	-11599801
+	.word	54788096
+	.word	252053011
+	.word	118492174
+	.word	302845195
+	.word	219090704
+	.word	202837271
+	.word	252972570
+	.word	237769000
+	.word	288292864
+	.word	-197132732
+	.word	-246090904
+	.word	-79430885
+	.word	-47710676
+	.word	3076160
+	.word	-129698226
+	.word	-95553962
+	.word	0
+	.word	20055860
+	.word	170065964
+	.word	187040045
+	.word	3015980
+	.word	521208115
+	.word	120724499
+	.word	270601790
+	.word	0
+	.word	203819821
+	.word	254217002
+	.word	220991533
+	.word	204016177
+	.word	505549354
+	.word	171381043
+	.word	288227417
+	.word	0
+	.word	170719550
+	.word	254021160
+	.word	270208029
+	.word	19665956
+	.word	304088362
+	.word	19925566
+	.word	288229696
+	.word	0
+	.word	403772693
+	.word	420880155
+	.word	371004195
+	.word	238160441
+	.word	121634381
+	.word	-61670050
+	.word	155579501
+	.word	0
+	.word	-45680547
+	.word	-161815937
+	.word	-195235529
+	.word	-163775938
+	.word	-62786487
+	.word	-129173168
+	.word	-145166482
+	.word	0
+	.word	-210964124
+	.word	-211422373
+	.word	-195103144
+	.word	-262867370
+	.word	-111938729
+	.word	-312606394
+	.word	4782922
+	.word	305856512
+	.word	451745519
+	.word	451878631
+	.word	485237225
+	.word	635773417
+	.word	686040815
+	.word	569714929
+	.word	704259585
+	.word	688979968
+	.word	-194448031
+	.word	-262080168
+	.word	-128583339
+	.word	-145362088
+	.word	71499085
+	.word	-45286836
+	.word	171638604
+	.word	-11337728
+	.word	618472670
+	.word	551953890
+	.word	752886510
+	.word	586230001
+	.word	569975803
+	.word	553657858
+	.word	554506019
+	.word	221904896
+	.word	-11863455
+	.word	-111416193
+	.word	-178131884
+	.word	-179307959
+	.word	-62196906
+	.word	-211749535
+	.word	-311099392
+	.word	0
+	.word	-127471260
+	.word	6225920
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	519707395
+	.word	437649408
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-110890401
+	.word	39780352
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	503126528
+	.word	371064832
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-63374510
+	.word	-112399747
+	.word	-129041631
+	.word	-63898059
+	.word	-46206137
+	.word	-162532266
+	.word	-212143519
+	.word	0
+	.word	-62193080
+	.word	-179569337
+	.word	254735173
+	.word	4063297
+	.word	354808136
+	.word	154734646
+	.word	4066376
+	.word	0
+	.word	636494844
+	.word	653797117
+	.word	620963333
+	.word	704652048
+	.word	655756848
+	.word	455415100
+	.word	205783649
+	.word	0
+	.word	5045066
+	.word	4650315
+	.word	21233729
+	.word	-230096066
+	.word	71237444
+	.word	-213185737
+	.word	88083526
+	.word	0
+	.word	536421361
+	.word	587014659
+	.word	620700165
+	.word	537600773
+	.word	571221771
+	.word	505225754
+	.word	489100098
+	.word	0
+	.word	0
+	.word	0
+	.word	-45351145
+	.word	19005739
+	.word	3604023
+	.word	3998016
+	.word	4519772
+	.word	0
+	.word	-277287824
+	.word	-294455979
+	.word	-245566887
+	.word	-431492783
+	.word	-229638076
+	.word	-230234056
+	.word	-381360078
+	.word	-179699712
+	.word	401808115
+	.word	686895602
+	.word	738405638
+	.word	740434230
+	.word	324141056
+	.word	0
+	.word	0
+	.word	0
+	.word	-227871903
+	.word	-245697446
+	.word	-296159671
+	.word	-145755562
+	.word	-162924986
+	.word	-163185854
+	.word	-146736326
+	.word	37421056
+	.word	368449781
+	.word	486022399
+	.word	486743305
+	.word	588520740
+	.word	239271936
+	.word	0
+	.word	0
+	.word	0
+	.word	-444668830
+	.word	-412751549
+	.word	-464327586
+	.word	-262935954
+	.word	-346296730
+	.word	-211950721
+	.word	0
+	.word	0
+	.word	-111346855
+	.word	-111086740
+	.word	-95617492
+	.word	2949172
+	.word	-46072261
+	.word	-62456757
+	.word	-128782490
+	.word	0
+	.word	-27919794
+	.word	-11798195
+	.word	37094706
+	.word	-45874894
+	.word	103480401
+	.word	20970566
+	.word	4391481
+	.word	-28573696
+	.word	186384936
+	.word	53215281
+	.word	3015212
+	.word	36896815
+	.word	69665342
+	.word	103678006
+	.word	53871162
+	.word	71237632
+	.word	-211095446
+	.word	-162010254
+	.word	-294718878
+	.word	-361829526
+	.word	-295179413
+	.word	-378739088
+	.word	-161418145
+	.word	-77922304
+	.word	235604750
+	.word	151720459
+	.word	352917502
+	.word	552673521
+	.word	585836521
+	.word	719268321
+	.word	786704116
+	.word	354222080
+	.word	-47251647
+	.word	-12978339
+	.word	-145947880
+	.word	2752560
+	.word	3668539
+	.word	-112724909
+	.word	-178789769
+	.word	0
+	.word	186844224
+	.word	20777763
+	.word	303631384
+	.word	220007716
+	.word	-161613495
+	.word	-28766930
+	.word	154270052
+	.word	0
+	.word	104007225
+	.word	120915508
+	.word	104270637
+	.word	237242421
+	.word	-11401417
+	.word	-45215954
+	.word	371195732
+	.word	0
+	.word	-144840098
+	.word	-78247613
+	.word	-61802923
+	.word	-12187844
+	.word	154797373
+	.word	204607282
+	.word	305205558
+	.word	0
+	.word	770192851
+	.word	820396501
+	.word	736962550
+	.word	503910938
+	.word	337313849
+	.word	-229442741
+	.word	-312353411
+	.word	0
+	.word	-45418660
+	.word	-128456322
+	.word	20643101
+	.word	-14417626
+	.word	36436535
+	.word	3801152
+	.word	-45418918
+	.word	0
+	.word	154468917
+	.word	87424573
+	.word	3670072
+	.word	-213910724
+	.word	-12712903
+	.word	-96140231
+	.word	237438003
+	.word	222560256
+	.word	419897081
+	.word	469965828
+	.word	536879871
+	.word	503717382
+	.word	537468691
+	.word	437983774
+	.word	622074914
+	.word	289800192
+	.word	170460974
+	.word	-13433039
+	.word	137627945
+	.word	103744055
+	.word	220793388
+	.word	103941429
+	.word	221316159
+	.word	104857600
+	.word	452992000
+	.word	536615686
+	.word	570957322
+	.word	404103443
+	.word	371202591
+	.word	355015212
+	.word	388960321
+	.word	239534080
+	.word	87426620
+	.word	104531525
+	.word	4652061
+	.word	85919530
+	.word	20708922
+	.word	-45548207
+	.word	-178192384
+	.word	0
+	.word	54526269
+	.word	155123712
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	21169467
+	.word	155385856
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-28967365
+	.word	105250816
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	138151487
+	.word	289472512
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-13631420
+	.word	-62523304
+	.word	3803141
+	.word	168693266
+	.word	219873832
+	.word	3865926
+	.word	-95422379
+	.word	0
+	.word	120721447
+	.word	86770740
+	.word	187759420
+	.word	-12910533
+	.word	371262764
+	.word	237764430
+	.word	3934533
+	.word	0
+	.word	270406176
+	.word	304289309
+	.word	404690726
+	.word	304813097
+	.word	188680507
+	.word	155254622
+	.word	-27658388
+	.word	0
+	.word	170658079
+	.word	204145461
+	.word	237111846
+	.word	-46920408
+	.word	287311660
+	.word	119934258
+	.word	171514411
+	.word	0
+	.word	353900308
+	.word	437721888
+	.word	471276568
+	.word	388503584
+	.word	471668522
+	.word	322508341
+	.word	373099350
+	.word	0
+	.word	0
+	.word	0
+	.word	-96274141
+	.word	-114624467
+	.word	-80677832
+	.word	-96666818
+	.word	-129828788
+	.word	0
+	.word	-61867705
+	.word	-79300794
+	.word	-129829308
+	.word	-313920443
+	.word	-263786173
+	.word	-331420346
+	.word	-264050111
+	.word	-331415552
+	.word	167647991
+	.word	569845753
+	.word	704523523
+	.word	822684955
+	.word	607846400
+	.word	0
+	.word	0
+	.word	0
+	.word	-78251439
+	.word	-162662063
+	.word	-279908791
+	.word	-62196141
+	.word	-146278589
+	.word	-12715966
+	.word	-230555589
+	.word	37421056
+	.word	368255474
+	.word	670641918
+	.word	855784454
+	.word	1024538402
+	.word	708706304
+	.word	0
+	.word	0
+	.word	0
+	.word	-645927333
+	.word	-278862255
+	.word	-580720538
+	.word	-379460233
+	.word	-396104850
+	.word	-295248769
+	.word	0
+	.word	0
+	.word	5307225
+	.word	-111215524
+	.word	-378474169
+	.word	-113442763
+	.word	-79497907
+	.word	-145688748
+	.word	-162013569
+	.word	0
+	.word	-211291301
+	.word	-145100196
+	.word	-129174441
+	.word	-378607511
+	.word	-162599824
+	.word	-278678913
+	.word	-1166029185
+	.word	-763428864
+	.word	70060572
+	.word	169812469
+	.word	886379023
+	.word	469771242
+	.word	652681728
+	.word	669917428
+	.word	1721892864
+	.word	955318272
+	.word	-344004228
+	.word	-328276354
+	.word	-411242647
+	.word	-444996235
+	.word	-278469003
+	.word	-445325446
+	.word	-161484188
+	.word	-127991808
+	.word	335155962
+	.word	234887924
+	.word	535831015
+	.word	568993252
+	.word	669133538
+	.word	802565596
+	.word	836643311
+	.word	537460736
+	.word	2555969
+	.word	-246096513
+	.word	-345637593
+	.word	-80348867
+	.word	-179572403
+	.word	-279189653
+	.word	-412097414
+	.word	0
+	.word	-62719154
+	.word	-62392248
+	.word	37486391
+	.word	-112788917
+	.word	-128328073
+	.word	-45408236
+	.word	504812671
+	.word	0
+	.word	570170634
+	.word	637219811
+	.word	670512350
+	.word	1170621377
+	.word	754655239
+	.word	937631745
+	.word	6948
+	.word	0
+	.word	-277879694
+	.word	-94765488
+	.word	-61671595
+	.word	-128843960
+	.word	88080707
+	.word	154665029
+	.word	21301061
+	.word	0
+	.word	1169768385
+	.word	1119899062
+	.word	920204509
+	.word	703996928
+	.word	687808014
+	.word	471471909
+	.word	204933953
+	.word	0
+	.word	-28707736
+	.word	-144973441
+	.word	-179505620
+	.word	-164301255
+	.word	-147132344
+	.word	-112853947
+	.word	-78973098
+	.word	0
+	.word	3603261
+	.word	3866428
+	.word	-46270397
+	.word	-413863350
+	.word	-79624908
+	.word	37290045
+	.word	-146410170
+	.word	305594368
+	.word	568795874
+	.word	618931940
+	.word	652550894
+	.word	602940146
+	.word	553133562
+	.word	587210250
+	.word	470948377
+	.word	489226240
+	.word	-112854461
+	.word	-263324096
+	.word	37616195
+	.word	-46136775
+	.word	-46006974
+	.word	4065587
+	.word	-12386745
+	.word	-28639232
+	.word	635381724
+	.word	685450978
+	.word	786377442
+	.word	686305763
+	.word	653535478
+	.word	654126843
+	.word	521411870
+	.word	422313984
+	.word	53937976
+	.word	121047101
+	.word	37943074
+	.word	18877215
+	.word	87359031
+	.word	-29163447
+	.word	-128385024
+	.word	0
+	.word	-62455750
+	.word	121438208
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	4915784
+	.word	139264000
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-12126392
+	.word	238813184
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	204475185
+	.word	439156736
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-46858172
+	.word	-112527528
+	.word	53741316
+	.word	168300808
+	.word	269681445
+	.word	-12715191
+	.word	-12125106
+	.word	0
+	.word	153686553
+	.word	153093419
+	.word	154075180
+	.word	3342894
+	.word	321322050
+	.word	254151722
+	.word	153223257
+	.word	0
+	.word	237179423
+	.word	287511838
+	.word	288166954
+	.word	304945946
+	.word	271976258
+	.word	272108361
+	.word	172226164
+	.word	0
+	.word	270860335
+	.word	304286501
+	.word	204016169
+	.word	36703273
+	.word	220790843
+	.word	53613352
+	.word	54661682
+	.word	0
+	.word	370546454
+	.word	454369556
+	.word	438050328
+	.word	455217706
+	.word	421990962
+	.word	205919542
+	.word	239536979
+	.word	0
+	.word	0
+	.word	0
+	.word	-79233000
+	.word	-14352854
+	.word	-30083271
+	.word	-96469951
+	.word	-62654126
+	.word	0
+	.word	-78251439
+	.word	-162662063
+	.word	-279908791
+	.word	-62196141
+	.word	-146278589
+	.word	-12715966
+	.word	-230555589
+	.word	37421056
+	.word	301342963
+	.word	720843259
+	.word	889208835
+	.word	1141522971
+	.word	792264704
+	.word	0
+	.word	0
+	.word	0
+	.word	-44958388
+	.word	-112657842
+	.word	-196545980
+	.word	-45680052
+	.word	-79496386
+	.word	3800125
+	.word	-147062474
+	.word	37355520
+	.word	301342963
+	.word	720843259
+	.word	889208835
+	.word	1141522971
+	.word	792264704
+	.word	0
+	.word	0
+	.word	0
+	.word	-595595429
+	.word	-228595884
+	.word	-413731751
+	.word	-279191169
+	.word	-229839257
+	.word	-212149377
+	.word	0
+	.word	0
+	.word	189793612
+	.word	39060814
+	.word	-395056558
+	.word	-146931659
+	.word	3928661
+	.word	-212208802
+	.word	-178461825
+	.word	0
+	.word	-61410216
+	.word	-78447288
+	.word	-62654392
+	.word	-262539451
+	.word	-12909246
+	.word	70908999
+	.word	-28900806
+	.word	-11927552
+	.word	69664810
+	.word	119671581
+	.word	136250917
+	.word	120193832
+	.word	136383787
+	.word	220464175
+	.word	53936698
+	.word	104595456
+	.word	-360716417
+	.word	-411507329
+	.word	-311236235
+	.word	-411638155
+	.word	-395189130
+	.word	-512173188
+	.word	-161549978
+	.word	-161284096
+	.word	301142263
+	.word	301210603
+	.word	635578840
+	.word	718745809
+	.word	669003480
+	.word	885862103
+	.word	886647789
+	.word	537591808
+	.word	-97057731
+	.word	-229385345
+	.word	-345705927
+	.word	-196872889
+	.word	-162665643
+	.word	-262608536
+	.word	-245179521
+	.word	0
+	.word	-64159931
+	.word	4127027
+	.word	-63964630
+	.word	-47580619
+	.word	139261774
+	.word	-179107532
+	.word	4455258
+	.word	0
+	.word	137104172
+	.word	237635376
+	.word	70779956
+	.word	220530993
+	.word	322570800
+	.word	204275781
+	.word	337709119
+	.word	0
+	.word	-211104129
+	.word	-77852359
+	.word	-78187682
+	.word	-195297715
+	.word	4718409
+	.word	71366993
+	.word	88084281
+	.word	0
+	.word	1036597458
+	.word	1053708733
+	.word	770450430
+	.word	470753793
+	.word	654384657
+	.word	338039341
+	.word	255197263
+	.word	0
+	.word	-78645912
+	.word	-178527617
+	.word	-162334672
+	.word	-130156478
+	.word	-112790965
+	.word	-162531501
+	.word	-195236244
+	.word	0
+	.word	21229896
+	.word	-78907312
+	.word	-346821824
+	.word	-216012992
+	.word	-480376501
+	.word	289405002
+	.word	-81527269
+	.word	224067584
+	.word	602808807
+	.word	486348810
+	.word	452993778
+	.word	886319080
+	.word	319889177
+	.word	605886497
+	.word	571416084
+	.word	373882880
+	.word	21168196
+	.word	-163380924
+	.word	5046848
+	.word	4520782
+	.word	121046331
+	.word	37817910
+	.word	254543164
+	.word	38141952
+	.word	619718130
+	.word	636428289
+	.word	571415823
+	.word	404300310
+	.word	521151250
+	.word	521937193
+	.word	605821743
+	.word	356384768
+	.word	4324943
+	.word	4783196
+	.word	-61871547
+	.word	-263455174
+	.word	20640590
+	.word	-145490863
+	.word	-211615744
+	.word	0
+	.word	54655301
+	.word	139264000
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	337777439
+	.word	455868416
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-28512682
+	.word	205914112
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	304026394
+	.word	605552640
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-96992444
+	.word	-129502366
+	.word	-212731354
+	.word	-213976518
+	.word	-29626295
+	.word	-162729130
+	.word	-145492393
+	.word	0
+	.word	-163445954
+	.word	-45814703
+	.word	1966343
+	.word	-48764086
+	.word	272820604
+	.word	287649006
+	.word	853469823
+	.word	0
+	.word	319819556
+	.word	254022940
+	.word	420814356
+	.word	520887056
+	.word	405405789
+	.word	238554937
+	.word	438757503
+	.word	0
+	.word	88142918
+	.word	188155192
+	.word	4522561
+	.word	-95812298
+	.word	121043532
+	.word	-179110323
+	.word	-28501718
+	.word	0
+	.word	404167440
+	.word	404627229
+	.word	371791402
+	.word	272371508
+	.word	238814030
+	.word	-260369099
+	.word	372775229
+	.word	0
+	.word	0
+	.word	0
+	.word	-146278107
+	.word	-131271375
+	.word	-164039621
+	.word	-130025661
+	.word	-96143793
+	.word	0
+	.word	-45156278
+	.word	-146213304
+	.word	-297012153
+	.word	-180356282
+	.word	-280235448
+	.word	-263981003
+	.word	-230951116
+	.word	-180092928
+	.word	167649014
+	.word	536617471
+	.word	554114828
+	.word	622272294
+	.word	339738624
+	.word	0
+	.word	0
+	.word	0
+	.word	-45156278
+	.word	-146213304
+	.word	-297012153
+	.word	-180356282
+	.word	-280235448
+	.word	-263981003
+	.word	-230951116
+	.word	-180092928
+	.word	167649014
+	.word	536617471
+	.word	554114828
+	.word	622272294
+	.word	339738624
+	.word	0
+	.word	0
+	.word	0
+	.section	.rodata.str1.4,"aMS",%progbits,1
+	.align	2
+.LC0:
+	.ascii	"line: %d, p = NULL is not expected value!\012\000"
+	.space	1
+.LC1:
+	.ascii	"can not map slice msg virtual address!\012\000"
+.LC2:
+	.ascii	"L%d: %s\012\000"
+	.space	3
+.LC3:
+	.ascii	"chroma_lg = %d\012\000"
+.LC4:
+	.ascii	"point of picture para null\012\000"
+.LC5:
+	.ascii	"picture width out of range\012\000"
+.LC6:
+	.ascii	"point of fst slice para null\012\000"
+	.space	2
+.LC7:
+	.ascii	"VdhId is wrong! H264HAL_V200R003_StartDec\012\000"
+	.space	1
+.LC8:
+	.ascii	"vdm register virtual address not mapped, reset fail"
+	.ascii	"ed!\012\000"
+.LC9:
+	.ascii	"BASIC_V200R003_CFG0 = 0x%x\012\000"
+.LC10:
+	.ascii	"BASIC_V200R004_CFG1 = 0x%x\012\000"
+.LC11:
+	.ascii	"AVM_V200R004_ADDR = 0x%x\012\000"
+	.space	2
+.LC12:
+	.ascii	"VAM_V200R004_ADDR = 0x%x\012\000"
+	.space	2
+.LC13:
+	.ascii	"STREAM_V200R003_BASE_ADDR = 0x%x\012\000"
+	.space	2
+.LC14:
+	.ascii	"YSTADDR_V200R004_1D = 0x%x\012\000"
+.LC15:
+	.ascii	"YSTRIDE_V200R004_1D = 0x%x\012\000"
+.LC16:
+	.ascii	"UVOFFSET_V200R004_1D = 0x%x\012\000"
+	.space	3
+.LC17:
+	.ascii	"PPFD_V200R004_BUF_ADDR = 0x%x\012\000"
+	.space	1
+.LC18:
+	.ascii	"PPFD_V200R004_BUF_LEN = 0x%x\012\000"
+	.space	2
+.LC19:
+	.ascii	"REF_V200R004_PIC_TYPE = 0x%x\012\000"
+	.space	2
+.LC20:
+	.ascii	"FF_V200R004_APT_EN = 0x%x\012\000"
+	.space	1
+.LC21:
+	.ascii	"line %d pSlicePara is NULL!\012\000"
+	.space	3
+.LC22:
+	.ascii	"can not map down msg virtual address!\012\000"
+	.space	1
+.LC23:
+	.ascii	"\012\012***********************H264HAL_V200R003_Sta"
+	.ascii	"rtDec is Now %d***********************\012\000"
+	.space	3
+.LC24:
+	.ascii	"line %d Set slice msg not wrong!\012\000"
+	.space	2
+.LC25:
+	.ascii	"!!! no slice to dec, add up msg report.\000"
+	.bss
+	.align	2
+.LANCHOR2 = . + 0
+	.type	StartCnt.33334, %object
+	.size	StartCnt.33334, 4
+StartCnt.33334:
+	.space	4
+	.ident	"GCC: (gcc-linaro-4.9-2014.09 + glibc-2.24 (Build by czyong) Wed Dec 21 10:39:16 CST 2016) 4.9.2 20140904 (prerelease)"
+	.section	.note.GNU-stack,"",%progbits

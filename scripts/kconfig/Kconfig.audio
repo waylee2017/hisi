@@ -1,0 +1,51 @@
+#++++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Audio Config"
+#--------------------------------
+config	HI_SND_ALSA_AO_SUPPORT
+	bool "AO ALSA Support"
+	default n
+config HI_SND_ADAC_SUPPORT
+	bool "ADAC Support"
+	default y
+config HI_SND_SPDIF_SUPPORT
+	bool "SPDIF Support"
+	default y
+config HI_SND_HDMI_SUPPORT
+	bool "HDMI Support"
+	depends on !HI3110EV500
+	default y
+config HI_ADEC_MAX_INSTANCE
+	int "ADEC Max Instance Number(1~16)"
+	range 1 16
+	default 2
+	help
+		It is necessarily set to bigger than 1 to support mce-fastpaly.
+
+config HI_ADEC_AUDSPECTRUM_SUPPORT
+	bool "ADEC Audio Spectrum Support"
+	default n
+
+config HI_SND_AVC_SUPPORT
+	bool "SND Auto Volume Control Support"
+	default n 	
+		
+config HI_RESAMPLER_QUALITY_LINEAR
+	bool "Linear Resampler"
+	default y
+config HI_SUPPORT_INTERNAL_OP
+	bool "Internal op"
+	default n
+	help
+		Use external OP if this option is not selected.
+choice
+	prompt "Internal OP Type"
+	depends on HI_SUPPORT_INTERNAL_OP
+	default MAX_GAIN		
+	config  MAXGAINOUTPUT
+	bool "MAX_GAIN"
+    config  2VGAINOUTPUT
+	bool "2V_GAIN"
+endchoice
+#--------------------------------
+endmenu
+#++++++++++++++++++++++++++++++++++++++++++++++++++++

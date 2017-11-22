@@ -1,0 +1,37 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Video DAC Config"
+
+config HI_DAC_CVBS
+	int "CVBS"
+	range 0 5
+	help 
+	    DAC number used as CVBS.
+	default 3
+	
+config HI_DAC_YPBPR_Y
+	int "YPBPR_Y"
+	depends on !HI3110EV500
+	range 0 5
+	help 
+	    DAC number used as YPBPR_Y.
+	default 1
+	
+config HI_DAC_YPBPR_PB
+	int "YPBPR_PB"
+	depends on !HI3110EV500
+	range 0 5
+	help 
+	    DAC number used as YPBPR_PB.
+	default 0
+	
+config HI_DAC_YPBPR_PR
+	int "YPBPR_PR"
+	depends on !HI3110EV500
+	range 0 5
+	help 
+	    DAC number used as YPBPR_PR.
+	default 2
+	 
+endmenu	
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+

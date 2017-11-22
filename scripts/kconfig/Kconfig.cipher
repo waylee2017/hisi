@@ -1,0 +1,45 @@
+#+++++++++++++++++++++++++++++++++++++
+menu "Cipher Config"
+#+++++++++++++++++++++++++++++++++++++
+
+menuconfig HI_CIPHER_MULTICIPHER_SUPPORT
+	bool "Multicipher Support"
+	default n
+
+config  HI_CIPHER_MULTI_PACKGET
+	bool "Support multi packet"
+	depends on HI_CIPHER_MULTICIPHER_SUPPORT
+	default n
+	
+menuconfig  HI_CIPHER_HASH_SUPPORT
+	bool "Hash Support"
+	default y
+
+config  HI_CIPHER_AES_CBCMAC
+	bool "Support AES CMAC"
+	depends on HI_CIPHER_HASH_SUPPORT
+	default n
+	
+config  HI_CIPHER_HASH_IRDETO_CBCMAC
+	bool "Support Irdeto CMAC"
+	depends on HI_CIPHER_HASH_SUPPORT
+	default n
+	
+config  HI_CIPHER_HASH_HMAC
+	bool "Support HMAC"
+	depends on HI_CIPHER_HASH_SUPPORT
+	default n
+	
+config HI_CIPHER_HDCP_SUPPORT
+	bool "Hdcp Support"
+	depends on !HI3110EV500
+	select HI_CIPHER_MULTICIPHER_SUPPORT
+	default y
+
+config HI_CIPHER_RNG_SUPPORT
+	bool "Rng Support"
+	default y
+
+#+++++++++++++++++++++++++++++++++++++
+endmenu
+#+++++++++++++++++++++++++++++++++++++

@@ -1,0 +1,1 @@
+1. mkntfs  This tool is used to format format ntfs filesystem:  mkntfs /dev/sdax2. ntfsck  This tool is used to check and fix ntfs filesystem:  a. Check a filesystem is ntfs or not;  b. Fix damaged ntfs. If ntfs filesystem is damaged, use following command to fix:  ntfsck -f /dev/sdax

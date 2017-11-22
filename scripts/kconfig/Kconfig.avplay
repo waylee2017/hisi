@@ -1,0 +1,10 @@
+#++++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Avplay Config"
+	depends on (HI3716MV310 || HI3716MV330)
+#--------------------------------
+config HI_AVPLAY_FCC_SUPPORT
+        bool "FCC Support"
+        default n
+
+endmenu
+#++++++++++++++++++++++++++++++++++++++++++++++++++++

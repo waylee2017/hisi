@@ -1,0 +1,170 @@
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_getcustomerkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_getcustomerkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_gethdcprootkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_gethdcprootkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_gethdcprootkeylockflag
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_gethdcprootkeylockflag.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_getstbprivatedata
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_getstbprivatedata.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_getstbrootkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_getstbrootkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_getstbrootkeylockflag
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_getstbrootkeylockflag.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_setcustomerkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_setcustomerkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_sethdcprootkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_sethdcprootkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_setstbprivatedata
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_setstbprivatedata.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_setstbrootkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_setstbrootkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_lockstbrootkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_lockstbrootkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+include $(SDK_DIR)/Android.def
+LOCAL_MODULE := sample_otp_lockhdcprootkey
+ALL_DEFAULT_INSTALLED_MODULES += $(LOCAL_MODULE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := $(CFG_HI_CFLAGS) $(CFG_HI_BOARD_CONFIGS)
+LOCAL_CFLAGS += -DLOG_TAG=\"$(LOCAL_MODULE)\"
+LOCAL_SRC_FILES := sample_otp_lockhdcprootkey.c
+LOCAL_C_INCLUDES := $(COMMON_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(MSP_UNF_INCLUDE)
+LOCAL_C_INCLUDES += $(SAMPLE_DIR)/common
+LOCAL_SHARED_LIBRARIES := libcutils libhi_common libhi_msp
+include $(BUILD_EXECUTABLE)
+

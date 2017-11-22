@@ -1,0 +1,11 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+config  HI_BOOT_REG_NAME
+	prompt "Fastboot Reg File"
+	string
+	default hi3716mdmo3avera_hi3716mv300_ddr3_256mbyte_16bit_2layers.reg
+config  HI_BOOT_CFG_NAME
+	depends on HI_ADVCA_SUPPORT
+	prompt "Fastboot CFG File for advca only"
+	string
+	default hi3716m31dmb_hi3716mv310_ddr3_512Mbyte_16bit_2layers_nand.cfg
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

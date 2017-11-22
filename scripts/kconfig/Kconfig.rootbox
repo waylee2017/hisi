@@ -1,0 +1,66 @@
+#---------------------------------------------
+
+menu "File System Config"
+
+config HI_ROOTFS_RULEFILE
+	bool "Enable rulefile support"
+	default n
+	help
+	  If you enable this option, rootfsimage-make tools will get rule-attr from a .txt file 
+	  named "rulelist.txt". You should configure this .txt file when you want to use this function.
+
+config  HI_ROOTFS_STRIP
+	bool "Enable Strip"
+	default y
+	help
+	  Whether strip the root filesystem.
+	  If you select strip option, you will get fail when use gdb, because the clib is striped.
+	       y - strip /bin /lib /sbin /usr
+	       n - not strip
+
+config  HI_ROOTFS_INSTALL_SHARED_LIBS
+	bool "Install Share Libs to Rootbox"
+	default y
+
+config  HI_ROOTFS_CRAMFS
+	bool "Create Cramfs Rootbox Image"
+	default y
+
+config  HI_ROOTFS_JFFS2
+	bool "Create Jffs2 Rootbox Image"
+	depends on HI_SPI_SUPPORT
+	default y
+
+config  HI_ROOTFS_YAFFS
+	bool "Create Yaffs Rootbox Image"
+	depends on HI_NAND_SUPPORT 
+	default y
+
+config  HI_ROOTFS_SQUASHFS
+	bool "Create Squashfs Rootbox Image"
+	default y
+
+config  HI_ROOTFS_EXT2_EXT3
+	bool "Create Ext2&Ext3 Rootbox Image"
+	depends on HI_EMMC_SUPPORT
+	default n
+
+config  HI_EMMC_ROOTFS_SIZE
+	string "eMMC Rootfs Size"
+	depends on HI_ROOTFS_EXT2_EXT3
+	default "40960-40M"
+	help
+	  eMMC rootfs size, unit is M.
+
+config HI_ROOTFS_UBIIMG
+	bool "Create Ubi Rootbox Image"
+	depends on HI_NAND_SUPPORT
+	default y
+
+config HI_UBI_PARTITION_SIZE
+	string "UBI Rootfs Size"
+	depends on HI_ROOTFS_UBIIMG
+	default "96M"
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

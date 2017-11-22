@@ -1,0 +1,3057 @@
+	.arch armv7-a
+	.fpu softvfp
+	.eabi_attribute 20, 1
+	.eabi_attribute 21, 1
+	.eabi_attribute 23, 3
+	.eabi_attribute 24, 1
+	.eabi_attribute 25, 1
+	.eabi_attribute 26, 2
+	.eabi_attribute 30, 2
+	.eabi_attribute 18, 4
+	.file	"vdm_hal.c"
+@ GNU C (Hisilicon_v200(gcc4.4-290+glibc-2.11+eabi+nptl)) version 4.4.1 (arm-hisiv200-linux-gnueabi)
+@	compiled by GNU C version 4.1.1 20061011 (Red Hat 4.1.1-30), GMP version 4.3.1, MPFR version 2.4.2.
+@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+@ options passed:  -nostdinc
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/arch/arm/include
+@ -Iarch/arm/include/generated -Iinclude
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/arch/arm/include/uapi
+@ -Iarch/arm/include/generated/uapi
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/include/uapi
+@ -Iinclude/generated/uapi -Iarch/arm/mach-hi3716mv310/include
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/common/include
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/common/drv/include
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/drv/memmap
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/model/scd
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common/softlib
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common/syntax
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiSCDV200
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV100
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R001
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R002
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R003
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/model/rawpacket
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/product/Hi3716MV310/osal/linux_kernel
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/product/Hi3716MV310
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiDNR
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiBTLV100
+@ -I/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/../../../source/msp/drv/vfmw/vfmw_v4.0/firmware/common_test/vdecko
+@ -imultilib armv7a_soft -iprefix
+@ /opt/hisi-linux/x86-arm/arm-hisiv200-linux/bin/../lib/gcc/arm-hisiv200-linux-gnueabi/4.4.1/
+@ -isysroot /opt/hisi-linux/x86-arm/arm-hisiv200-linux/bin/../target
+@ -D__KERNEL__ -D__LINUX_ARM_ARCH__=7 -Uarm -DHi3716MV310
+@ -DENV_ARMLINUX_KERNEL -DOFF_LINE_DNR_ENABLE -DSCD_MP4_SLICE_ENABLE
+@ -DSUPPORT_JPEG_444 -DVFMW_EXTRA_TYPE_DEFINE -DPRODUCT_STB
+@ -D__VFMW_REGISTER_ISR__ -DVFMW_VDH_V200R004_SUPPORT -DVFMW_H264_SUPPORT
+@ -DVFMW_MPEG2_SUPPORT -DVFMW_MPEG4_SUPPORT -DVFMW_AVS_SUPPORT
+@ -DVFMW_VC1_SUPPORT -DVFMW_BPD_H_SUPPORT -DVFMW_REAL8_SUPPORT
+@ -DVFMW_REAL9_SUPPORT -DVFMW_VP6_SUPPORT -DVFMW_VP8_SUPPORT
+@ -DVFMW_DIVX3_SUPPORT -DVFMW_DNR_SUPPORT -DVFMW_H263_SUPPORT
+@ -DVFMW_JPEG_SUPPORT -DVFMW_RAW_SUPPORT -DVFMW_USER_SUPPORT
+@ -DCFG_MAX_CHAN_NUM=4 -DCFG_MAX_CHAN_NUM=4 -DVFMW_DPRINT_SUPPORT
+@ -DVFMW_AVSPLUS_SUPPORT -DVFMW_SYSTEM_REG_DISABLE -DREPAIR_ENABLE
+@ -D_FORTIFY_SOURCE=2 -DCHIP_TYPE_hi3716mv310
+@ -DSDK_VERSION=HiSTBLinuxV100R006C00SPC052 -DHI_LOG_SUPPORT=1
+@ -DHI_LOG_LEVEL=4 -DHI_PROC_SUPPORT=1 -DHI_PNG_DECODER_SUPPORT
+@ -DHI_KEYLED_SUPPORT -DHI_HDCP_SUPPORT -DHI_SCI_SUPPORT
+@ -DHI_GPIOI2C_SUPPORT -DHI_IR_S2_SUPPORT -DHI_DSC_SUPPORT -DMODULE
+@ -DKBUILD_STR(s)=#s -DKBUILD_BASENAME=KBUILD_STR(vdm_hal)
+@ -DKBUILD_MODNAME=KBUILD_STR(hi_vfmw) -isystem
+@ /opt/hisi-linux/x86-arm/arm-hisiv200-linux/bin/../lib/gcc/arm-hisiv200-linux-gnueabi/4.4.1/include
+@ -include
+@ /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/kernel/linux-3.10.y/include/linux/kconfig.h
+@ -MD
+@ /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/.vdm_hal.o.d
+@ /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/vdm_hal.c
+@ -mlittle-endian -mabi=aapcs-linux -mno-thumb-interwork -marm
+@ -march=armv7-a -msoft-float -auxbase-strip
+@ /usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/vdm_hal.o
+@ -O2 -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs
+@ -Werror-implicit-function-declaration -Wno-format-security
+@ -Wframe-larger-than=1024 -Wdeclaration-after-statement -Wno-pointer-sign
+@ -fno-strict-aliasing -fno-common -fno-delete-null-pointer-checks
+@ -fno-dwarf2-cfi-asm -funwind-tables -fno-stack-protector
+@ -fomit-frame-pointer -fno-strict-overflow -fconserve-stack -fno-pic
+@ -fverbose-asm
+@ options enabled:  -falign-loops -fargument-alias -fauto-inc-dec
+@ -fbranch-count-reg -fcaller-saves -fcprop-registers -fcrossjumping
+@ -fcse-follow-jumps -fdefer-pop -fearly-inlining
+@ -feliminate-unused-debug-types -fexpensive-optimizations
+@ -fforward-propagate -ffunction-cse -fgcse -fgcse-lm
+@ -fguess-branch-probability -fident -fif-conversion -fif-conversion2
+@ -findirect-inlining -finline -finline-functions-called-once
+@ -finline-small-functions -fipa-cp -fipa-pure-const -fipa-reference
+@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+@ -fkeep-static-consts -fleading-underscore -fmath-errno -fmerge-constants
+@ -fmerge-debug-strings -fmove-loop-invariants -fomit-frame-pointer
+@ -foptimize-register-move -foptimize-sibling-calls -fpeephole -fpeephole2
+@ -fpromote-loop-indices -freg-struct-return -fregmove -frename-registers
+@ -freorder-blocks -freorder-functions -frerun-cse-after-loop
+@ -fsched-interblock -fsched-spec -fsched-stalled-insns-dep
+@ -fschedule-insns -fschedule-insns2 -fsection-anchors -fsigned-zeros
+@ -fsplit-ivs-in-unroller -fsplit-wide-types -fthread-jumps
+@ -ftoplevel-reorder -ftrapping-math -ftree-builtin-call-dce -ftree-ccp
+@ -ftree-ch -ftree-copy-prop -ftree-copyrename -ftree-cselim -ftree-dce
+@ -ftree-dominator-opts -ftree-dse -ftree-fre -ftree-loop-im
+@ -ftree-loop-ivcanon -ftree-loop-optimize -ftree-parallelize-loops=
+@ -ftree-pre -ftree-reassoc -ftree-scev-cprop -ftree-sink -ftree-sra
+@ -ftree-switch-conversion -ftree-ter -ftree-vect-loop-version -ftree-vrp
+@ -funit-at-a-time -funroll-loops -funwind-tables -fverbose-asm -fweb
+@ -fzero-initialized-in-bss -mglibc -mlittle-endian -msched-prolog
+
+@ Compiler executable checksum: fa59e0bd179ef45b3a3c3e6f3383fdac
+
+	.text
+	.align	2
+	.global	VDMHAL_V200R004_GetHalMemSize
+	.type	VDMHAL_V200R004_GetHalMemSize, %function
+VDMHAL_V200R004_GetHalMemSize:
+	.fnstart
+.LFB1597:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	movw	r0, #:lower16:481280	@,
+	movt	r0, #:upper16:481280	@,
+	bx	lr	@
+	.fnend
+	.size	VDMHAL_V200R004_GetHalMemSize, .-VDMHAL_V200R004_GetHalMemSize
+	.align	2
+	.global	VDMHAL_V200R400_GetPmvSize
+	.type	VDMHAL_V200R400_GetPmvSize, %function
+VDMHAL_V200R400_GetPmvSize:
+	.fnstart
+.LFB1600:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	add	r0, r0, #15	@ tmp139, Width,
+	add	r2, r1, #15	@ tmp140, Height,
+	movw	r3, #:lower16:g_not_direct_8x8_inference_flag	@ tmp148,
+	movt	r3, #:upper16:g_not_direct_8x8_inference_flag	@ tmp148,
+	mov	ip, r0, asr #4	@ ImgWidthInMb, tmp139,
+	mov	r1, r2, asr #4	@ ImgHeightInMb, tmp140,
+	cmp	r1, #36	@ ImgHeightInMb,
+	cmple	ip, #45	@, ImgWidthInMb,
+	ldrb	r2, [r3, #0]	@ zero_extendqisi2	@ g_not_direct_8x8_inference_flag, g_not_direct_8x8_inference_flag
+	mul	r1, ip, r1	@ tmp151, ImgWidthInMb, ImgHeightInMb
+	movle	r3, #64	@, ColMbSize,
+	movgt	r3, #32	@, ColMbSize,
+	cmp	r2, #1	@ g_not_direct_8x8_inference_flag,
+	movne	ip, r3	@ ColMbSize, ColMbSize
+	moveq	ip, #64	@ ColMbSize,
+	mul	r2, ip, r1	@ tmp152, ColMbSize, tmp151
+	add	r0, r2, #127	@ tmp153, tmp152,
+	bic	r0, r0, #127	@, tmp153,
+	bx	lr	@
+	.fnend
+	.size	VDMHAL_V200R400_GetPmvSize, .-VDMHAL_V200R400_GetPmvSize
+	.align	2
+	.global	VDMHAL_V200R004_MakeRpMsg
+	.type	VDMHAL_V200R004_MakeRpMsg, %function
+VDMHAL_V200R004_MakeRpMsg:
+	.fnstart
+.LFB1614:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	mov	r0, #0	@,
+	bx	lr	@
+	.fnend
+	.size	VDMHAL_V200R004_MakeRpMsg, .-VDMHAL_V200R004_MakeRpMsg
+	.align	2
+	.global	VDMHAL_V200R004_MakeRpReg
+	.type	VDMHAL_V200R004_MakeRpReg, %function
+VDMHAL_V200R004_MakeRpReg:
+	.fnstart
+.LFB1617:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	mov	r0, #0	@,
+	bx	lr	@
+	.fnend
+	.size	VDMHAL_V200R004_MakeRpReg, .-VDMHAL_V200R004_MakeRpReg
+	.align	2
+	.global	VDMHAL_V200R004_GetCharacter
+	.type	VDMHAL_V200R004_GetCharacter, %function
+VDMHAL_V200R004_GetCharacter:
+	.fnstart
+.LFB1623:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	@ link register save eliminated.
+	movw	r0, #:lower16:g_VdmCharacter	@ tmp133,
+	movw	r3, #:lower16:g_eVdmVersion	@ tmp135,
+	movt	r0, #:upper16:g_VdmCharacter	@ tmp133,
+	movt	r3, #:upper16:g_eVdmVersion	@ tmp135,
+	mov	r1, #11	@ tmp134,
+	mov	r2, #4	@ tmp136,
+	str	r1, [r0, #0]	@ tmp134, g_VdmCharacter
+	str	r2, [r3, #0]	@ tmp136, g_eVdmVersion
+	bx	lr	@
+	.fnend
+	.size	VDMHAL_V200R004_GetCharacter, .-VDMHAL_V200R004_GetCharacter
+	.align	2
+	.global	VDMHAL_V200R004_IsVdmRun
+	.type	VDMHAL_V200R004_IsVdmRun, %function
+VDMHAL_V200R004_IsVdmRun:
+	.fnstart
+.LFB1610:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	movw	r1, #1140	@ tmp141,
+	movw	r3, #:lower16:g_HwMem	@ tmp139,
+	mul	r2, r1, r0	@ tmp140, tmp141, VdhId
+	movt	r3, #:upper16:g_HwMem	@ tmp139,
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	ldr	r4, [r2, r3]	@ D.39448, <variable>.pVdmRegVirAddr
+	cmp	r4, #0	@ D.39448,
+	beq	.L19	@,
+	ldr	r0, [r4, #40]	@ Data32,
+	subs	r0, r0, #1	@ D.39452, Data32,
+	movne	r0, #1	@ D.39452
+	ldmfd	sp!, {r4, pc}	@
+.L19:
+	mov	r0, r4	@, D.39448
+	movw	r1, #:lower16:.LC0	@,
+	movt	r1, #:upper16:.LC0	@,
+	bl	dprint_vfmw	@
+	mov	r0, r4	@ D.39452, D.39448
+	ldmfd	sp!, {r4, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_IsVdmRun, .-VDMHAL_V200R004_IsVdmRun
+	.align	2
+	.global	VDMHAL_V200R004_IsVdmReady
+	.type	VDMHAL_V200R004_IsVdmReady, %function
+VDMHAL_V200R004_IsVdmReady:
+	.fnstart
+.LFB1609:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	movw	r1, #1140	@ tmp142,
+	mul	r2, r1, r0	@ tmp141, tmp142, VdhId
+	stmfd	sp!, {r3, lr}	@,
+	.save {r3, lr}
+	movw	r3, #:lower16:g_HwMem	@ tmp140,
+	movt	r3, #:upper16:g_HwMem	@ tmp140,
+	ldr	r0, [r2, r3]	@ D.39434, <variable>.pVdmRegVirAddr
+	cmp	r0, #0	@ D.39434,
+	beq	.L24	@,
+	ldr	r0, [r0, #28]	@ Data32.673,
+	ubfx	r0, r0, #17, #1	@ Data32, Data32.673,,
+	ldmfd	sp!, {r3, pc}	@
+.L24:
+	movw	r1, #:lower16:.LC1	@,
+	mov	r2, #976	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC2	@,
+	movt	r3, #:upper16:.LC2	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ Data32,
+	ldmfd	sp!, {r3, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_IsVdmReady, .-VDMHAL_V200R004_IsVdmReady
+	.align	2
+	.global	VDMHAL_V200R004_WriteMsgSlot
+	.type	VDMHAL_V200R004_WriteMsgSlot, %function
+VDMHAL_V200R004_WriteMsgSlot:
+	.fnstart
+.LFB1613:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r0, #0	@ pDst,
+	cmpne	r1, #0	@, pSrc,
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	beq	.L26	@,
+	rsbs	r4, r2, #1	@ tmp148, dnmsg_size
+	movcc	r4, #0	@ tmp148
+	cmp	r2, #256	@ dnmsg_size,
+	orrhi	r4, r4, #1	@,, tmp151, tmp148
+	cmp	r4, #0	@ tmp151,
+	bne	.L26	@,
+	mov	r2, r2, asl #2	@, dnmsg_size,
+	bl	memcpy	@
+	mov	r0, r4	@ D.39611, tmp151
+	ldmfd	sp!, {r4, pc}	@
+.L26:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC3	@,
+	movt	r1, #:upper16:.LC3	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39611,
+	ldmfd	sp!, {r4, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_WriteMsgSlot, .-VDMHAL_V200R004_WriteMsgSlot
+	.align	2
+	.global	VDMHAL_V200R004_ReadMsgSlot
+	.type	VDMHAL_V200R004_ReadMsgSlot, %function
+VDMHAL_V200R004_ReadMsgSlot:
+	.fnstart
+.LFB1612:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r0, #0	@ pDst,
+	cmpne	r1, #0	@, pSrc,
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	movne	r4, #0	@, tmp144
+	moveq	r4, #1	@, tmp144
+	beq	.L31	@,
+	cmp	r2, #512	@ upmsg_size,
+	bhi	.L31	@,
+	mov	r2, r2, asl #2	@, upmsg_size,
+	bl	memcpy	@
+	mov	r0, r4	@ D.39594, tmp144
+	ldmfd	sp!, {r4, pc}	@
+.L31:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC4	@,
+	movt	r1, #:upper16:.LC4	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39594,
+	ldmfd	sp!, {r4, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_ReadMsgSlot, .-VDMHAL_V200R004_ReadMsgSlot
+	.align	2
+	.global	VDMHAL_V200R004_WriteBigTitle1DYuv
+	.type	VDMHAL_V200R004_WriteBigTitle1DYuv, %function
+VDMHAL_V200R004_WriteBigTitle1DYuv:
+	.fnstart
+.LFB1626:
+	@ args = 4, pretend = 0, frame = 72
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+	ubfx	r9, r3, #29, #2	@ PicStructure.854, Height,,
+	.pad #84
+	sub	sp, sp, #84	@,,
+	cmp	r9, #1	@ PicStructure.854,
+	mov	r6, r3	@ Height, Height
+	mov	r4, r1	@ Yaddress, Yaddress
+	str	r0, [sp, #24]	@ fpYuv, %sfp
+	mov	r5, r2	@ Width, Width
+	moveq	r9, #0	@ PicStructure,
+	beq	.L37	@,
+	cmp	r9, #2	@ PicStructure.854,
+	moveq	r9, #1	@ PicStructure,
+	movne	r9, #2	@ PicStructure,
+.L37:
+	ldr	r1, [sp, #24]	@, %sfp
+	cmp	r1, #0	@,
+	beq	.L75	@,
+	add	r3, sp, #64	@ tmp244,,
+	add	r2, sp, #48	@,,
+	add	lr, r3, #4	@ tmp398, tmp244,
+	add	r7, r2, #4	@ tmp395,,
+	mov	ip, #0	@ tmp240,
+	movw	r0, #:lower16:.LC5	@,
+	str	ip, [r7], #4	@ tmp240, MemRecord_ul
+	mov	r1, ip	@, tmp240
+	str	ip, [lr], #4	@ tmp240, MemRecord_y
+	movt	r0, #:upper16:.LC5	@,
+	str	ip, [r7], #4	@ tmp240, MemRecord_ul
+	mov	r2, #4194304	@,
+	str	ip, [lr], #4	@ tmp240, MemRecord_y
+	str	ip, [r7, #0]	@ tmp240, MemRecord_ul
+	str	ip, [lr, #0]	@ tmp240, MemRecord_y
+	str	ip, [sp, #48]	@ tmp240, MemRecord_ul
+	str	ip, [sp, #64]	@ tmp240, MemRecord_y
+	str	ip, [sp, #0]	@ tmp240,
+	bl	MEM_AllocMemBlock	@
+	subs	ip, r0, #0	@ D.40321,
+	bne	.L149	@,
+	mov	r1, ip	@, D.40321
+	movw	r0, #:lower16:.LC7	@,
+	mov	r2, #4194304	@,
+	movt	r0, #:upper16:.LC7	@,
+	add	r3, sp, #48	@,,
+	str	ip, [sp, #0]	@ D.40321,
+	bl	MEM_AllocMemBlock	@
+	cmp	r0, #0	@,
+	bne	.L150	@,
+	add	r5, r5, #15	@ tmp257, Width,
+	ldr	r0, [sp, #68]	@, MemRecord_y.VirAddr
+	bic	r5, r5, #15	@ ImgWidthInPixAln, tmp257,
+	add	r6, r6, #15	@ tmp259, Height,
+	add	ip, r5, #255	@ tmp261, ImgWidthInPixAln,
+	bic	r6, r6, #15	@, tmp259,
+	bic	r3, ip, #255	@ tmp262, tmp261,
+	str	r0, [sp, #12]	@, %sfp
+	str	r0, [sp, #32]	@, %sfp
+	mov	r8, r3, asl #4	@, tmp262,
+	str	r8, [sp, #8]	@, %sfp
+	ldr	r1, [sp, #8]	@, %sfp
+	add	ip, r8, #15	@ tmp265,,
+	ldr	r2, [sp, #52]	@, MemRecord_ul.VirAddr
+	cmp	r1, #0	@,
+	str	r6, [sp, #20]	@, %sfp
+	add	lr, r2, #2097152	@,,
+	str	lr, [sp, #36]	@, %sfp
+	movge	ip, r1	@ Stride,
+	adds	r0, r6, #31	@ tmp267,,
+	addmi	r0, r6, #62	@, tmp269,,
+	mov	r3, ip, asr #4	@ tmp266, Stride,
+	cmp	r9, #0	@ PicStructure,
+	str	r2, [sp, #28]	@, %sfp
+	mov	r8, r0, asr #5	@ tmp271, tmp269,
+	mla	r8, r8, r3, r4	@ Caddress, tmp271, tmp266, Yaddress
+	bne	.L43	@,
+	cmp	r6, #0	@,
+	mov	lr, r5, lsr #1	@, ImgWidthInPixAln,
+	mov	r1, r6, lsr #1	@,,
+	str	lr, [sp, #40]	@, %sfp
+	str	r1, [sp, #16]	@, %sfp
+	beq	.L44	@,
+	ldr	fp, [sp, #12]	@ ivtmp.814, %sfp
+	str	r8, [sp, #44]	@ Caddress, %sfp
+.L45:
+	cmp	r5, #0	@ ImgWidthInPixAln,
+	beq	.L48	@,
+	and	r8, r9, #15	@ pretmp.878, i,
+	ldr	r6, [sp, #8]	@, %sfp
+	mov	lr, r9, lsr #4	@ pretmp.888, i,
+	cmp	fp, #0	@ ivtmp.814,
+	mov	r7, r8, asl #8	@ tmp282, pretmp.878,
+	sub	sl, r5, #1	@ tmp373, ImgWidthInPixAln,
+	ubfx	sl, sl, #8, #1	@ tmp374, tmp373,,
+	mla	r8, r6, lr, r7	@ pretmp.769,, pretmp.888, tmp282
+	beq	.L93	@,
+	mov	r0, fp	@, ivtmp.814
+	add	r1, r4, r8	@, Yaddress, pretmp.769
+	mov	r2, #256	@,
+	bl	memcpy	@
+.L93:
+	mov	r7, #256	@ j,
+	cmp	r5, r7	@ ImgWidthInPixAln, j
+	add	r6, fp, r7	@ ivtmp.865, ivtmp.814,
+	bls	.L48	@,
+	cmp	sl, #0	@ tmp374,
+	beq	.L47	@,
+	cmp	r6, #0	@ ivtmp.865,
+	beq	.L98	@,
+	add	r2, r8, #4096	@ tmp461, pretmp.769,
+	mov	r0, r6	@, ivtmp.865
+	add	r1, r4, r2	@, Yaddress, tmp461
+	mov	r2, r7	@, j
+	bl	memcpy	@
+.L98:
+	add	r7, r7, #256	@ j, tmp375,
+	add	r6, r6, #256	@ ivtmp.865, tmp376,
+	cmp	r5, r7	@ ImgWidthInPixAln, j
+	bls	.L48	@,
+.L47:
+	mov	ip, r7, lsr #8	@ tmp273, j,
+	cmp	r6, #0	@ ivtmp.865,
+	mov	r2, #256	@,
+	mov	r0, r6	@, ivtmp.865
+	add	r3, r8, ip, asl #12	@, tmp275, pretmp.769, tmp273,
+	add	r7, r7, r2	@ tmp375, j,
+	add	r1, r4, r3	@, Yaddress, tmp275
+	beq	.L46	@,
+	bl	memcpy	@
+.L46:
+	mov	r1, r7, lsr #8	@ tmp463, tmp375,
+	mov	r2, #256	@,
+	adds	r6, r6, r2	@ tmp376, ivtmp.865,
+	add	r0, r8, r1, asl #12	@, tmp465, pretmp.769, tmp463,
+	add	r1, r4, r0	@, Yaddress, tmp465
+	mov	r0, r6	@, tmp376
+	beq	.L98	@,
+	add	r7, r7, #256	@ j, tmp375,
+	bl	memcpy	@
+	cmp	r5, r7	@ ImgWidthInPixAln, j
+	add	r6, r6, #256	@ ivtmp.865, tmp376,
+	bhi	.L47	@,
+.L48:
+	ldr	r2, [sp, #20]	@, %sfp
+	add	r9, r9, #1	@ i, i,
+	add	fp, fp, r5	@ ivtmp.814, ivtmp.814, ImgWidthInPixAln
+	cmp	r2, r9	@, i
+	bhi	.L45	@,
+	ldr	r8, [sp, #44]	@ Caddress, %sfp
+.L44:
+	ldr	r3, [sp, #20]	@, %sfp
+	ldr	r0, [sp, #12]	@, %sfp
+	ldr	r2, [sp, #24]	@, %sfp
+	mul	r1, r5, r3	@, ImgWidthInPixAln,
+	bl	klib_fwrite	@
+	ldr	r4, [sp, #16]	@, %sfp
+	cmp	r4, #0	@,
+	beq	.L49	@,
+	ldr	ip, [sp, #8]	@, %sfp
+	mov	sl, #0	@ i.864,
+	mov	r9, ip, asr #1	@,,
+	str	r9, [sp, #8]	@, %sfp
+	ldr	r9, [sp, #12]	@ ivtmp.806, %sfp
+.L50:
+	cmp	r5, #0	@ ImgWidthInPixAln,
+	beq	.L53	@,
+	ldr	ip, [sp, #8]	@, %sfp
+	mov	r4, sl, lsr #3	@ tmp296, i.864,
+	and	r6, sl, #7	@ pretmp.886, i.864,
+	cmp	r9, #0	@ ivtmp.806,
+	sub	fp, r5, #1	@ tmp367, ImgWidthInPixAln,
+	mul	r7, ip, r4	@ tmp297,, tmp296
+	ubfx	fp, fp, #8, #1	@ tmp368, tmp367,,
+	add	r7, r7, r6, asl #8	@, pretmp.767, tmp297, pretmp.886,
+	beq	.L86	@,
+	mov	r0, r9	@, ivtmp.806
+	add	r1, r8, r7	@, Caddress, pretmp.767
+	mov	r2, #256	@,
+	bl	memcpy	@
+.L86:
+	mov	r6, #256	@ j.863,
+	cmp	r5, r6	@ ImgWidthInPixAln, j.863
+	add	r4, r9, r6	@ ivtmp.860, ivtmp.806,
+	bls	.L53	@,
+	cmp	fp, #0	@ tmp368,
+	beq	.L52	@,
+	cmp	r4, #0	@ ivtmp.860,
+	beq	.L91	@,
+	add	r3, r7, #2048	@ tmp449, pretmp.767,
+	mov	r0, r4	@, ivtmp.860
+	add	r1, r8, r3	@, Caddress, tmp449
+	mov	r2, r6	@, j.863
+	bl	memcpy	@
+.L91:
+	add	r6, r6, #256	@ j.863, tmp369,
+	add	r4, r4, #256	@ ivtmp.860, tmp370,
+	cmp	r5, r6	@ ImgWidthInPixAln, j.863
+	bls	.L53	@,
+.L52:
+	mov	lr, r6, lsr #8	@ tmp287, j.863,
+	cmp	r4, #0	@ ivtmp.860,
+	mov	r2, #256	@,
+	mov	r0, r4	@, ivtmp.860
+	add	r1, r7, lr, asl #11	@, tmp289, pretmp.767, tmp287,
+	add	r6, r6, r2	@ tmp369, j.863,
+	add	r1, r8, r1	@, Caddress, tmp289
+	beq	.L51	@,
+	bl	memcpy	@
+.L51:
+	mov	r3, r6, lsr #8	@ tmp451, tmp369,
+	mov	r2, #256	@,
+	adds	r4, r4, r2	@ tmp370, ivtmp.860,
+	add	r0, r7, r3, asl #11	@, tmp453, pretmp.767, tmp451,
+	add	r1, r8, r0	@, Caddress, tmp453
+	mov	r0, r4	@, tmp370
+	beq	.L91	@,
+	add	r6, r6, #256	@ j.863, tmp369,
+	bl	memcpy	@
+	cmp	r5, r6	@ ImgWidthInPixAln, j.863
+	add	r4, r4, #256	@ ivtmp.860, tmp370,
+	bhi	.L52	@,
+.L53:
+	ldr	r2, [sp, #16]	@, %sfp
+	add	sl, sl, #1	@ i.864, i.864,
+	add	r9, r9, r5	@ ivtmp.806, ivtmp.806, ImgWidthInPixAln
+	cmp	r2, sl	@, i.864
+	bhi	.L50	@,
+.L49:
+	ldr	r1, [sp, #120]	@, chroma_idc
+	cmp	r1, #1	@,
+	beq	.L151	@,
+	ldr	r0, [sp, #120]	@, chroma_idc
+	cmp	r0, #0	@,
+	bne	.L55	@,
+	mov	r1, #128	@,
+	mov	r2, #1048576	@,
+	ldr	r0, [sp, #36]	@, %sfp
+	bl	memset	@
+	ldr	r0, [sp, #28]	@, %sfp
+	mov	r1, #128	@,
+	mov	r2, #1048576	@,
+	bl	memset	@
+.L55:
+	ldr	r2, [sp, #40]	@, %sfp
+	ldr	lr, [sp, #16]	@, %sfp
+	mul	r4, r2, lr	@ D.40619,,
+.L148:
+	ldr	r2, [sp, #24]	@, %sfp
+	mov	r1, r4	@, D.40675
+	ldr	r0, [sp, #28]	@, %sfp
+	bl	klib_fwrite	@
+	mov	r1, r4	@, D.40675
+	ldr	r2, [sp, #24]	@, %sfp
+	ldr	r0, [sp, #36]	@, %sfp
+	bl	klib_fwrite	@
+	ldr	r1, [sp, #52]	@, MemRecord_ul.VirAddr
+	ldr	r0, [sp, #56]	@, MemRecord_ul.PhyAddr
+	bl	MEM_ReleaseMemBlock	@
+	add	r0, sp, #48	@,,
+	mov	r1, #16	@,
+	bl	__memzero	@
+.L42:
+	ldr	r1, [sp, #68]	@, MemRecord_y.VirAddr
+	ldr	r0, [sp, #72]	@, MemRecord_y.PhyAddr
+	bl	MEM_ReleaseMemBlock	@
+	add	r0, sp, #64	@,,
+	mov	r1, #16	@,
+	bl	__memzero	@
+.L75:
+	add	sp, sp, #84	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+.L149:
+	movw	r1, #:lower16:.LC6	@,
+	mov	r0, #1	@,
+	movt	r1, #:upper16:.LC6	@,
+	bl	dprint_vfmw	@
+	b	.L75	@
+.L43:
+	ldr	r1, [sp, #20]	@, %sfp
+	subs	r9, r9, #1	@, PicStructure,
+	movne	r9, #1	@
+	mov	r3, r5, lsr #1	@, ImgWidthInPixAln,
+	str	r9, [sp, #32]	@, %sfp
+	cmp	r1, r9	@,
+	str	r3, [sp, #40]	@, %sfp
+	mov	ip, r1, lsr #1	@,,
+	strhi	r8, [sp, #44]	@ Caddress, %sfp
+	str	ip, [sp, #16]	@, %sfp
+	movhi	fp, r1	@ ImgHeightInPixAln,
+	bls	.L60	@,
+.L61:
+	cmp	r5, #0	@ ImgWidthInPixAln,
+	beq	.L64	@,
+	and	lr, r9, #15	@ pretmp.890, i.869,
+	ldr	r7, [sp, #8]	@, %sfp
+	mov	r2, r9, lsr #4	@ pretmp.893, i.869,
+	sub	sl, r5, #1	@ tmp391, ImgWidthInPixAln,
+	mov	r8, lr, asl #8	@ tmp313, pretmp.890,
+	mov	r6, r9, lsr #1	@ pretmp.879, i.869,
+	ldr	r3, [sp, #12]	@, %sfp
+	ubfx	sl, sl, #8, #1	@ tmp392, tmp391,,
+	mlas	r6, r5, r6, r3	@ ivtmp.849, ImgWidthInPixAln, pretmp.879,
+	mla	r8, r7, r2, r8	@ pretmp.761,, pretmp.893, tmp313
+	beq	.L111	@,
+	mov	r0, r6	@, ivtmp.849
+	add	r1, r4, r8	@, Yaddress, pretmp.761
+	mov	r2, #256	@,
+	bl	memcpy	@
+.L111:
+	mov	r7, #256	@ j,
+	cmp	r5, r7	@ ImgWidthInPixAln, j
+	add	r6, r6, r7	@ ivtmp.849, ivtmp.849,
+	bls	.L64	@,
+	cmp	sl, #0	@ tmp392,
+	beq	.L63	@,
+	cmp	r6, #0	@ ivtmp.849,
+	beq	.L116	@,
+	add	r3, r8, #4096	@ tmp488, pretmp.761,
+	mov	r0, r6	@, ivtmp.849
+	add	r1, r4, r3	@, Yaddress, tmp488
+	mov	r2, r7	@, j
+	bl	memcpy	@
+.L116:
+	add	r7, r7, #256	@ j, tmp393,
+	add	r6, r6, #256	@ ivtmp.849, tmp394,
+	cmp	r5, r7	@ ImgWidthInPixAln, j
+	bls	.L64	@,
+.L63:
+	mov	r1, r7, lsr #8	@ tmp304, j,
+	cmp	r6, #0	@ ivtmp.849,
+	mov	r2, #256	@,
+	mov	r0, r6	@, ivtmp.849
+	add	lr, r8, r1, asl #12	@, tmp306, pretmp.761, tmp304,
+	add	r7, r7, r2	@ tmp393, j,
+	add	r1, r4, lr	@, Yaddress, tmp306
+	beq	.L62	@,
+	bl	memcpy	@
+.L62:
+	mov	ip, r7, lsr #8	@ tmp490, tmp393,
+	mov	r2, #256	@,
+	adds	r6, r6, r2	@ tmp394, ivtmp.849,
+	add	r0, r8, ip, asl #12	@, tmp492, pretmp.761, tmp490,
+	add	r1, r4, r0	@, Yaddress, tmp492
+	mov	r0, r6	@, tmp394
+	beq	.L116	@,
+	add	r7, r7, #256	@ j, tmp393,
+	bl	memcpy	@
+	cmp	r5, r7	@ ImgWidthInPixAln, j
+	add	r6, r6, #256	@ ivtmp.849, tmp394,
+	bhi	.L63	@,
+.L64:
+	add	r9, r9, #2	@ i.869, i.869,
+	cmp	fp, r9	@ ImgHeightInPixAln, i.869
+	bhi	.L61	@,
+	ldr	r8, [sp, #44]	@ Caddress, %sfp
+.L60:
+	ldr	r0, [sp, #20]	@, %sfp
+	ldr	r2, [sp, #24]	@, %sfp
+	mul	r1, r5, r0	@ tmp315, ImgWidthInPixAln,
+	ldr	r0, [sp, #12]	@, %sfp
+	mov	r1, r1, lsr #1	@, tmp315,
+	bl	klib_fwrite	@
+	ldr	r4, [sp, #16]	@, %sfp
+	cmp	r4, #0	@,
+	beq	.L65	@,
+	ldr	ip, [sp, #8]	@, %sfp
+	mov	sl, #0	@ i.873,
+	mov	r9, ip, asr #1	@,,
+	str	r9, [sp, #8]	@, %sfp
+	ldr	r9, [sp, #12]	@ ivtmp.841, %sfp
+.L66:
+	cmp	r5, #0	@ ImgWidthInPixAln,
+	beq	.L69	@,
+	and	r7, sl, #7	@ pretmp.884, i.873,
+	ldr	r4, [sp, #8]	@, %sfp
+	mov	ip, sl, lsr #3	@ pretmp.895, i.873,
+	cmp	r9, #0	@ ivtmp.841,
+	mov	r6, r7, asl #8	@ tmp329, pretmp.884,
+	sub	fp, r5, #1	@ tmp385, ImgWidthInPixAln,
+	ubfx	fp, fp, #8, #1	@ tmp386, tmp385,,
+	mla	r7, r4, ip, r6	@ pretmp.759,, pretmp.895, tmp329
+	beq	.L104	@,
+	mov	r0, r9	@, ivtmp.841
+	add	r1, r8, r7	@, Caddress, pretmp.759
+	mov	r2, #256	@,
+	bl	memcpy	@
+.L104:
+	mov	r6, #256	@ j.872,
+	cmp	r5, r6	@ ImgWidthInPixAln, j.872
+	add	r4, r9, r6	@ ivtmp.874, ivtmp.841,
+	bls	.L69	@,
+	cmp	fp, #0	@ tmp386,
+	beq	.L68	@,
+	cmp	r4, #0	@ ivtmp.874,
+	beq	.L109	@,
+	add	r1, r7, #2048	@ tmp476, pretmp.759,
+	mov	r0, r4	@, ivtmp.874
+	add	r1, r8, r1	@, Caddress, tmp476
+	mov	r2, r6	@, j.872
+	bl	memcpy	@
+.L109:
+	add	r6, r6, #256	@ j.872, tmp387,
+	add	r4, r4, #256	@ ivtmp.874, tmp388,
+	cmp	r5, r6	@ ImgWidthInPixAln, j.872
+	bls	.L69	@,
+.L68:
+	mov	lr, r6, lsr #8	@ tmp320, j.872,
+	cmp	r4, #0	@ ivtmp.874,
+	mov	r2, #256	@,
+	mov	r0, r4	@, ivtmp.874
+	add	r3, r7, lr, asl #11	@, tmp322, pretmp.759, tmp320,
+	add	r6, r6, r2	@ tmp387, j.872,
+	add	r1, r8, r3	@, Caddress, tmp322
+	beq	.L67	@,
+	bl	memcpy	@
+.L67:
+	mov	r0, r6, lsr #8	@ tmp478, tmp387,
+	mov	r2, #256	@,
+	adds	r4, r4, r2	@ tmp388, ivtmp.874,
+	add	r1, r7, r0, asl #11	@, tmp480, pretmp.759, tmp478,
+	add	r1, r8, r1	@, Caddress, tmp480
+	mov	r0, r4	@, tmp388
+	beq	.L109	@,
+	add	r6, r6, #256	@ j.872, tmp387,
+	bl	memcpy	@
+	cmp	r5, r6	@ ImgWidthInPixAln, j.872
+	add	r4, r4, #256	@ ivtmp.874, tmp388,
+	bhi	.L68	@,
+.L69:
+	ldr	r2, [sp, #16]	@, %sfp
+	add	sl, sl, #1	@ i.873, i.873,
+	add	r9, r9, r5	@ ivtmp.841, ivtmp.841, ImgWidthInPixAln
+	cmp	r2, sl	@, i.873
+	bhi	.L66	@,
+.L65:
+	ldr	r3, [sp, #120]	@, chroma_idc
+	cmp	r3, #1	@,
+	beq	.L152	@,
+	ldr	r0, [sp, #120]	@, chroma_idc
+	cmp	r0, #0	@,
+	bne	.L71	@,
+	mov	r1, #128	@,
+	mov	r2, #1048576	@,
+	ldr	r0, [sp, #36]	@, %sfp
+	bl	memset	@
+	ldr	r0, [sp, #28]	@, %sfp
+	mov	r1, #128	@,
+	mov	r2, #1048576	@,
+	bl	memset	@
+.L71:
+	ldr	r3, [sp, #40]	@, %sfp
+	ldr	r2, [sp, #16]	@, %sfp
+	mul	r4, r3, r2	@ D.40675,,
+	b	.L148	@
+.L150:
+	movw	r1, #:lower16:.LC6	@,
+	mov	r0, #1	@,
+	movt	r1, #:upper16:.LC6	@,
+	bl	dprint_vfmw	@
+	b	.L42	@
+.L152:
+	ldr	r3, [sp, #16]	@, %sfp
+	cmp	r3, #0	@,
+	beq	.L71	@,
+	ldr	r8, [sp, #32]	@, %sfp
+	mov	r7, #0	@ i.876,
+	ldr	sl, [sp, #12]	@, %sfp
+	mov	r9, r3	@ chrom_height,
+	mla	r6, r5, r8, sl	@ tmp, ImgWidthInPixAln,,
+	ldr	r8, [sp, #40]	@ chrom_width, %sfp
+	ldr	sl, [sp, #28]	@ ul, %sfp
+	mov	r5, r5, asl #1	@ D.40677, ImgWidthInPixAln,
+.L72:
+	cmp	r8, #0	@ chrom_width,
+	beq	.L74	@,
+	mov	r1, r7, lsr #1	@ pretmp.880, i.876,
+	ldrb	r4, [r6, #0]	@ zero_extendqisi2	@ tmp438,* tmp
+	mov	r0, #1	@ j.875,
+	cmp	r8, r0	@ chrom_width, j.875
+	mul	ip, r8, r1	@ tmp336, chrom_width, pretmp.880
+	add	r3, r6, #2	@ ivtmp.821, tmp,
+	add	r2, sl, ip	@ ivtmp.824, ul, tmp336
+	add	lr, r2, #2097152	@ tmp437, ivtmp.824,
+	add	r1, r2, r0	@ ivtmp.824, ivtmp.824,
+	strb	r4, [lr, #0]	@ tmp438,
+	ldrb	r4, [r6, #1]	@ zero_extendqisi2	@ tmp439,
+	strb	r4, [sl, ip]	@ tmp439,
+	bls	.L74	@,
+	mov	ip, #1	@ tmp379,
+	cmp	ip, #0	@ tmp379,
+	beq	.L73	@,
+	ldrb	lr, [r3, #0]	@ zero_extendqisi2	@ tmp468,* ivtmp.821
+	add	ip, r1, #2097152	@ tmp467, ivtmp.824,
+	mov	r0, #2	@ j.875,
+	cmp	r8, r0	@ chrom_width, j.875
+	add	r1, r1, #1	@ ivtmp.824, ivtmp.824,
+	strb	lr, [ip, #0]	@ tmp468,
+	ldrb	r4, [r3, #1]	@ zero_extendqisi2	@ tmp469,
+	add	r3, r3, r0	@ ivtmp.821, ivtmp.821,
+	strb	r4, [r2, #1]	@ tmp469,
+	bls	.L74	@,
+.L73:
+	ldrb	r4, [r3, #0]	@ zero_extendqisi2	@ tmp332,* ivtmp.821
+	add	lr, r1, #2097152	@ tmp331, ivtmp.824,
+	mov	r2, r1	@ tmp382, ivtmp.824
+	add	ip, r3, #2	@ tmp381, ivtmp.821,
+	add	r0, r0, #2	@ j.875, j.875,
+	strb	r4, [lr, #0]	@ tmp332,
+	cmp	r8, r0	@ chrom_width, j.875
+	ldrb	r4, [r3, #1]	@ zero_extendqisi2	@ tmp334,
+	strb	r4, [r2], #1	@ tmp334,
+	add	lr, r2, #2097152	@ tmp431, tmp382,
+	ldrb	r4, [r3, #2]	@ zero_extendqisi2	@ tmp432,
+	add	r3, ip, #2	@ ivtmp.821, tmp381,
+	strb	r4, [lr, #0]	@ tmp432,
+	ldrb	lr, [ip, #1]	@ zero_extendqisi2	@ tmp433,
+	strb	lr, [r1, #1]	@ tmp433,
+	add	r1, r2, #1	@ ivtmp.824, tmp382,
+	bhi	.L73	@,
+.L74:
+	add	r7, r7, #2	@ i.876, i.876,
+	cmp	r9, r7	@ chrom_height, i.876
+	bls	.L71	@,
+	add	r6, r6, r5	@ tmp, tmp, D.40677
+	b	.L72	@
+.L151:
+	ldr	r3, [sp, #16]	@, %sfp
+	cmp	r3, #0	@,
+	beq	.L55	@,
+	ldr	r6, [sp, #28]	@ ivtmp.866, %sfp
+	mov	r7, #0	@ i.868,
+	ldr	r8, [sp, #40]	@ chrom_width, %sfp
+	mov	r9, r3	@ chrom_height,
+	ldr	sl, [sp, #32]	@ YUV, %sfp
+.L56:
+	cmp	r8, #0	@ chrom_width,
+	beq	.L58	@,
+	ldrb	ip, [sl, #0]	@ zero_extendqisi2	@ tmp418,* YUV
+	add	r3, r6, #2097152	@ tmp417, ivtmp.866,
+	mov	r0, #1	@ j.867,
+	cmp	r8, r0	@ chrom_width, j.867
+	mov	r2, r6	@ ivtmp.786, ivtmp.866
+	strb	ip, [r3, #0]	@ tmp418,
+	add	r3, sl, #2	@ ivtmp.783, YUV,
+	ldrb	r1, [sl, #1]	@ zero_extendqisi2	@ tmp419,
+	strb	r1, [r2], #1	@ tmp419,
+	bls	.L58	@,
+	mov	ip, #1	@ tmp361,
+	cmp	ip, #0	@ tmp361,
+	beq	.L57	@,
+	ldrb	r1, [r3, #0]	@ zero_extendqisi2	@ tmp441,* ivtmp.783
+	add	lr, r2, #2097152	@ tmp440, ivtmp.786,
+	mov	r0, #2	@ j.867,
+	cmp	r8, r0	@ chrom_width, j.867
+	strb	r1, [lr, #0]	@ tmp441,
+	ldrb	r4, [r3, #1]	@ zero_extendqisi2	@ tmp442,
+	add	r3, r3, r0	@ ivtmp.783, ivtmp.783,
+	strb	r4, [r2], #1	@ tmp442,
+	bls	.L58	@,
+.L57:
+	ldrb	r4, [r3, #0]	@ zero_extendqisi2	@ tmp299,* ivtmp.783
+	add	lr, r2, #2097152	@ tmp298, ivtmp.786,
+	mov	r1, r2	@ tmp364, ivtmp.786
+	add	ip, r3, #2	@ tmp363, ivtmp.783,
+	add	r0, r0, #2	@ j.867, j.867,
+	strb	r4, [lr, #0]	@ tmp299,
+	cmp	r8, r0	@ chrom_width, j.867
+	ldrb	r4, [r3, #1]	@ zero_extendqisi2	@ tmp301,
+	strb	r4, [r1], #1	@ tmp301,
+	add	lr, r1, #2097152	@ tmp411, tmp364,
+	ldrb	r4, [r3, #2]	@ zero_extendqisi2	@ tmp412,
+	add	r3, ip, #2	@ ivtmp.783, tmp363,
+	strb	r4, [lr, #0]	@ tmp412,
+	ldrb	lr, [ip, #1]	@ zero_extendqisi2	@ tmp413,
+	strb	lr, [r2, #1]	@ tmp413,
+	add	r2, r1, #1	@ ivtmp.786, tmp364,
+	bhi	.L57	@,
+.L58:
+	add	r7, r7, #1	@ i.868, i.868,
+	add	r6, r6, r8	@ ivtmp.866, ivtmp.866, chrom_width
+	cmp	r9, r7	@ chrom_height, i.868
+	bls	.L55	@,
+	add	sl, sl, r5	@ YUV, YUV, ImgWidthInPixAln
+	b	.L56	@
+	.fnend
+	.size	VDMHAL_V200R004_WriteBigTitle1DYuv, .-VDMHAL_V200R004_WriteBigTitle1DYuv
+	.align	2
+	.global	VDMHAL_V200R004_StartHwDecode
+	.type	VDMHAL_V200R004_StartHwDecode, %function
+VDMHAL_V200R004_StartHwDecode:
+	.fnstart
+.LFB1622:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	subs	r4, r0, #0	@ VdhId, VdhId
+	bne	.L160	@,
+	movw	r3, #:lower16:s_RegPhyBaseAddr	@ tmp138,
+	movt	r3, #:upper16:s_RegPhyBaseAddr	@ tmp138,
+	mov	r1, #3	@,
+	ldr	r0, [r3, #0]	@ s_RegPhyBaseAddr, s_RegPhyBaseAddr
+	add	r0, r0, #12	@, s_RegPhyBaseAddr,
+	bl	MEM_WritePhyWord	@
+.L156:
+#APP
+@ 1672 "/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/vdm_hal.c" 1
+	dsb
+@ 0 "" 2
+	movw	r1, #:lower16:outer_cache	@ tmp142,
+	movt	r1, #:upper16:outer_cache	@ tmp142,
+	ldr	r3, [r1, #24]	@ D.40380, outer_cache.sync
+	cmp	r3, #0	@ D.40380,
+	beq	.L157	@,
+	blx	r3	@ D.40380
+.L157:
+	cmp	r4, #0	@ VdhId,
+	bgt	.L161	@,
+	movw	r2, #1140	@ tmp146,
+	movw	lr, #:lower16:g_HwMem	@ tmp144,
+	mul	r4, r2, r4	@ tmp145, tmp146, VdhId
+	movt	lr, #:upper16:g_HwMem	@ tmp144,
+	mov	r2, #0	@ tmp148,
+	mov	r0, #1	@ tmp153,
+	ldr	r1, [r4, lr]	@ D.40064, <variable>.pVdmRegVirAddr
+	str	r2, [r1, #0]	@ tmp148,* D.40064
+	ldr	r3, [r4, lr]	@ temp.921, <variable>.pVdmRegVirAddr
+	str	r0, [r3, #0]	@ tmp153,* temp.921
+	ldr	ip, [r4, lr]	@ temp.923, <variable>.pVdmRegVirAddr
+	str	r2, [ip, #0]	@ tmp148,* temp.923
+	ldmfd	sp!, {r4, pc}	@
+.L160:
+	movw	r1, #:lower16:.LC8	@,
+	mov	r0, #0	@,
+	movt	r1, #:upper16:.LC8	@,
+	bl	dprint_vfmw	@
+	b	.L156	@
+.L161:
+	movw	r1, #:lower16:.LC9	@,
+	mov	r0, #0	@,
+	movt	r1, #:upper16:.LC9	@,
+	movw	r2, #1676	@,
+	ldmfd	sp!, {r4, lr}	@
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_StartHwDecode, .-VDMHAL_V200R004_StartHwDecode
+	.align	2
+	.global	VDMHAL_V200R004_StartHwRepair
+	.type	VDMHAL_V200R004_StartHwRepair, %function
+VDMHAL_V200R004_StartHwRepair:
+	.fnstart
+.LFB1621:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r3, r4, r5, r6, r7, lr}	@,
+	.save {r3, r4, r5, r6, r7, lr}
+	movw	r6, #1140	@ tmp145,
+	mul	r6, r6, r0	@ tmp144, tmp145, VdhId
+	movw	r4, #:lower16:g_HwMem	@ tmp175,
+	movt	r4, #:upper16:g_HwMem	@ tmp175,
+	mov	r5, r0	@ VdhId, VdhId
+	movw	r0, #:lower16:269729796	@,
+	movt	r0, #:upper16:269729796	@,
+	ldr	ip, [r6, r4]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	ldr	r7, [ip, #8]	@ dat,
+	bl	MEM_ReadPhyWord	@
+	movw	r1, #:lower16:s_RegPhyBaseAddr	@ tmp149,
+	movt	r1, #:upper16:s_RegPhyBaseAddr	@ tmp149,
+	orr	r7, r7, #67108864	@ dat.948, dat,
+	ldr	r2, [r1, #0]	@ s_RegPhyBaseAddr, s_RegPhyBaseAddr
+	uxth	r1, r0	@ tmp152,
+	add	r0, r2, #4	@, s_RegPhyBaseAddr,
+	bl	MEM_WritePhyWord	@
+	ldr	r0, [r6, r4]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r7, [r0, #8]	@ dat.948,
+#APP
+@ 1608 "/usr1/code/v1r4_v1r6_sourceCode/code/current/v1r6_hi3716mv330_pack/work/source/msp/drv/vfmw/vfmw_v4.0/firmware/driver/HiVDHV200R004/vdm_hal.c" 1
+	dsb
+@ 0 "" 2
+	movw	r3, #:lower16:outer_cache	@ tmp159,
+	movt	r3, #:upper16:outer_cache	@ tmp159,
+	ldr	r3, [r3, #24]	@ D.40381, outer_cache.sync
+	cmp	r3, #0	@ D.40381,
+	beq	.L163	@,
+	blx	r3	@ D.40381
+.L163:
+	movw	ip, #1140	@ tmp162,
+	mov	r3, #0	@ tmp164,
+	mul	r5, ip, r5	@ tmp161, tmp162, VdhId
+	mov	r0, #1	@ tmp169,
+	ldr	r1, [r5, r4]	@ D.40049, <variable>.pVdmRegVirAddr
+	str	r3, [r1, #0]	@ tmp164,* D.40049
+	ldr	r2, [r5, r4]	@ temp.956, <variable>.pVdmRegVirAddr
+	str	r0, [r2, #0]	@ tmp169,* temp.956
+	ldr	lr, [r5, r4]	@ temp.958, <variable>.pVdmRegVirAddr
+	str	r3, [lr, #0]	@ tmp164,* temp.958
+	ldmfd	sp!, {r3, r4, r5, r6, r7, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_StartHwRepair, .-VDMHAL_V200R004_StartHwRepair
+	.align	2
+	.global	VDMHAL_V200R004_CfgRpReg
+	.type	VDMHAL_V200R004_CfgRpReg, %function
+VDMHAL_V200R004_CfgRpReg:
+	.fnstart
+.LFB1618:
+	@ args = 0, pretend = 0, frame = 16
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, lr}	@,
+	.save {r4, r5, lr}
+	subs	r4, r3, #0	@ VdhId, VdhId
+	.pad #20
+	sub	sp, sp, #20	@,,
+	mov	r0, #0	@ tmp152,
+	str	r0, [sp, #12]	@ tmp152, D32
+	bgt	.L171	@,
+	ldr	r3, [r1, #0]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ <variable>.pVdmRegVirAddr,
+	beq	.L172	@,
+.L168:
+	movw	r2, #1140	@ tmp163,
+	movw	r3, #:lower16:g_HwMem	@ tmp161,
+	mul	r4, r2, r4	@ tmp162, tmp163, VdhId
+	movt	r3, #:upper16:g_HwMem	@ tmp161,
+	ldr	r0, [r1, #36]	@ <variable>.MsgSlotAddr, <variable>.MsgSlotAddr
+	movw	r1, #:lower16:536920579	@ tmp173,
+	movt	r1, #:upper16:536920579	@ tmp173,
+	movw	r2, #:lower16:3148803	@ tmp180,
+	bic	r5, r0, #15	@ tmp160, <variable>.MsgSlotAddr,
+	movt	r2, #:upper16:3148803	@ tmp180,
+	mov	r0, #0	@ D.39823,
+	ldr	ip, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r5, [ip, #16]	@ tmp160,
+	mov	r5, #7	@ tmp166,
+	ldr	ip, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r5, [ip, #36]	@ tmp166,
+	ldr	ip, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r1, [ip, #12]	@ tmp173,
+	ldr	r1, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [r1, #60]	@ tmp180,
+	ldr	ip, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [ip, #64]	@ tmp180,
+	ldr	r1, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [r1, #68]	@ tmp180,
+	ldr	ip, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [ip, #72]	@ tmp180,
+	ldr	r1, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [r1, #76]	@ tmp180,
+	ldr	ip, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [ip, #80]	@ tmp180,
+	ldr	r1, [r4, r3]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r2, [r1, #84]	@ tmp180,
+.L167:
+	add	sp, sp, #20	@,,
+	ldmfd	sp!, {r4, r5, pc}
+.L172:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	str	r1, [sp, #4]	@,
+	bl	MEM_Phy2Vir	@
+	ldr	r1, [sp, #4]	@,
+	subs	r2, r0, #0	@ D.39827,
+	strne	r2, [r1, #0]	@ D.39827, <variable>.pVdmRegVirAddr
+	bne	.L168	@,
+	movw	r1, #:lower16:.LC10	@,
+	movt	r1, #:upper16:.LC10	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39823,
+	b	.L167	@
+.L171:
+	movw	r1, #:lower16:.LC9	@,
+	movw	r2, #1338	@,
+	movt	r1, #:upper16:.LC9	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39823,
+	b	.L167	@
+	.fnend
+	.size	VDMHAL_V200R004_CfgRpReg, .-VDMHAL_V200R004_CfgRpReg
+	.global	__aeabi_idivmod
+	.global	__aeabi_idiv
+	.align	2
+	.global	VDMHAL_V200R004_CfgRpMsg
+	.type	VDMHAL_V200R004_CfgRpMsg, %function
+VDMHAL_V200R004_CfgRpMsg:
+	.fnstart
+.LFB1616:
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+	mov	r6, r0	@ pRepairParam, pRepairParam
+	.pad #12
+	sub	sp, sp, #12	@,,
+	ldr	r0, [r1, #36]	@, <variable>.MsgSlotAddr
+	bl	MEM_Phy2Vir	@
+	subs	sl, r0, #0	@ pMsgBase,
+	beq	.L211	@,
+	ldr	r2, [r6, #552]	@ D.39691, <variable>.ValidGroupNum
+	sub	r3, r2, #1	@ tmp226, D.39691,
+	cmp	r3, #127	@ tmp226,
+	bhi	.L212	@,
+	ldr	r3, [r6, #28]	@ <variable>.ImageHeight, <variable>.ImageHeight
+	mov	r8, #0	@ tmp239,
+	ldr	r2, [r6, #24]	@ <variable>.ImageWidth, <variable>.ImageWidth
+	ldr	r1, [r6, #16]	@ <variable>.RefImageAddr, <variable>.RefImageAddr
+	mov	lr, r3, asl #4	@ tmp231, <variable>.ImageHeight,
+	adds	r0, lr, #31	@ tmp233, tmp231,
+	mov	ip, r2, asl #4	@ tmp228, <variable>.ImageWidth,
+	addmi	r3, lr, #62	@, tmp235, tmp231,
+	movpl	r3, r0	@, tmp235, tmp233
+	add	r2, ip, #255	@ tmp230, tmp228,
+	bic	lr, r2, #255	@ SlotWidth, tmp230,
+	str	r1, [sl, #0]	@ <variable>.RefImageAddr,* pMsgBase
+	mov	ip, r3, asr #5	@ tmp237, tmp235,
+	ldr	r0, [r6, #16]	@ <variable>.RefImageAddr, <variable>.RefImageAddr
+	mov	r1, lr, asl #4	@ tmp255, SlotWidth,
+	mul	r3, ip, lr	@ tmp238, tmp237, SlotWidth
+	mov	ip, r3, asl #5	@ ChromaOffset, tmp238,
+	add	r2, ip, r0	@ tmp245, ChromaOffset, <variable>.RefImageAddr
+	str	r2, [sl, #4]	@ tmp245,
+	ldr	lr, [r6, #4]	@ <variable>.ImageAddr, <variable>.ImageAddr
+	str	lr, [sl, #8]	@ <variable>.ImageAddr,
+	ldr	r2, [r6, #4]	@ <variable>.ImageAddr, <variable>.ImageAddr
+	add	r0, ip, r2	@ tmp252, ChromaOffset, <variable>.ImageAddr
+	str	r0, [sl, #12]	@ tmp252,
+	str	r1, [sl, #16]	@ tmp255,
+	str	r8, [sl, #20]	@ tmp239,
+	ldr	r3, [r6, #24]	@ <variable>.ImageWidth, <variable>.ImageWidth
+	ldr	lr, [r6, #28]	@ <variable>.ImageHeight, <variable>.ImageHeight
+	sub	ip, r3, #1	@ tmp262, <variable>.ImageWidth,
+	sub	r2, lr, #1	@ tmp266, <variable>.ImageHeight,
+	mov	r1, ip, asl #23	@ tmp267, tmp262,
+	mov	r0, r1, lsr #23	@ tmp267, tmp267,
+	bfi	r0, r2, #16, #9	@ tmp267, tmp266,,
+	str	r0, [sp, #4]	@ tmp267,
+	str	r0, [sl, #24]	@ tmp267,
+	ldr	r3, [r6, #568]	@ prephitmp.1039, <variable>.FullRepair
+	cmp	r3, r8	@ prephitmp.1039,
+	bne	.L178	@,
+	ldr	ip, [r6, #552]	@ temp.1117, <variable>.ValidGroupNum
+	cmp	ip, r8	@ temp.1117,
+	movle	r8, r3	@ actual_repairTime, prephitmp.1039
+	ble	.L180	@,
+	mov	r7, r3	@ actual_repairTime.1118, i.1115
+	mov	fp, sl	@ pMsgBase, pMsgBase
+	b	.L182	@
+.L213:
+	add	r1, r6, r3, asl #2	@, tmp287, pRepairParam, i.1115,
+	sxth	lr, r5	@ prephitmp.1041, prephitmp.1041
+	adds	r4, lr, #7	@ tmp278, prephitmp.1041,
+	ldrsh	r1, [r1, #38]	@ <variable>.EndMbn, <variable>.EndMbn
+	addmi	r0, lr, #14	@, tmp280, prephitmp.1041,
+	movpl	r0, r4	@, tmp280, tmp278
+	bic	lr, r0, #7	@ tmp283, tmp280,
+	adds	r4, r1, #7	@ tmp290, <variable>.EndMbn,
+	addmi	r1, r1, #14	@, tmp292, <variable>.EndMbn,
+	movpl	r1, r4	@, tmp292, tmp290
+	bic	r1, r1, #7	@ tmp295, tmp292,
+	cmp	lr, r1	@ tmp283, tmp295
+	addle	r4, r3, #1	@ i.1116, i.1115,
+	movle	r8, r7	@ actual_repairTime, actual_repairTime.1118
+	bgt	.L183	@,
+.L184:
+	cmp	ip, r4	@ temp.1117, i.1116
+	ble	.L209	@,
+	add	sl, r4, #1	@ tmp268, i.1116,
+	cmp	sl, #127	@ tmp268,
+	bgt	.L209	@,
+	mov	r3, r4	@ i.1115, i.1116
+	mov	r7, r8	@ actual_repairTime.1118, actual_repairTime
+.L182:
+	add	r2, r3, #10	@ tmp415, i.1115,
+	cmp	r3, #0	@ i.1115,
+	mov	r5, r2, asl #2	@ tmp270, tmp415,
+	add	r4, r5, r6	@ tmp271, tmp270, pRepairParam
+	ldrh	sl, [r5, r6]	@ D.39742, <variable>.StartMbn
+	ldrh	r5, [r4, #2]	@ prephitmp.1041, <variable>.EndMbn
+	bne	.L213	@,
+.L183:
+	tst	r3, #1	@ i.1115,
+	add	r2, r6, r2, asl #2	@, ivtmp.1066, pRepairParam, tmp415,
+	movne	r9, r7	@ actual_repairTime.1118, actual_repairTime.1118
+	bne	.L185	@,
+	add	r4, r3, #1	@ i.1116, i.1115,
+	cmp	r3, #0	@ i.1115,
+	cmpgt	ip, r4	@, temp.1117, i.1116
+	ble	.L205	@,
+	cmp	r4, #127	@ i.1116,
+	bgt	.L205	@,
+	ldrsh	r8, [r2, #4]	@ <variable>.StartMbn, <variable>.StartMbn
+	sxth	lr, r5	@ prephitmp.1041, prephitmp.1041
+	adds	r0, lr, #7	@ tmp435, prephitmp.1041,
+	addmi	r5, lr, #14	@, tmp437, prephitmp.1041,
+	movpl	r5, r0	@, tmp437, tmp435
+	add	r1, r8, #7	@ tmp440, <variable>.StartMbn,
+	cmp	r8, #0	@ <variable>.StartMbn,
+	bic	r5, r5, #7	@ end_Mb, tmp437,
+	movlt	r8, r1	@ <variable>.StartMbn, tmp440
+	bic	r3, r8, #7	@ D.41044, <variable>.StartMbn,
+	cmp	r5, r3	@ end_Mb, D.41044
+	bgt	.L198	@,
+	add	r3, r3, #1	@ tmp445, D.41044,
+	cmp	r5, r3	@ end_Mb, tmp445
+	beq	.L198	@,
+	ldrsh	r0, [r2, #-2]	@ <variable>.EndMbn, <variable>.EndMbn
+	adds	r1, r0, #7	@ tmp447, <variable>.EndMbn,
+	addmi	lr, r0, #14	@, tmp449, <variable>.EndMbn,
+	movpl	lr, r1	@, tmp449, tmp447
+	bic	r8, lr, #7	@ tmp451, tmp449,
+	cmp	r5, r8	@ end_Mb, tmp451
+	bgt	.L187	@,
+.L198:
+	ldrh	r5, [r2, #6]	@ prephitmp.1041, <variable>.EndMbn
+	add	r2, r2, #4	@ ivtmp.1066, ivtmp.1066,
+	mov	r3, r4	@ i.1115, i.1116
+	mov	r9, r7	@ actual_repairTime.1118, actual_repairTime.1118
+.L185:
+	add	r4, r3, #1	@ i.1116, i.1115,
+	sxth	r5, r5	@ prephitmp.1041, prephitmp.1041
+	cmp	r3, #0	@ i.1115,
+	cmpgt	ip, r4	@, temp.1117, i.1116
+	add	r1, r2, #4	@ tmp420, ivtmp.1066,
+	mov	r7, r4	@ i.1116, i.1116
+	ble	.L210	@,
+.L186:
+	cmp	r4, #127	@ i.1116,
+	bgt	.L210	@,
+	ldrsh	lr, [r2, #4]	@ <variable>.StartMbn, <variable>.StartMbn
+	adds	r3, r5, #7	@ tmp330, prephitmp.1041,
+	addmi	r5, r5, #14	@, tmp332, prephitmp.1041,
+	movpl	r5, r3	@, tmp332, tmp330
+	mov	r3, r4	@ i.1115, i.1116
+	add	r8, lr, #7	@ tmp338, <variable>.StartMbn,
+	cmp	lr, #0	@ <variable>.StartMbn,
+	bic	r5, r5, #7	@ end_Mb, tmp332,
+	movlt	lr, r8	@ <variable>.StartMbn, tmp338
+	bic	r0, lr, #7	@ D.41044, <variable>.StartMbn,
+	cmp	r5, r0	@ end_Mb, D.41044
+	add	r8, r0, #1	@ tmp341, D.41044,
+	bgt	.L189	@,
+	cmp	r5, r8	@ end_Mb, tmp341
+	beq	.L189	@,
+	ldrsh	r0, [r2, #-2]	@ <variable>.EndMbn, <variable>.EndMbn
+	adds	r8, r0, #7	@ tmp343, <variable>.EndMbn,
+	addmi	lr, r0, #14	@, tmp345, <variable>.EndMbn,
+	movpl	lr, r8	@, tmp345, tmp343
+	bic	r0, lr, #7	@ tmp348, tmp345,
+	cmp	r5, r0	@ end_Mb, tmp348
+	bgt	.L207	@,
+.L189:
+	ldrh	r8, [r2, #6]	@ prephitmp.1041, <variable>.EndMbn
+	add	r4, r4, #1	@ i.1116, i.1116,
+	cmp	r7, #0	@ i.1116,
+	cmpgt	ip, r4	@, temp.1117, i.1116
+	add	r2, r1, #4	@ ivtmp.1066, tmp420,
+	sxth	r5, r8	@ prephitmp.1041, prephitmp.1041
+	ble	.L210	@,
+	ldrsh	lr, [r1, #4]	@ <variable>.StartMbn, <variable>.StartMbn
+	adds	r3, r5, #7	@ tmp453, prephitmp.1041,
+	addmi	r5, r5, #14	@, tmp455, prephitmp.1041,
+	movpl	r5, r3	@, tmp455, tmp453
+	add	r3, r7, #1	@ i.1115, i.1116,
+	cmp	lr, #0	@ <variable>.StartMbn,
+	add	r7, lr, #7	@ tmp458, <variable>.StartMbn,
+	bic	r5, r5, #7	@ end_Mb, tmp455,
+	movlt	lr, r7	@ <variable>.StartMbn, tmp458
+	bic	r8, lr, #7	@ D.41044, <variable>.StartMbn,
+	cmp	r5, r8	@ end_Mb, D.41044
+	add	r7, r8, #1	@ tmp463, D.41044,
+	bgt	.L202	@,
+	cmp	r5, r7	@ end_Mb, tmp463
+	beq	.L202	@,
+	ldrsh	lr, [r1, #-2]	@ <variable>.EndMbn, <variable>.EndMbn
+	adds	r7, lr, #7	@ tmp465, <variable>.EndMbn,
+	addmi	r8, lr, #14	@, tmp467, <variable>.EndMbn,
+	movpl	r8, r7	@, tmp467, tmp465
+	bic	r0, r8, #7	@ tmp469, tmp467,
+	cmp	r5, r0	@ end_Mb, tmp469
+	bgt	.L207	@,
+.L202:
+	ldrh	r5, [r1, #6]	@ prephitmp.1041, <variable>.EndMbn
+	add	r4, r3, #1	@ i.1116, i.1115,
+	cmp	r3, #0	@ i.1115,
+	cmpgt	ip, r4	@, temp.1117, i.1116
+	add	r1, r2, #4	@ tmp420, ivtmp.1066,
+	mov	r7, r4	@ i.1116, i.1116
+	sxth	r5, r5	@ prephitmp.1041, prephitmp.1041
+	bgt	.L186	@,
+.L210:
+	mov	r7, r9	@ actual_repairTime.1118, actual_repairTime.1118
+.L205:
+	add	r3, r6, r3, asl #2	@, tmp323, pRepairParam, i.1115,
+	ldrsh	r2, [r3, #42]	@ pretmp.1087, <variable>.EndMbn
+	adds	r5, r2, #7	@ pretmp.1047, pretmp.1087,
+	addmi	ip, r2, #14	@, pretmp.1047, pretmp.1087,
+	movpl	ip, r5	@, pretmp.1047, pretmp.1047
+	bic	r5, ip, #7	@ end_Mb, pretmp.1047,
+	b	.L187	@
+.L209:
+	ldr	r3, [r6, #568]	@ prephitmp.1039, <variable>.FullRepair
+	mov	sl, fp	@ pMsgBase, pMsgBase
+.L178:
+	cmp	r3, #1	@ prephitmp.1039,
+	beq	.L192	@,
+.L180:
+	sub	r8, r8, #1	@ tmp389, actual_repairTime,
+	uxth	r8, r8	@ prephitmp.1037, tmp389
+.L194:
+	mov	r0, #0	@ tmp403,
+	str	r0, [sp, #4]	@ tmp403, D32
+	ldr	r2, [r6, #560]	@ <variable>.Compress_en, <variable>.Compress_en
+	ldrb	r3, [sp, #6]	@ zero_extendqisi2	@,
+	ldr	lr, [r6, #564]	@ <variable>.Pic_type, <variable>.Pic_type
+	bfi	r3, r2, #0, #1	@ tmp405, <variable>.Compress_en,,
+	strh	r8, [sp, #4]	@ movhi	@ prephitmp.1037, <variable>.total_grp_num_minus1
+	uxtb	r1, r3	@ tmp408, tmp405
+	bfi	r1, lr, #4, #2	@ tmp408, <variable>.Pic_type,,
+	bfi	r1, lr, #6, #2	@ tmp411, <variable>.Pic_type,,
+	strb	r1, [sp, #6]	@ tmp411,
+	ldr	ip, [sp, #4]	@ D32.1114, D32
+	str	ip, [sl, #28]	@ D32.1114,
+.L175:
+	add	sp, sp, #12	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+.L207:
+	mov	r7, r9	@ actual_repairTime.1118, actual_repairTime.1118
+.L187:
+	ldr	ip, [r6, #28]	@ <variable>.ImageHeight, <variable>.ImageHeight
+	add	r8, r7, #1	@ actual_repairTime, actual_repairTime.1118,
+	ldr	r2, [r6, #24]	@ <variable>.ImageWidth, <variable>.ImageWidth
+	mul	r1, r2, ip	@ D.41034, <variable>.ImageWidth, <variable>.ImageHeight
+	cmp	r1, r5	@ D.41034, end_Mb
+	suble	r5, r1, #1	@ end_Mb, D.41034,
+	cmp	r8, #252	@ actual_repairTime,
+	bgt	.L214	@,
+	sxth	lr, sl	@ D.39742, D.39742
+	mov	r0, #0	@,
+	add	r9, lr, #7	@ tmp355, D.39742,
+	cmp	lr, r0	@ D.39742,
+	ldr	r1, [r6, #24]	@, <variable>.ImageWidth
+	movlt	lr, r9	@ D.39742, tmp355
+	bic	r9, lr, #7	@ cur_StartMb, D.39742,
+	str	r0, [sp, #4]	@, D32
+	mov	r0, r9	@, cur_StartMb
+	bl	__aeabi_idivmod	@
+	ldr	sl, [sp, #4]	@ tmp365,
+	mov	r0, r9	@, cur_StartMb
+	bfi	sl, r1, #0, #9	@ tmp365,,,
+	ldr	r1, [r6, #24]	@, <variable>.ImageWidth
+	bl	__aeabi_idiv	@
+	add	r1, r7, #4	@ tmp371, actual_repairTime.1118,
+	mov	ip, #0	@,
+	mov	r7, r7, asl #3	@ tmp386, actual_repairTime.1118,
+	add	r7, r7, #36	@ tmp387, tmp386,
+	bfi	sl, r0, #16, #9	@ tmp370,,,
+	mov	r0, r5	@, end_Mb
+	str	sl, [fp, r1, asl #3]	@ D32.1091,* pMsgBase
+	ldr	r1, [r6, #24]	@, <variable>.ImageWidth
+	str	ip, [sp, #4]	@, D32
+	bl	__aeabi_idivmod	@
+	ldr	sl, [sp, #4]	@ tmp380,
+	mov	r0, r5	@, end_Mb
+	bfi	sl, r1, #0, #9	@ tmp380,,,
+	ldr	r1, [r6, #24]	@, <variable>.ImageWidth
+	bl	__aeabi_idiv	@
+	bfi	sl, r0, #16, #9	@ tmp385,,,
+	str	sl, [sp, #4]	@ tmp385,
+	str	sl, [fp, r7]	@ D32.1095,
+	ldr	ip, [r6, #552]	@ temp.1117, <variable>.ValidGroupNum
+	b	.L184	@
+.L214:
+	mov	sl, fp	@ pMsgBase, pMsgBase
+	mov	r3, #1	@ tmp351,
+	str	r3, [r6, #568]	@ tmp351, <variable>.FullRepair
+.L192:
+	mov	r8, #0	@ tmp391,
+	mov	r2, #1	@ tmp390,
+	mov	r3, r8	@ tmp393, tmp391
+	str	r2, [r6, #552]	@ tmp390, <variable>.ValidGroupNum
+	bfi	r3, r8, #16, #9	@ tmp393, tmp391,,
+	str	r3, [sl, #32]	@ tmp393,
+	ldr	r0, [r6, #24]	@ <variable>.ImageWidth, <variable>.ImageWidth
+	ldr	lr, [r6, #28]	@ <variable>.ImageHeight, <variable>.ImageHeight
+	sub	r1, r0, #1	@ tmp397, <variable>.ImageWidth,
+	sub	r2, lr, #1	@ tmp401, <variable>.ImageHeight,
+	mov	ip, r1, asl #23	@ tmp402, tmp397,
+	mov	r3, ip, lsr #23	@ tmp402, tmp402,
+	bfi	r3, r2, #16, #9	@ tmp402, tmp401,,
+	str	r3, [sl, #36]	@ tmp402,
+	b	.L194	@
+.L212:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC12	@,
+	movt	r1, #:upper16:.LC12	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39690,
+	b	.L175	@
+.L211:
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #1186	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC11	@,
+	movt	r3, #:upper16:.LC11	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39690,
+	b	.L175	@
+	.fnend
+	.size	VDMHAL_V200R004_CfgRpMsg, .-VDMHAL_V200R004_CfgRpMsg
+	.align	2
+	.global	VDMHAL_V200R004_PrepareRepair
+	.type	VDMHAL_V200R004_PrepareRepair, %function
+VDMHAL_V200R004_PrepareRepair:
+	.fnstart
+.LFB1620:
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}	@,
+	.save {r4, r5, r6, r7, r8, sl, lr}
+	subs	r4, r3, #0	@ VdhId, VdhId
+	.pad #12
+	sub	sp, sp, #12	@,,
+	mov	r7, r0	@ VidStd, VidStd
+	mov	r8, r1	@ pDecParam, pDecParam
+	bgt	.L230	@,
+	movw	sl, #1140	@ tmp151,
+	movw	r6, #:lower16:g_HwMem	@ tmp152,
+	mul	sl, sl, r4	@ tmp150, tmp151, VdhId
+	movt	r6, #:upper16:g_HwMem	@ tmp152,
+	add	r5, r6, sl	@ pHwMem, tmp152, tmp150
+	ldr	r3, [r6, sl]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ <variable>.pVdmRegVirAddr,
+	beq	.L231	@,
+.L218:
+	cmp	r2, #0	@ RepairTime,
+	movw	ip, #1144	@ tmp156,
+	movw	r1, #:lower16:g_RepairParam	@ g_RepairParam.501,
+	movt	r1, #:upper16:g_RepairParam	@ g_RepairParam.501,
+	mul	r3, ip, r4	@ tmp184, tmp156, VdhId
+	bne	.L220	@,
+	add	r6, r1, r3	@ pRepairParam, g_RepairParam.501, tmp184
+	ldr	r0, [r6, #552]	@ <variable>.ValidGroupNum, <variable>.ValidGroupNum
+	cmp	r0, #0	@ <variable>.ValidGroupNum,
+	ble	.L221	@,
+	cmp	r7, #6	@ VidStd,
+	bne	.L222	@,
+	ldrb	r2, [r8, #8]	@ zero_extendqisi2	@ <variable>.PicStruct, <variable>.PicStruct
+	cmp	r2, #1	@ <variable>.PicStruct,
+	movne	r2, #0	@, tmp185,
+	str	r2, [r6, #1136]	@ tmp185, <variable>.Pic_type
+.L222:
+	mov	r0, r7	@, VidStd
+	mov	r2, r8	@, pDecParam
+	mov	r3, r4	@, VdhId
+.L229:
+	mov	r1, r5	@, pHwMem
+	bl	VDMHAL_V200R004_CfgRpReg	@
+	mov	r0, r6	@, pRepairParam
+	mov	r1, r5	@, pHwMem
+	mov	r2, r4	@, VdhId
+	bl	VDMHAL_V200R004_CfgRpMsg	@
+	mov	r0, #0	@ D.39993,
+	b	.L217	@
+.L220:
+	cmp	r2, #1	@ RepairTime,
+	movne	r0, #0	@ D.39993,
+	beq	.L232	@,
+.L217:
+	add	sp, sp, #12	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, sl, pc}
+.L232:
+	cmp	r7, #6	@ VidStd,
+	bne	.L225	@,
+	ldrb	ip, [r8, #8]	@ zero_extendqisi2	@ <variable>.PicStruct, <variable>.PicStruct
+	cmp	ip, #1	@ <variable>.PicStruct,
+	bne	.L225	@,
+	add	lr, r3, r1	@ tmp168, tmp184, g_RepairParam.501
+	ldr	r0, [lr, #1124]	@ <variable>.ValidGroupNum, <variable>.ValidGroupNum
+	cmp	r0, #0	@ <variable>.ValidGroupNum,
+	ble	.L225	@,
+	movw	r2, #:lower16:g_vdm_hal_fun_ptr	@ tmp180,
+	movt	r2, #:upper16:g_vdm_hal_fun_ptr	@ tmp180,
+	add	r6, r3, #572	@ tmp171, tmp184,
+	ldr	r3, [r2, #40]	@ D.40029, g_vdm_hal_fun_ptr.pfun_VDMHAL_ResetVdm
+	add	r6, r1, r6	@ pRepairParam, g_RepairParam.501, tmp171
+	mov	r1, #2	@ tmp172,
+	cmp	r3, #0	@ D.40029,
+	str	r1, [r6, #564]	@ tmp172, <variable>.Pic_type
+	beq	.L226	@,
+	mov	r0, r4	@, VdhId
+	blx	r3	@ D.40029
+.L227:
+	mov	r2, r8	@, pDecParam
+	mov	r3, r4	@, VdhId
+	mov	r0, #6	@,
+	b	.L229	@
+.L231:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	str	r2, [sp, #4]	@,
+	bl	MEM_Phy2Vir	@
+	ldr	r2, [sp, #4]	@,
+	subs	r1, r0, #0	@ D.39997,
+	strne	r1, [r6, sl]	@ D.39997, <variable>.pVdmRegVirAddr
+	bne	.L218	@,
+	movw	r1, #:lower16:.LC13	@,
+	movt	r1, #:upper16:.LC13	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39993,
+	b	.L217	@
+.L230:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC9	@,
+	movw	r2, #1507	@,
+	movt	r1, #:upper16:.LC9	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39993,
+	b	.L217	@
+.L225:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC16	@,
+	movt	r1, #:upper16:.LC16	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39993,
+	b	.L217	@
+.L226:
+	mov	r0, r3	@, D.40029
+	movw	r1, #:lower16:.LC15	@,
+	movw	r2, #1572	@,
+	movt	r1, #:upper16:.LC15	@,
+	bl	dprint_vfmw	@
+	b	.L227	@
+.L221:
+	mov	r0, r2	@, RepairTime
+	movw	r1, #:lower16:.LC14	@,
+	movt	r1, #:upper16:.LC14	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39993,
+	b	.L217	@
+	.fnend
+	.size	VDMHAL_V200R004_PrepareRepair, .-VDMHAL_V200R004_PrepareRepair
+	.align	2
+	.global	VDMHAL_V200R004_UpdateHardwareInfo
+	.type	VDMHAL_V200R004_UpdateHardwareInfo, %function
+VDMHAL_V200R004_UpdateHardwareInfo:
+	.fnstart
+.LFB1611:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+	.save {r4, r5, r6, r7, r8, lr}
+	subs	r5, r0, #0	@ VdhId, VdhId
+	bgt	.L234	@,
+	movw	r3, #:lower16:g_DSPState	@ tmp215,
+	movt	r3, #:upper16:g_DSPState	@ tmp215,
+	ldr	r2, [r3, #0]	@ g_DSPState, g_DSPState
+	cmp	r2, #1	@ g_DSPState,
+	beq	.L235	@,
+	ldr	r0, [r3, #4]	@ g_DSPState, g_DSPState
+	cmp	r0, #1	@ g_DSPState,
+	beq	.L235	@,
+	ldr	r1, [r3, #8]	@ g_DSPState, g_DSPState
+	cmp	r1, #1	@ g_DSPState,
+	beq	.L235	@,
+	ldr	r7, [r3, #12]	@ g_DSPState, g_DSPState
+	cmp	r7, #1	@ g_DSPState,
+	movne	r7, #0	@, LowdlyFlag
+	moveq	r7, #1	@, LowdlyFlag
+.L236:
+	movw	r4, #1140	@ tmp227,
+	movw	r6, #:lower16:g_HwMem	@ tmp362,
+	mul	r4, r4, r5	@ tmp226, tmp227, VdhId
+	movt	r6, #:upper16:g_HwMem	@ tmp362,
+	ldr	r3, [r4, r6]	@ p32, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ p32,
+	beq	.L250	@,
+.L238:
+	mov	r2, #180	@ tmp237,
+	ldr	r8, [r3, #12]	@ D.39497,
+	mul	ip, r2, r5	@ tmp236, tmp237, VdhId
+	movw	r4, #:lower16:g_BackUp	@ tmp363,
+	movt	r4, #:upper16:g_BackUp	@ tmp363,
+	cmp	r7, #1	@ LowdlyFlag,
+	add	r2, ip, r4	@ tmp238, tmp236, tmp363
+	str	r8, [ip, r4]	@ D.39497, <variable>.BasicCfg1
+	ldr	r8, [r3, #28]	@ D.39501,
+	str	r8, [r2, #4]	@ D.39501, <variable>.VdmState
+	beq	.L251	@,
+	add	r8, r3, #4096	@ D.39529, D.39494,
+	ldr	r1, [r8, #0]	@ D.39530,* D.39529
+	str	r1, [r2, #16]	@ D.39530, <variable>.SedSta
+	ldr	r0, [r8, #20]	@ D.39534,
+	str	r0, [r2, #20]	@ D.39534, <variable>.SedEnd0
+	ldr	ip, [r3, #208]	@ temp.1196,
+	str	ip, [r2, #8]	@ temp.1196, <variable>.Mb0QpInCurrPic
+	ldr	r6, [r3, #212]	@ temp.1200,
+	str	r6, [r2, #12]	@ temp.1200, <variable>.SwitchRounding
+	ldr	r1, [r3, #176]	@ D.39548,
+	str	r1, [r2, #24]	@ D.39548, <variable>.DecCyclePerPic
+	ldr	r8, [r3, #180]	@ D.39552,
+	str	r8, [r2, #28]	@ D.39552, <variable>.RdBdwidthPerPic
+	ldr	r0, [r3, #184]	@ D.39556,
+	str	r0, [r2, #32]	@ D.39556, <variable>.WrBdWidthPerPic
+	ldr	ip, [r3, #188]	@ D.39560,
+	str	ip, [r2, #36]	@ D.39560, <variable>.RdReqPerPic
+	ldr	r6, [r3, #192]	@ D.39564,
+	str	r6, [r2, #40]	@ D.39564, <variable>.WrReqPerPic
+.L244:
+	add	r3, r3, #33024	@ tmp364, D.39494,
+	mov	r2, #180	@ tmp344,
+	add	r8, r3, #128	@ D.41257, tmp364,
+	mla	r0, r2, r5, r4	@ ivtmp.1195, tmp344, VdhId, tmp363
+	mov	r2, r3	@ ivtmp.1191, tmp364
+.L245:
+	mov	r1, r2	@ tmp365, ivtmp.1191
+	add	ip, r0, #4	@ tmp366, ivtmp.1195,
+	ldr	r6, [r1], #4	@ D.39570,
+	str	r6, [r0, #52]	@ D.39570, <variable>.LumaHistorgam
+	add	r0, ip, #4	@ ivtmp.1195, tmp366,
+	ldr	r6, [r2, #4]	@ D.39570,
+	add	r2, r1, #4	@ ivtmp.1191, tmp365,
+	cmp	r2, r8	@ ivtmp.1191, D.41257
+	str	r6, [ip, #52]	@ D.39570, <variable>.LumaHistorgam
+	bne	.L245	@,
+	cmp	r7, #0	@ LowdlyFlag,
+	moveq	r1, #180	@ tmp351,
+	ldreq	r2, [r3, #128]	@ D.39576,
+	mlaeq	r4, r1, r5, r4	@ tmp352, tmp351, VdhId, tmp363
+	movne	r0, #0	@ D.39480,
+	moveq	r0, r7	@ D.39480, LowdlyFlag
+	streq	r2, [r4, #48]	@ D.39576, <variable>.LumaSumLow
+	ldreq	r3, [r3, #132]	@ D.39580,
+	streq	r3, [r4, #44]	@ D.39580, <variable>.LumaSumHigh
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L251:
+	movw	lr, #1140	@ tmp246,
+	mla	r3, lr, r5, r6	@ tmp247, tmp246, VdhId, tmp362
+	ldr	r0, [r3, #28]	@, <variable>.MsgSlotAddr
+	bl	MEM_Phy2Vir	@
+	subs	r3, r0, #0	@ pMsgBase,
+	beq	.L252	@,
+	bic	lr, r8, #-16777216	@ DecSliceNum, D.39501,
+	mov	r2, #180	@ tmp261,
+	bic	r8, lr, #16646144	@ DecSliceNum, DecSliceNum,
+	sub	r1, r8, #1	@ tmp254, DecSliceNum,
+	cmp	r1, #127	@ tmp254,
+	subls	r0, r8, #-1073741823	@ tmp255, DecSliceNum,
+	movls	r1, r8, asl #4	@ tmp257, DecSliceNum,
+	movhi	r0, #0	@ prephitmp.1172,
+	subls	r1, r1, #8	@ prephitmp.1174, tmp257,
+	movls	r0, r0, asl #4	@ prephitmp.1172, tmp255,
+	movhi	r1, #8	@ prephitmp.1174,
+	mla	r8, r2, r5, r4	@ tmp262, tmp261, VdhId, tmp363
+	ldr	ip, [r3, r0]	@ tmp264,* prephitmp.1172
+	movw	r0, #1140	@ tmp274,
+	mul	lr, r0, r5	@ tmp273, tmp274, VdhId
+	str	ip, [r8, #16]	@ tmp264, <variable>.SedSta
+	ldr	r1, [r3, r1]	@ tmp271,* prephitmp.1174
+	ldr	r3, [lr, r6]	@ D.39494, <variable>.pVdmRegVirAddr
+	str	r1, [r8, #20]	@ tmp271, <variable>.SedEnd0
+	ldr	r0, [r3, #208]	@ D.39538,
+	str	r0, [r8, #8]	@ D.39538, <variable>.Mb0QpInCurrPic
+	ldr	r6, [r3, #212]	@ D.39542,
+	str	r6, [r8, #12]	@ D.39542, <variable>.SwitchRounding
+	b	.L244	@
+.L235:
+	mov	r7, #1	@ LowdlyFlag,
+	b	.L236	@
+.L250:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r3, r0, #0	@ p32,
+	strne	r3, [r4, r6]	@ p32, <variable>.pVdmRegVirAddr
+	bne	.L238	@,
+	movw	r1, #:lower16:.LC10	@,
+	movt	r1, #:upper16:.LC10	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39480,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L234:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC9	@,
+	mov	r2, #1020	@,
+	movt	r1, #:upper16:.LC9	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39480,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L252:
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #1060	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC17	@,
+	movt	r3, #:upper16:.LC17	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39480,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_UpdateHardwareInfo, .-VDMHAL_V200R004_UpdateHardwareInfo
+	.align	2
+	.global	VDMHAL_V200R004_CheckReg
+	.type	VDMHAL_V200R004_CheckReg, %function
+VDMHAL_V200R004_CheckReg:
+	.fnstart
+.LFB1607:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+	.save {r4, r5, r6, r7, r8, lr}
+	subs	r6, r1, #0	@ VdhId, VdhId
+	mov	r7, r0	@ reg_id, reg_id
+	bgt	.L266	@,
+	movw	r8, #1140	@ tmp145,
+	movw	r5, #:lower16:g_HwMem	@ tmp164,
+	mul	r8, r8, r6	@ tmp144, tmp145, VdhId
+	movt	r5, #:upper16:g_HwMem	@ tmp164,
+	ldr	r3, [r8, r5]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ <variable>.pVdmRegVirAddr,
+	beq	.L267	@,
+.L256:
+	sub	r0, r7, #1	@ tmp155, reg_id,
+	cmp	r0, #3	@ tmp155,
+	ldrls	pc, [pc, r0, asl #2]	@ tmp155
+	b	.L258	@
+.L263:
+	.word	.L259
+	.word	.L260
+	.word	.L261
+	.word	.L262
+.L262:
+	movw	ip, #1140	@ tmp160,
+	mov	r2, #40	@ reg_type,
+	mul	r6, ip, r6	@ tmp159, tmp160, VdhId
+	ldr	r1, [r6, r5]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	ldr	r0, [r2, r1]	@ dat,* <variable>.pVdmRegVirAddr
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L258:
+	mov	r3, r7	@, reg_id
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC20	@,
+	movw	r2, #:lower16:.LANCHOR0	@,
+	movt	r1, #:upper16:.LC20	@,
+	movt	r2, #:upper16:.LANCHOR0	@,
+	bl	dprint_vfmw	@
+	mov	r0, #0	@ dat,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L259:
+	movw	ip, #1140	@ tmp160,
+	mov	r2, #28	@ reg_type,
+	mul	r6, ip, r6	@ tmp159, tmp160, VdhId
+	ldr	r1, [r6, r5]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	ldr	r0, [r2, r1]	@ dat,* <variable>.pVdmRegVirAddr
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L260:
+	movw	ip, #1140	@ tmp160,
+	mov	r2, #32	@ reg_type,
+	mul	r6, ip, r6	@ tmp159, tmp160, VdhId
+	ldr	r1, [r6, r5]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	ldr	r0, [r2, r1]	@ dat,* <variable>.pVdmRegVirAddr
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L261:
+	movw	ip, #1140	@ tmp160,
+	mov	r2, #36	@ reg_type,
+	mul	r6, ip, r6	@ tmp159, tmp160, VdhId
+	ldr	r1, [r6, r5]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	ldr	r0, [r2, r1]	@ dat,* <variable>.pVdmRegVirAddr
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L267:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r4, r0, #0	@ D.39371,
+	strne	r4, [r8, r5]	@ D.39371, <variable>.pVdmRegVirAddr
+	bne	.L256	@,
+	movw	r1, #:lower16:.LC19	@,
+	movw	r2, #:lower16:.LANCHOR0	@,
+	movt	r1, #:upper16:.LC19	@,
+	movt	r2, #:upper16:.LANCHOR0	@,
+	bl	dprint_vfmw	@
+	mov	r0, r4	@ dat, D.39371
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L266:
+	mov	r3, r6	@, VdhId
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC18	@,
+	movw	r2, #:lower16:.LANCHOR0	@,
+	movt	r1, #:upper16:.LC18	@,
+	movt	r2, #:upper16:.LANCHOR0	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ dat,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_CheckReg, .-VDMHAL_V200R004_CheckReg
+	.align	2
+	.global	VDMHAL_V200R004_EnableInt
+	.type	VDMHAL_V200R004_EnableInt, %function
+VDMHAL_V200R004_EnableInt:
+	.fnstart
+.LFB1606:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r0, #0	@ VdhId
+	stmfd	sp!, {r4, r5, r6, lr}	@,
+	.save {r4, r5, r6, lr}
+	bgt	.L273	@,
+	movw	r5, #1140	@ tmp140,
+	movw	r4, #:lower16:g_HwMem	@ tmp138,
+	mul	r5, r5, r0	@ tmp139, tmp140, VdhId
+	movt	r4, #:upper16:g_HwMem	@ tmp138,
+	ldr	r3, [r5, r4]	@ p32, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ p32,
+	beq	.L274	@,
+.L270:
+	mvn	r2, #1	@ tmp148,
+	str	r2, [r3, #36]	@ tmp148,
+	ldmfd	sp!, {r4, r5, r6, pc}	@
+.L273:
+	movw	r1, #:lower16:.LC9	@,
+	mov	r0, #0	@,
+	movt	r1, #:upper16:.LC9	@,
+	movw	r2, #758	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	dprint_vfmw	@
+.L274:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r3, r0, #0	@ p32,
+	strne	r3, [r5, r4]	@ p32, <variable>.pVdmRegVirAddr
+	bne	.L270	@,
+	movw	r1, #:lower16:.LC10	@,
+	movt	r1, #:upper16:.LC10	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_EnableInt, .-VDMHAL_V200R004_EnableInt
+	.align	2
+	.global	VDMHAL_V200R004_MaskInt
+	.type	VDMHAL_V200R004_MaskInt, %function
+VDMHAL_V200R004_MaskInt:
+	.fnstart
+.LFB1605:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r0, #0	@ VdhId
+	stmfd	sp!, {r4, r5, r6, lr}	@,
+	.save {r4, r5, r6, lr}
+	bgt	.L280	@,
+	movw	r5, #1140	@ tmp140,
+	movw	r4, #:lower16:g_HwMem	@ tmp138,
+	mul	r5, r5, r0	@ tmp139, tmp140, VdhId
+	movt	r4, #:upper16:g_HwMem	@ tmp138,
+	ldr	r3, [r5, r4]	@ p32, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ p32,
+	beq	.L281	@,
+.L277:
+	mvn	r2, #0	@ tmp148,
+	str	r2, [r3, #36]	@ tmp148,
+	ldmfd	sp!, {r4, r5, r6, pc}	@
+.L280:
+	movw	r1, #:lower16:.LC9	@,
+	mov	r0, #0	@,
+	movt	r1, #:upper16:.LC9	@,
+	movw	r2, #711	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	dprint_vfmw	@
+.L281:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r3, r0, #0	@ p32,
+	strne	r3, [r5, r4]	@ p32, <variable>.pVdmRegVirAddr
+	bne	.L277	@,
+	movw	r1, #:lower16:.LC10	@,
+	movt	r1, #:upper16:.LC10	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_MaskInt, .-VDMHAL_V200R004_MaskInt
+	.align	2
+	.global	VDMHAL_V200R004_ClearIntState
+	.type	VDMHAL_V200R004_ClearIntState, %function
+VDMHAL_V200R004_ClearIntState:
+	.fnstart
+.LFB1604:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	cmp	r0, #0	@ VdhId
+	stmfd	sp!, {r4, r5, r6, lr}	@,
+	.save {r4, r5, r6, lr}
+	bgt	.L287	@,
+	movw	r5, #1140	@ tmp140,
+	movw	r4, #:lower16:g_HwMem	@ tmp138,
+	mul	r5, r5, r0	@ tmp139, tmp140, VdhId
+	movt	r4, #:upper16:g_HwMem	@ tmp138,
+	ldr	r3, [r5, r4]	@ p32, <variable>.pVdmRegVirAddr
+	cmp	r3, #0	@ p32,
+	beq	.L288	@,
+.L284:
+	mvn	r2, #0	@ tmp148,
+	str	r2, [r3, #32]	@ tmp148,
+	ldmfd	sp!, {r4, r5, r6, pc}	@
+.L287:
+	movw	r1, #:lower16:.LC9	@,
+	mov	r0, #0	@,
+	movt	r1, #:upper16:.LC9	@,
+	movw	r2, #645	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	dprint_vfmw	@
+.L288:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r3, r0, #0	@ p32,
+	strne	r3, [r5, r4]	@ p32, <variable>.pVdmRegVirAddr
+	bne	.L284	@,
+	movw	r1, #:lower16:.LC10	@,
+	movt	r1, #:upper16:.LC10	@,
+	ldmfd	sp!, {r4, r5, r6, lr}	@
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_ClearIntState, .-VDMHAL_V200R004_ClearIntState
+	.align	2
+	.global	VDMHAL_V200R004_GlbReset
+	.type	VDMHAL_V200R004_GlbReset, %function
+VDMHAL_V200R004_GlbReset:
+	.fnstart
+.LFB1603:
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, lr}	@,
+	.save {r4, r5, lr}
+	movw	r0, #:lower16:269680640	@,
+	.pad #12
+	sub	sp, sp, #12	@,,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r2, r0, #0	@ D.39274,
+	beq	.L299	@,
+	movw	r4, #:lower16:g_pstRegCrg	@ tmp157,
+	movt	r4, #:upper16:g_pstRegCrg	@ tmp157,
+	mov	r3, #0	@ i,
+	movw	r0, #10000	@ tmp158,
+	ldr	r2, [r4, #0]	@ g_pstRegCrg.445, g_pstRegCrg
+	ldr	r5, [r2, #120]	@ u32TmpValue, <variable>.PERI_CRG30.u32
+	orr	r5, r5, #16	@ u32TmpValue, u32TmpValue,
+	str	r5, [r2, #120]	@ u32TmpValue, <variable>.PERI_CRG30.u32
+	ldr	r1, [r4, #0]	@ prephitmp.1323, g_pstRegCrg
+	b	.L292	@
+.L300:
+	ldr	lr, [r1, #372]	@ D.39281, <variable>.PERI_CRG93.u32
+	add	r3, r3, #1	@ i, i,
+	tst	lr, #1	@ D.39281,
+	str	lr, [sp, #4]	@ D.39281, u32TmpValue_93.u32
+	bne	.L291	@,
+	add	r3, r3, #1	@ i, i,
+	cmp	r3, r0	@ i, tmp158
+	beq	.L293	@,
+.L292:
+	ldr	ip, [r1, #372]	@ D.39281, <variable>.PERI_CRG93.u32
+	tst	ip, #1	@ D.39281,
+	str	ip, [sp, #4]	@ D.39281, u32TmpValue_93.u32
+	beq	.L300	@,
+.L291:
+	movw	r0, #8999	@ tmp154,
+	cmp	r3, r0	@ i, tmp154
+	bgt	.L293	@,
+.L294:
+	bfc	r5, #4, #1	@ u32TmpValue,,
+	str	r5, [r1, #120]	@ u32TmpValue, <variable>.PERI_CRG30.u32
+	add	sp, sp, #12	@,,
+	ldmfd	sp!, {r4, r5, pc}
+.L293:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC22	@,
+	movt	r1, #:upper16:.LC22	@,
+	bl	dprint_vfmw	@
+	ldr	r1, [r4, #0]	@ prephitmp.1323, g_pstRegCrg
+	b	.L294	@
+.L299:
+	movw	r1, #:lower16:.LC21	@,
+	movt	r1, #:upper16:.LC21	@,
+	add	sp, sp, #12	@,,
+	ldmfd	sp!, {r4, r5, lr}
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_GlbReset, .-VDMHAL_V200R004_GlbReset
+	.align	2
+	.global	VDMHAL_V200R004_ResetVdm
+	.type	VDMHAL_V200R004_ResetVdm, %function
+VDMHAL_V200R004_ResetVdm:
+	.fnstart
+.LFB1602:
+	@ args = 0, pretend = 0, frame = 8
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+	.save {r4, r5, r6, r7, r8, lr}
+	subs	r5, r0, #0	@ VdhId, VdhId
+	.pad #8
+	sub	sp, sp, #8	@,,
+	ble	.L302	@,
+	movw	r1, #:lower16:.LC9	@,
+	mov	r0, #0	@,
+	movt	r1, #:upper16:.LC9	@,
+	movw	r2, #445	@,
+	add	sp, sp, #8	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}
+	b	dprint_vfmw	@
+.L302:
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	subs	r2, r0, #0	@ D.39245,
+	beq	.L311	@,
+	movw	r3, #1140	@ tmp152,
+	movw	r6, #:lower16:g_HwMem	@ tmp172,
+	mul	r0, r3, r5	@ tmp151, tmp152, VdhId
+	movt	r6, #:upper16:g_HwMem	@ tmp172,
+	movw	r4, #:lower16:g_pstRegCrg	@ tmp171,
+	movt	r4, #:upper16:g_pstRegCrg	@ tmp171,
+	mov	r3, #0	@ i,
+	movw	ip, #10000	@ tmp173,
+	ldr	r2, [r4, #0]	@ g_pstRegCrg.444, g_pstRegCrg
+	ldr	r1, [r0, r6]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	ldr	r8, [r1, #36]	@ tmp,
+	ldr	r7, [r2, #120]	@ u32TmpValue, <variable>.PERI_CRG30.u32
+	orr	r7, r7, #64	@ u32TmpValue, u32TmpValue,
+	str	r7, [r2, #120]	@ u32TmpValue, <variable>.PERI_CRG30.u32
+	ldr	r1, [r4, #0]	@ prephitmp.1355, g_pstRegCrg
+	b	.L305	@
+.L313:
+	ldr	lr, [r1, #372]	@ D.39257, <variable>.PERI_CRG93.u32
+	and	r0, lr, #4	@ tmp180, D.39257,
+	str	lr, [sp, #4]	@ D.39257, u32TmpValue_93.u32
+	uxtb	r0, r0	@ tmp181, tmp180
+	cmp	r0, #0	@ tmp181,
+	bne	.L304	@,
+	cmp	r3, ip	@ i, tmp173
+	beq	.L312	@,
+.L305:
+	ldr	lr, [r1, #372]	@ D.39257, <variable>.PERI_CRG93.u32
+	add	r2, r3, #1	@ tmp174, i,
+	add	r3, r2, #1	@ i, tmp174,
+	tst	lr, #4	@ D.39257,
+	str	lr, [sp, #4]	@ D.39257, u32TmpValue_93.u32
+	beq	.L313	@,
+.L304:
+	movw	r3, #1140	@ tmp168,
+	bfc	r7, #6, #1	@ u32TmpValue,,
+	mul	r5, r3, r5	@ tmp167, tmp168, VdhId
+	str	r7, [r1, #120]	@ u32TmpValue, <variable>.PERI_CRG30.u32
+	ldr	ip, [r5, r6]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	str	r8, [ip, #36]	@ tmp,
+	add	sp, sp, #8	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}
+.L312:
+	movw	r1, #:lower16:.LC23	@,
+	mov	r2, r5	@, VdhId
+	movt	r1, #:upper16:.LC23	@,
+	bl	dprint_vfmw	@
+	ldr	r1, [r4, #0]	@ prephitmp.1355, g_pstRegCrg
+	b	.L304	@
+.L311:
+	movw	r1, #:lower16:.LC21	@,
+	movt	r1, #:upper16:.LC21	@,
+	add	sp, sp, #8	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_ResetVdm, .-VDMHAL_V200R004_ResetVdm
+	.align	2
+	.global	VDMHAL_V200R004_CloseHAL
+	.type	VDMHAL_V200R004_CloseHAL, %function
+VDMHAL_V200R004_CloseHAL:
+	.fnstart
+.LFB1599:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, lr}	@,
+	.save {r4, lr}
+	mov	r4, r0	@ VdhId, VdhId
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	cmp	r0, #0	@,
+	ldmeqfd	sp!, {r4, pc}	@
+	movw	r3, #:lower16:g_vdm_hal_fun_ptr	@ tmp137,
+	movt	r3, #:upper16:g_vdm_hal_fun_ptr	@ tmp137,
+	ldr	r3, [r3, #40]	@ D.39060, g_vdm_hal_fun_ptr.pfun_VDMHAL_ResetVdm
+	cmp	r3, #0	@ D.39060,
+	beq	.L316	@,
+	mov	r0, r4	@, VdhId
+	blx	r3	@ D.39060
+	ldmfd	sp!, {r4, pc}	@
+.L316:
+	mov	r0, r3	@, D.39060
+	movw	r1, #:lower16:.LC15	@,
+	mov	r2, #228	@,
+	movt	r1, #:upper16:.LC15	@,
+	ldmfd	sp!, {r4, lr}	@
+	b	dprint_vfmw	@
+	.fnend
+	.size	VDMHAL_V200R004_CloseHAL, .-VDMHAL_V200R004_CloseHAL
+	.align	2
+	.global	VDMHAL_V200R004_MakeDecReport
+	.type	VDMHAL_V200R004_MakeDecReport, %function
+VDMHAL_V200R004_MakeDecReport:
+	.fnstart
+.LFB1619:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+	.save {r4, r5, r6, r7, r8, lr}
+	subs	r6, r1, #0	@ pDecReport, pDecReport
+	.pad #16
+	sub	sp, sp, #16	@,,
+	mov	r4, r0	@ VidStd, VidStd
+	mov	r8, r2	@ VdhId, VdhId
+	beq	.L343	@,
+	movw	r0, #1140	@ tmp160,
+	movw	r3, #:lower16:g_HwMem	@ tmp161,
+	mul	r2, r0, r2	@ tmp159, tmp160, VdhId
+	movt	r3, #:upper16:g_HwMem	@ tmp161,
+	add	r5, r3, r2	@ pHwMem, tmp161, tmp159
+	ldr	r0, [r3, r2]	@ <variable>.pVdmRegVirAddr, <variable>.pVdmRegVirAddr
+	cmp	r0, #0	@ <variable>.pVdmRegVirAddr,
+	beq	.L321	@,
+	movw	r3, #:lower16:g_DSPState	@ tmp163,
+	movt	r3, #:upper16:g_DSPState	@ tmp163,
+	ldr	r1, [r3, #0]	@ g_DSPState, g_DSPState
+	cmp	r1, #1	@ g_DSPState,
+	beq	.L322	@,
+	ldr	r7, [r3, #4]	@ g_DSPState, g_DSPState
+	cmp	r7, #1	@ g_DSPState,
+	beq	.L322	@,
+	ldr	ip, [r3, #8]	@ g_DSPState, g_DSPState
+	cmp	ip, #1	@ g_DSPState,
+	beq	.L322	@,
+	ldr	lr, [r3, #12]	@ g_DSPState, g_DSPState
+	cmp	lr, #1	@ g_DSPState,
+	movne	r7, #0	@, LowdlyFlag
+	moveq	r7, #1	@, LowdlyFlag
+.L323:
+	mov	r0, r6	@, pDecReport
+	mov	r1, #528	@,
+	bl	__memzero	@
+	movw	r3, #:lower16:g_BackUp	@ tmp266,
+	movt	r3, #:upper16:g_BackUp	@ tmp266,
+	mov	r0, #180	@ tmp179,
+	ldr	r1, [r5, #24]	@ <variable>.VahbStride, <variable>.VahbStride
+	mla	ip, r0, r8, r3	@ tmp180, tmp179, VdhId, tmp266
+	str	r1, [r6, #4]	@ <variable>.VahbStride, <variable>.ImgStride
+	ldr	r2, [ip, #4]	@ D.39908, <variable>.VdmState
+	mov	r2, r2, lsr #17	@ tmp182, D.39908,
+	and	r0, r2, #3	@ tmp183, tmp182,
+	cmp	r0, #1	@ tmp183,
+	moveq	r2, #0	@ prephitmp.1418,
+	beq	.L325	@,
+	eor	lr, r2, #1	@ tmp187, tmp182,
+	and	r2, lr, #1	@ tmp189, tmp187,
+	cmp	r4, #3	@ VidStd,
+	orrne	r2, r2, #1	@,, prephitmp.1418, tmp189
+.L325:
+	str	r2, [r6, #0]	@ prephitmp.1418, <variable>.RetType
+	mov	r2, #180	@ tmp195,
+	mla	r2, r2, r8, r3	@ tmp196, tmp195, VdhId, tmp266
+	cmp	r4, #0	@ VidStd,
+	cmpne	r4, #15	@, VidStd,
+	ldr	ip, [r2, #4]	@ <variable>.VdmState, <variable>.VdmState
+	bic	r3, ip, #-16777216	@ D.39918, <variable>.VdmState,
+	bic	r3, r3, #16646144	@ D.39918, D.39918,
+	str	r3, [r6, #8]	@ D.39918, <variable>.DecSliceNum
+	bne	.L326	@,
+	cmp	r7, #1	@ LowdlyFlag,
+	beq	.L344	@,
+	movw	ip, #:lower16:g_not_allow_H264FullPictureRepair_flag	@ tmp221,
+	movt	ip, #:upper16:g_not_allow_H264FullPictureRepair_flag	@ tmp221,
+	ldrb	r1, [ip, #0]	@ zero_extendqisi2	@ g_not_allow_H264FullPictureRepair_flag, g_not_allow_H264FullPictureRepair_flag
+	cmp	r1, #0	@ g_not_allow_H264FullPictureRepair_flag,
+	beq	.L345	@,
+.L326:
+	cmp	r3, #128	@ D.39918,
+	movhi	r3, #0	@ tmp237,
+	strhi	r3, [r6, #8]	@ tmp237, <variable>.DecSliceNum
+	ldr	r7, [r5, #28]	@ D.39942, <variable>.MsgSlotAddr
+	mov	r0, r7	@, D.39942
+	bl	MEM_Phy2Vir	@
+	subs	r1, r0, #0	@ D.39944,
+	beq	.L346	@,
+	ldr	lr, [r6, #8]	@ <variable>.DecSliceNum, <variable>.DecSliceNum
+	mov	r8, r8, asl #11	@ tmp267, VdhId,
+	movw	r4, #:lower16:g_UpMsg	@ tmp268,
+	movt	r4, #:upper16:g_UpMsg	@ tmp268,
+	add	r5, r4, r8	@ tmp242, tmp268, tmp267
+	mov	r2, lr, asl #2	@, <variable>.DecSliceNum,
+	mov	r0, r5	@, tmp242
+	bl	VDMHAL_V200R004_ReadMsgSlot	@
+	ldr	ip, [r6, #8]	@ temp.1462, <variable>.DecSliceNum
+	cmp	ip, #0	@ temp.1462,
+	beq	.L330	@,
+	ldrh	r3, [r5, #4]	@, g_UpMsg
+	mov	r0, #1	@ i,
+	cmp	r0, ip	@ i, temp.1462
+	sub	r2, ip, #1	@ tmp271, temp.1462,
+	and	r2, r2, r0	@ tmp273, tmp271,
+	strh	r3, [r6, #12]	@ movhi	@, <variable>.SliceMbRange
+	add	r3, r6, #4	@ ivtmp.1447, pDecReport,
+	ldrh	r1, [r5, #8]	@, g_UpMsg
+	add	r5, r5, #16	@ ivtmp.1444, tmp242,
+	strh	r1, [r6, #14]	@ movhi	@, <variable>.SliceMbRange
+	bcs	.L330	@,
+	cmp	r2, #0	@ tmp273,
+	beq	.L331	@,
+	ldrh	r1, [r5, #4]	@, g_UpMsg
+	mov	r0, #2	@ i,
+	cmp	r0, ip	@ i, temp.1462
+	strh	r1, [r3, #12]	@ movhi	@, <variable>.SliceMbRange
+	ldrh	r2, [r5, #8]	@, g_UpMsg
+	add	r5, r5, #16	@ ivtmp.1444, ivtmp.1444,
+	strh	r2, [r3, #14]	@ movhi	@, <variable>.SliceMbRange
+	add	r3, r3, #4	@ ivtmp.1447, ivtmp.1447,
+	bcs	.L330	@,
+.L331:
+	ldrh	lr, [r5, #4]	@, g_UpMsg
+	add	r2, r5, #16	@ tmp275, ivtmp.1444,
+	add	r0, r0, #2	@ i, i,
+	cmp	r0, ip	@ i, temp.1462
+	strh	lr, [r3, #12]	@ movhi	@, <variable>.SliceMbRange
+	add	lr, r3, #4	@ tmp276, ivtmp.1447,
+	ldrh	r1, [r5, #8]	@, g_UpMsg
+	strh	r1, [r3, #14]	@ movhi	@, <variable>.SliceMbRange
+	add	r3, lr, #4	@ ivtmp.1447, tmp276,
+	ldrh	r5, [r2, #4]	@, g_UpMsg
+	strh	r5, [lr, #12]	@ movhi	@, <variable>.SliceMbRange
+	add	r5, r2, #16	@ ivtmp.1444, tmp275,
+	ldrh	r1, [r2, #8]	@, g_UpMsg
+	strh	r1, [lr, #14]	@ movhi	@, <variable>.SliceMbRange
+	bcc	.L331	@,
+.L330:
+	mov	r0, #6	@,
+	bl	IsDprintTypeEnable	@
+	cmp	r0, #0	@ D.39958
+	bne	.L347	@,
+.L320:
+	add	sp, sp, #16	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}
+.L347:
+	ldr	r2, [r6, #8]	@, <variable>.DecSliceNum
+	mov	r0, #6	@,
+	movw	r1, #:lower16:.LC25	@,
+	movt	r1, #:upper16:.LC25	@,
+	bl	dprint_vfmw	@
+	mov	r2, r7	@, D.39942
+	mov	r0, #6	@,
+	movw	r1, #:lower16:.LC26	@,
+	movt	r1, #:upper16:.LC26	@,
+	bl	dprint_vfmw	@
+	ldr	r0, [r6, #8]	@ <variable>.DecSliceNum, <variable>.DecSliceNum
+	mov	ip, r0, asl #2	@ tmp253, <variable>.DecSliceNum,
+	cmp	ip, #3	@ tmp253,
+	beq	.L333	@,
+	add	r4, r4, r8	@ ivtmp.1434, tmp268, tmp267
+	mov	r5, #0	@ i_cnt,
+.L334:
+	ldr	r7, [r4, #4]	@ tmp258, g_UpMsg
+	mov	r2, r5	@, i_cnt
+	ldr	lr, [r4, #8]	@ tmp259, g_UpMsg
+	mov	r0, #6	@,
+	ldr	ip, [r4, #12]	@ tmp260, g_UpMsg
+	movw	r1, #:lower16:.LC27	@,
+	ldr	r3, [r4, #0]	@ tmp257, g_UpMsg
+	movt	r1, #:upper16:.LC27	@,
+	str	r7, [sp, #0]	@ tmp258,
+	add	r5, r5, #4	@ i_cnt, i_cnt,
+	str	lr, [sp, #4]	@ tmp259,
+	add	r4, r4, #16	@ ivtmp.1434, ivtmp.1434,
+	str	ip, [sp, #8]	@ tmp260,
+	bl	dprint_vfmw	@
+	ldr	r1, [r6, #8]	@ <variable>.DecSliceNum, <variable>.DecSliceNum
+	mov	r2, r1, asl #2	@ tmp261, <variable>.DecSliceNum,
+	sub	r3, r2, #3	@ tmp263, tmp261,
+	cmp	r3, r5	@ tmp263, i_cnt
+	bhi	.L334	@,
+.L333:
+	mov	r0, #6	@,
+	movw	r1, #:lower16:.LC28	@,
+	movt	r1, #:upper16:.LC28	@,
+	bl	dprint_vfmw	@
+	mov	r0, #0	@ D.39889,
+	b	.L320	@
+.L345:
+	ldrb	r0, [r2, #19]	@ zero_extendqisi2	@ tmp229, <variable>.SedSta
+	and	r2, r0, #3	@ tmp231, tmp229,
+	cmp	r2, #2	@ tmp231,
+	bne	.L326	@,
+	mov	r3, #1	@ tmp232,
+	strh	r1, [r6, #14]	@ movhi	@ g_not_allow_H264FullPictureRepair_flag, <variable>.SliceMbRange
+	mov	r0, r1	@ D.39889, g_not_allow_H264FullPictureRepair_flag
+	strh	r1, [r6, #12]	@ movhi	@ g_not_allow_H264FullPictureRepair_flag, <variable>.SliceMbRange
+	str	r3, [r6, #8]	@ tmp232, <variable>.DecSliceNum
+	b	.L320	@
+.L344:
+	ldr	r0, [r2, #16]	@ <variable>.SedSta, <variable>.SedSta
+	ubfx	r1, r0, #21, #2	@ tmp215, <variable>.SedSta,,
+	cmp	r1, #2	@ tmp215,
+	bne	.L326	@,
+	mov	lr, #0	@ movhi	@,
+	str	r7, [r6, #8]	@ LowdlyFlag, <variable>.DecSliceNum
+	strh	lr, [r6, #14]	@ movhi	@, <variable>.SliceMbRange
+	mov	r0, #0	@ D.39889,
+	strh	lr, [r6, #12]	@ movhi	@, <variable>.SliceMbRange
+	b	.L320	@
+.L322:
+	mov	r7, #1	@ LowdlyFlag,
+	b	.L323	@
+.L346:
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #1459	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC17	@,
+	movt	r3, #:upper16:.LC17	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39889,
+	b	.L320	@
+.L321:
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #1397	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC2	@,
+	movt	r3, #:upper16:.LC2	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39889,
+	b	.L320	@
+.L343:
+	mov	r0, r6	@, pDecReport
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #1396	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC24	@,
+	movt	r3, #:upper16:.LC24	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39889,
+	b	.L320	@
+	.fnend
+	.size	VDMHAL_V200R004_MakeDecReport, .-VDMHAL_V200R004_MakeDecReport
+	.align	2
+	.global	VDMHAL_V200R004_PrepareDec
+	.type	VDMHAL_V200R004_PrepareDec, %function
+VDMHAL_V200R004_PrepareDec:
+	.fnstart
+.LFB1608:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}	@,
+	.save {r4, r5, r6, r7, r8, lr}
+	subs	r5, r1, #0	@ pDecParam, pDecParam
+	mov	r4, r0	@ VidStd, VidStd
+	mov	r6, r2	@ VdhId, VdhId
+	beq	.L351	@,
+	cmp	r2, #0	@ VdhId,
+	ble	.L350	@,
+	movw	r1, #:lower16:.LC9	@,
+	mov	r2, #876	@,
+	movt	r1, #:upper16:.LC9	@,
+	mov	r0, #0	@,
+	bl	dprint_vfmw	@
+.L351:
+	mvn	r0, #0	@,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}	@
+.L350:
+	movw	r7, #:lower16:s_RegPhyBaseAddr	@ tmp139,
+	movt	r7, #:upper16:s_RegPhyBaseAddr	@ tmp139,
+	cmp	r0, #6	@ VidStd,
+	movne	r1, #0	@,
+	moveq	r1, #1	@,
+	ldr	r0, [r7, #0]	@, s_RegPhyBaseAddr
+	bl	MEM_WritePhyWord	@
+	ldr	r0, [r7, #0]	@ s_RegPhyBaseAddr, s_RegPhyBaseAddr
+	mov	r1, #1	@,
+	add	r0, r0, #8	@, s_RegPhyBaseAddr,
+	bl	MEM_WritePhyWord	@
+	cmp	r4, #13	@ VidStd,
+	ldrls	pc, [pc, r4, asl #2]	@ VidStd
+	b	.L351	@
+.L362:
+	.word	.L352
+	.word	.L353
+	.word	.L354
+	.word	.L355
+	.word	.L351
+	.word	.L356
+	.word	.L357
+	.word	.L351
+	.word	.L358
+	.word	.L359
+	.word	.L360
+	.word	.L360
+	.word	.L360
+	.word	.L361
+.L361:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	VP8HAL_V200R004_StartDec	@
+.L352:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	H264HAL_V200R004_StartDec	@
+.L353:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	VC1HAL_V200R004_StartDec	@
+.L354:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	MP4HAL_V200R004_StartDec	@
+.L355:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	MP2HAL_V200R004_StartDec	@
+.L356:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	DIVX3HAL_V200R004_StartDec	@
+.L357:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	AVSHAL_V200R004_StartDec	@
+.L358:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	RV8HAL_V200R004_StartDec	@
+.L359:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	RV9HAL_V200R004_StartDec	@
+.L360:
+	mov	r0, r5	@, pDecParam
+	mov	r1, r6	@, VdhId
+	ldmfd	sp!, {r4, r5, r6, r7, r8, lr}	@
+	b	VP6HAL_V200R004_StartDec	@
+	.fnend
+	.size	VDMHAL_V200R004_PrepareDec, .-VDMHAL_V200R004_PrepareDec
+	.align	2
+	.global	VDMHAL_V200R004_ArrangeMem
+	.type	VDMHAL_V200R004_ArrangeMem, %function
+VDMHAL_V200R004_ArrangeMem:
+	.fnstart
+.LFB1601:
+	@ args = 24, pretend = 0, frame = 16
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+	subs	r7, r0, #0	@ MemAddr, MemAddr
+	.pad #20
+	sub	sp, sp, #20	@,,
+	mov	r8, r1	@ MemSize, MemSize
+	mov	r4, r2	@ Width, Width
+	mov	r6, r3	@ Height, Height
+	ldr	r5, [sp, #68]	@ ChanID, ChanID
+	ldr	fp, [sp, #72]	@ pVdmMemArrange, pVdmMemArrange
+	beq	.L404	@,
+	cmp	r3, #31	@ Height,
+	movgt	r3, #0	@, tmp178
+	movle	r3, #1	@, tmp178
+	sub	r9, r2, #32	@ tmp173, Width,
+	movw	r2, #8160	@ tmp175,
+	cmp	r9, r2	@ tmp173, tmp175
+	movls	r9, r3	@, tmp181, tmp178
+	orrhi	r9, r3, #1	@,, tmp181, tmp178
+	cmp	r9, #0	@ tmp181,
+	bne	.L367	@,
+	cmp	r6, #8192	@ Height,
+	bgt	.L367	@,
+	cmp	fp, #0	@ pVdmMemArrange,
+	beq	.L405	@,
+	mov	r0, fp	@, pVdmMemArrange
+	mov	r1, #416	@,
+	ldr	sl, [sp, #56]	@ PmvNum, PmvNum
+	add	r4, r4, #15	@ tmp186, Width,
+	bl	__memzero	@
+	add	r3, r6, #15	@ tmp187, Height,
+	mov	r4, r4, asr #4	@ ImgWidthInMb, tmp186,
+	movw	r6, #:lower16:g_not_direct_8x8_inference_flag	@ tmp195,
+	mov	r3, r3, asr #4	@ ImgHeightInMb, tmp187,
+	movt	r6, #:upper16:g_not_direct_8x8_inference_flag	@ tmp195,
+	cmp	sl, #20	@ PmvNum,
+	movge	sl, #20	@ PmvNum.1540,
+	cmp	r3, #36	@ ImgHeightInMb,
+	cmple	r4, #45	@, ImgWidthInMb,
+	mul	r2, r4, r3	@ tmp197, ImgWidthInMb, ImgHeightInMb
+	ldrb	ip, [r6, #0]	@ zero_extendqisi2	@ g_not_direct_8x8_inference_flag, g_not_direct_8x8_inference_flag
+	movle	r0, #64	@, ColMbSize,
+	movgt	r0, #32	@, ColMbSize,
+	cmp	ip, #1	@ g_not_direct_8x8_inference_flag,
+	movne	ip, r0	@ ColMbSize, ColMbSize
+	moveq	ip, #64	@ ColMbSize,
+	mul	r1, ip, r2	@ tmp198, ColMbSize, tmp197
+	add	r6, r1, #127	@ tmp199, tmp198,
+	bic	r6, r6, #127	@ PmvSlotLen, tmp199,
+	mul	r0, sl, r6	@ tmp200, PmvNum.1540, PmvSlotLen
+	cmp	r0, r8	@ tmp200, MemSize
+	bge	.L406	@,
+	mov	ip, r4, asl #4	@ tmp207, ImgWidthInMb,
+	ldr	r2, [sp, #64]	@, UserDec
+	add	r1, ip, #255	@ tmp208, tmp207,
+	str	sl, [fp, #404]	@ PmvNum.1540, <variable>.ValidPMVNum
+	bic	sl, r1, #255	@ SlotWidth, tmp208,
+	cmp	r2, #1	@,
+	mov	r9, r6, asr #1	@ tmp206, PmvSlotLen,
+	str	r9, [fp, #400]	@ tmp206, <variable>.HafPmvOffset
+	mov	r9, r3, asl #4	@ ImgHeightInPixAln, ImgHeightInMb,
+	addne	r3, sl, sl, asl #1	@, tmp215, SlotWidth, SlotWidth,
+	addne	r4, r9, #31	@ tmp217, ImgHeightInPixAln,
+	addeq	r3, r9, r3, asl #5	@, tmp212, ImgHeightInPixAln, ImgHeightInMb,
+	movne	r3, r3, asl #5	@ tmp216, tmp215,
+	mov	lr, sl, asl #4	@ tmp209, SlotWidth,
+	movne	r4, r4, asr #5	@ tmp218, tmp217,
+	str	lr, [fp, #0]	@ tmp209, <variable>.VahbStride
+	muleq	r4, sl, r3	@ ImgSlotLen, SlotWidth, tmp212
+	mulne	r4, r4, r3	@ tmp219, tmp218, tmp216
+	movne	r4, r4, asr #1	@ ImgSlotLen, tmp219,
+	cmp	r5, #0	@ ChanID,
+	blt	.L376	@,
+	mov	r0, r5	@, ChanID
+	bl	VCTRL_GetChanWidth	@
+	mov	r3, r0	@ ChanWidth,
+	mov	r0, r5	@, ChanID
+	str	r3, [sp, #4]	@,
+	bl	VCTRL_GetChanHeight	@
+	ldr	r3, [sp, #4]	@,
+	cmn	r0, #1	@ ChanHeight,
+	cmnne	r3, #1	@, ChanWidth,
+	beq	.L407	@,
+	add	ip, r0, #15	@ tmp231, ChanHeight,
+	ldr	r0, [sp, #64]	@, UserDec
+	add	r2, r3, #15	@ tmp233, ChanWidth,
+	cmp	r0, #1	@,
+	mov	r0, ip, asr #4	@ tmp232, tmp231,
+	bic	r1, r2, #15	@ tmp235, tmp233,
+	mov	r3, r0, asl #4	@ ChanImgHeightInPixAln, tmp232,
+	add	lr, r1, #255	@ tmp236, tmp235,
+	bic	r1, lr, #255	@ ChanSlotWidth, tmp236,
+	addeq	r3, r3, r0, asl #5	@, tmp239, ChanImgHeightInPixAln, tmp232,
+	muleq	r3, r1, r3	@ ChanSlotLen, ChanSlotWidth, tmp239
+	beq	.L379	@,
+	adds	lr, r3, #31	@ tmp240, ChanImgHeightInPixAln,
+	addmi	r0, r3, #62	@, tmp242, ChanImgHeightInPixAln,
+	movpl	r0, lr	@, tmp242, tmp240
+	mov	r2, r0, asr #5	@ tmp244, tmp242,
+	mul	ip, r2, r1	@ tmp245, tmp244, ChanSlotWidth
+	add	lr, ip, ip, asl #1	@, tmp248, tmp245, tmp245,
+	mov	r3, lr, asl #5	@ tmp249, tmp248,
+	mov	r3, r3, asr #1	@ ChanSlotLen, tmp249,
+.L379:
+	cmp	r4, r3	@ ImgSlotLen, ChanSlotLen
+	bgt	.L408	@,
+.L376:
+	add	ip, r9, #31	@ tmp257, ImgHeightInPixAln,
+	mov	sl, sl, asl #5	@ tmp256, SlotWidth,
+	ldr	r2, [sp, #60]	@, FrameNum
+	mov	r3, ip, asr #5	@ tmp258, tmp257,
+	cmp	r2, #0	@,
+	mul	r1, r3, sl	@ tmp259, tmp258, tmp256
+	str	r1, [fp, #264]	@ tmp259, <variable>.ChromOffset
+	beq	.L380	@,
+	add	sl, r7, #1020	@ tmp260, MemAddr,
+	mov	r1, r4	@, ImgSlotLen
+	add	r3, sl, #3	@ tmp260, tmp260,
+	mov	sl, r2	@ iftmp.440,
+	bic	lr, r3, #1020	@ tmp262, tmp260,
+	cmp	sl, #64	@ iftmp.440,
+	movge	sl, #64	@ iftmp.440,
+	bic	r0, lr, #3	@ tmp262, tmp262,
+	rsb	r2, r7, r0	@, MemAddr, tmp262
+	str	r2, [sp, #8]	@, %sfp
+	rsb	r0, r2, r8	@,, MemSize
+	bl	__aeabi_idiv	@
+	cmp	sl, r0	@ iftmp.440,
+	movlt	r0, sl	@ iftmp.440, iftmp.440
+	movge	r0, r0	@ iftmp.440,
+	str	r0, [fp, #276]	@ iftmp.440, <variable>.ValidFrameNum
+	cmp	r0, #0	@ iftmp.440,
+	beq	.L381	@,
+	ble	.L383	@,
+	ldr	ip, [sp, #8]	@, %sfp
+	cmp	r0, #1	@ iftmp.440,
+	sub	r2, r0, #1	@ tmp296, iftmp.440,
+	add	r3, fp, #4	@ ivtmp.1538, pVdmMemArrange,
+	add	r1, ip, r7	@ ivtmp.1534,, MemAddr
+	and	ip, r2, #1	@ tmp298, tmp296,
+	str	r1, [fp, #8]	@ ivtmp.1534, <variable>.FrameAddr
+	add	r2, r1, r4	@ ivtmp.1534, ivtmp.1534, ImgSlotLen
+	mov	r1, #1	@ i,
+	ble	.L383	@,
+	cmp	ip, #0	@ tmp298,
+	beq	.L384	@,
+	mov	r1, #2	@ i,
+	cmp	r0, r1	@ iftmp.440, i
+	str	r2, [r3, #8]	@ ivtmp.1534, <variable>.FrameAddr
+	add	r2, r2, r4	@ ivtmp.1534, ivtmp.1534, ImgSlotLen
+	add	r3, r3, #4	@ ivtmp.1538, ivtmp.1538,
+	ble	.L383	@,
+.L384:
+	add	r1, r1, #2	@ i, i,
+	add	lr, r3, #4	@ tmp300, ivtmp.1538,
+	cmp	r0, r1	@ iftmp.440, i
+	add	r7, r2, r4	@ ivtmp.1534, ivtmp.1534, ImgSlotLen
+	str	r2, [r3, #8]	@ ivtmp.1534, <variable>.FrameAddr
+	add	r2, r7, r4	@ ivtmp.1534, ivtmp.1534, ImgSlotLen
+	str	r7, [lr, #8]	@ ivtmp.1534, <variable>.FrameAddr
+	add	r3, lr, #4	@ ivtmp.1538, tmp300,
+	bgt	.L384	@,
+.L383:
+	cmp	r5, #0	@ ChanID,
+	blt	.L385	@,
+	movw	r7, #:lower16:s_pstVfmwChan	@ tmp288,
+	movt	r7, #:upper16:s_pstVfmwChan	@ tmp288,
+	ldr	r1, [r7, r5, asl #2]	@ prephitmp.1508, s_pstVfmwChan
+	cmp	r1, #0	@ prephitmp.1508,
+	beq	.L385	@,
+	ldr	r9, [fp, #404]	@ D.39223, <variable>.ValidPMVNum
+	movw	ip, #:lower16:217504	@ tmp274,
+	movt	ip, #:upper16:217504	@ tmp274,
+	mul	r2, r9, r6	@ tmp273, D.39223, PmvSlotLen
+	ldr	r3, [r1, ip]	@ <variable>.stChanMem_pmv.Length, <variable>.stChanMem_pmv.Length
+	cmp	r2, r3	@ tmp273, <variable>.stChanMem_pmv.Length
+	bgt	.L386	@,
+	cmp	r9, #0	@ D.39223,
+	ble	.L385	@,
+	tst	r9, #1	@ D.39223,
+	mov	r3, #0	@ ivtmp.1524,
+	movw	r8, #:lower16:217500	@ tmp290,
+	mov	r2, fp	@ ivtmp.1530, pVdmMemArrange
+	movt	r8, #:upper16:217500	@ tmp290,
+	mov	sl, r3	@ i.1549, ivtmp.1524
+	beq	.L400	@,
+	str	r4, [sp, #12]	@ ImgSlotLen, %sfp
+	b	.L388	@
+.L409:
+	ldr	lr, [r7, r5, asl #2]	@ prephitmp.1508, s_pstVfmwChan
+	ldr	r4, [lr, r8]	@ <variable>.stChanMem_pmv.PhyAddr, <variable>.stChanMem_pmv.PhyAddr
+	add	lr, ip, r4	@ tmp315, ivtmp.1524, <variable>.stChanMem_pmv.PhyAddr
+	str	lr, [r1, #280]	@ tmp315, <variable>.PMVAddr
+	ldr	r1, [r7, r5, asl #2]	@ prephitmp.1508, s_pstVfmwChan
+.L388:
+	ldr	r1, [r1, r8]	@ <variable>.stChanMem_pmv.PhyAddr, <variable>.stChanMem_pmv.PhyAddr
+	add	sl, sl, #1	@ tmp294, i.1549,
+	cmp	r9, sl	@ D.39223, tmp294
+	add	ip, r3, r6	@ ivtmp.1524, ivtmp.1524, PmvSlotLen
+	add	r4, r3, r1	@ tmp281, ivtmp.1524, <variable>.stChanMem_pmv.PhyAddr
+	add	r1, r2, #4	@ tmp295, ivtmp.1530,
+	str	r4, [r2, #280]	@ tmp281, <variable>.PMVAddr
+	add	sl, sl, #1	@ i.1549, tmp294,
+	add	r3, ip, r6	@ ivtmp.1524, ivtmp.1524, PmvSlotLen
+	add	r2, r1, #4	@ ivtmp.1530, tmp295,
+	bgt	.L409	@,
+	ldr	r4, [sp, #12]	@ ImgSlotLen, %sfp
+.L385:
+	ldr	ip, [sp, #8]	@, %sfp
+	mov	r2, #1024	@ tmp285,
+	str	r4, [fp, #408]	@ ImgSlotLen, <variable>.ImgSlotLen
+	str	r2, [fp, #412]	@ tmp285, <variable>.u32StrideByte
+	mla	r3, r0, r4, ip	@ tmp284, iftmp.440, ImgSlotLen,
+	mov	r0, #0	@ D.39131,
+	str	r3, [fp, #4]	@ tmp284, <variable>.TotalMemUsed
+.L366:
+	add	sp, sp, #20	@,,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+.L380:
+	ldr	r0, [sp, #60]	@, FrameNum
+	str	r0, [fp, #276]	@, <variable>.ValidFrameNum
+.L381:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #390	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC35	@,
+	movt	r3, #:upper16:.LC35	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L400:
+	ldr	r1, [r1, r8]	@ <variable>.stChanMem_pmv.PhyAddr, <variable>.stChanMem_pmv.PhyAddr
+	mov	sl, #1	@ i.1549,
+	mov	r3, r6	@ ivtmp.1524, PmvSlotLen
+	add	r2, fp, #4	@ ivtmp.1530, pVdmMemArrange,
+	str	r1, [fp, #280]	@ <variable>.stChanMem_pmv.PhyAddr, <variable>.PMVAddr
+	str	r4, [sp, #12]	@ ImgSlotLen, %sfp
+	ldr	r1, [r7, r5, asl #2]	@ prephitmp.1508, s_pstVfmwChan
+	b	.L388	@
+.L367:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #283	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC30	@,
+	movt	r3, #:upper16:.LC30	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L408:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #378	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC34	@,
+	movt	r3, #:upper16:.LC34	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L404:
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #282	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC29	@,
+	movt	r3, #:upper16:.LC29	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L406:
+	mov	r0, r9	@, tmp181
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #307	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC32	@,
+	movt	r3, #:upper16:.LC32	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L386:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC1	@,
+	movw	r2, #414	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC36	@,
+	movt	r3, #:upper16:.LC36	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L405:
+	mov	r0, fp	@, pVdmMemArrange
+	movw	r1, #:lower16:.LC1	@,
+	mov	r2, #284	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC31	@,
+	movt	r3, #:upper16:.LC31	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+.L407:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC33	@,
+	movt	r1, #:upper16:.LC33	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ D.39131,
+	b	.L366	@
+	.fnend
+	.size	VDMHAL_V200R004_ArrangeMem, .-VDMHAL_V200R004_ArrangeMem
+	.align	2
+	.global	VDMHAL_V200R004_OpenHAL
+	.type	VDMHAL_V200R004_OpenHAL, %function
+VDMHAL_V200R004_OpenHAL:
+	.fnstart
+.LFB1598:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}	@,
+	.save {r4, r5, r6, r7, r8, r9, sl, lr}
+	movw	r9, #:lower16:481279	@ tmp162,
+	movt	r9, #:upper16:481279	@ tmp162,
+	mov	r7, r1	@ Size, Size
+	cmp	r0, #0	@ MemBaseAddr,
+	cmpne	r1, r9	@, Size, tmp162
+	mov	r5, r0	@ MemBaseAddr, MemBaseAddr
+	mov	r8, r2	@ VdhId, VdhId
+	movgt	r9, #0	@, tmp168
+	movle	r9, #1	@, tmp168
+	ble	.L421	@,
+	cmp	r2, #0	@ VdhId,
+	bgt	.L422	@,
+	movw	r1, #1140	@ tmp173,
+	movw	r6, #:lower16:g_HwMem	@ tmp303,
+	mul	sl, r1, r2	@ tmp172, tmp173, VdhId
+	movt	r6, #:upper16:g_HwMem	@ tmp303,
+	add	r4, r6, sl	@ __p, tmp303, tmp172
+	mov	r0, r4	@, __p
+	bl	__memzero	@
+	movw	r0, #:lower16:269680640	@,
+	movt	r0, #:upper16:269680640	@,
+	bl	MEM_Phy2Vir	@
+	movw	r1, #:lower16:.LC38	@,
+	movt	r1, #:upper16:.LC38	@,
+	mov	r3, r0	@ D.39025,
+	mov	r2, r0	@, D.39025
+	str	r3, [r6, sl]	@ D.39025, <variable>.pVdmRegVirAddr
+	mov	r0, #22	@,
+	bl	dprint_vfmw	@
+	movw	r0, #:lower16:269746176	@,
+	movt	r0, #:upper16:269746176	@,
+	bl	MEM_Phy2Vir	@
+	movw	r1, #:lower16:.LC39	@,
+	movt	r1, #:upper16:.LC39	@,
+	mov	ip, r0	@ D.39029,
+	mov	r2, r0	@, D.39029
+	str	ip, [r4, #8]	@ D.39029, <variable>.pBpdRegVirAddr
+	mov	r0, #22	@,
+	bl	dprint_vfmw	@
+	add	r1, r5, #1020	@ tmp189, MemBaseAddr,
+	add	r3, r1, #3	@ tmp189, tmp189,
+	add	ip, r7, r5	@ tmp204, Size, MemBaseAddr
+	bic	r2, r3, #1020	@ D.39034, tmp189,
+	mov	r3, r4	@ ivtmp.1585, __p
+	bic	r2, r2, #3	@ D.39034, D.39034,
+	mov	r1, #1024	@ tmp212,
+	rsb	r0, r2, ip	@ tmp205, D.39034, tmp204
+	str	r2, [r4, #16]	@ D.39034, <variable>.HALMemBaseAddr
+	str	r0, [r4, #20]	@ tmp205, <variable>.HALMemSize
+	str	r1, [r4, #24]	@ tmp212, <variable>.VahbStride
+.L414:
+	add	r0, r9, #1024	@ tmp305, ivtmp.1582,
+	add	lr, r9, r2	@ tmp222, ivtmp.1582, D.39034
+	add	r9, r9, #3072	@ ivtmp.1582, ivtmp.1582,
+	add	r1, r3, #4	@ tmp306, ivtmp.1585,
+	cmp	r9, #144384	@ ivtmp.1582,
+	add	ip, r0, #1024	@ ivtmp.1582, tmp305,
+	str	lr, [r3, #28]	@ tmp222, <variable>.MsgSlotAddr
+	add	ip, ip, r2	@ tmp312, ivtmp.1582, D.39034
+	add	lr, r0, r2	@ tmp309, tmp305, D.39034
+	str	ip, [r1, #32]	@ tmp312, <variable>.MsgSlotAddr
+	add	r3, r3, #12	@ ivtmp.1585, ivtmp.1585,
+	str	lr, [r1, #28]	@ tmp309, <variable>.MsgSlotAddr
+	bne	.L414	@,
+	add	r3, r2, #144384	@ PhyAddr.1586, D.39034,
+	movw	r2, #1140	@ tmp226,
+	mla	r6, r2, r8, r6	@ tmp227, tmp226, VdhId, tmp303
+	add	r0, r3, #299008	@ PhyAddr.1592, PhyAddr.1586,
+	add	r1, r0, #3072	@ PhyAddr.1593, PhyAddr.1592,
+	rsb	r8, r5, #32768	@ tmp299, MemBaseAddr,
+	add	r2, r8, r1	@ D.39043, tmp299, PhyAddr.1593
+	add	ip, r3, #83968	@ PhyAddr.1589, PhyAddr.1586,
+	cmp	r7, r2	@ Size, D.39043
+	add	lr, r3, #5120	@ PhyAddr.1587, PhyAddr.1586,
+	mov	r5, #141	@ tmp229,
+	add	r8, r3, #38912	@ PhyAddr.1588, PhyAddr.1586,
+	str	r5, [r6, #1052]	@ tmp229, <variable>.ValidMsgSlotNum
+	add	r5, r3, #129024	@ PhyAddr.1590, PhyAddr.1586,
+	str	lr, [r6, #1080]	@ PhyAddr.1587, <variable>.SedTopAddr
+	add	lr, r3, #196608	@ PhyAddr.1591, PhyAddr.1586,
+	str	r8, [r6, #1084]	@ PhyAddr.1588, <variable>.PmvTopAddr
+	str	lr, [r6, #1100]	@ PhyAddr.1591, <variable>.PpfdBufAddr
+	movw	lr, #799	@ tmp280,
+	str	ip, [r6, #1092]	@ PhyAddr.1589, <variable>.ItransTopAddr
+	str	r5, [r6, #1096]	@ PhyAddr.1590, <variable>.DblkTopAddr
+	str	lr, [r6, #1104]	@ tmp280, <variable>.PpfdBufLen
+	str	r1, [r6, #1116]	@ PhyAddr.1593, <variable>.VpTabAddr
+	str	r3, [r6, #1076]	@ PhyAddr.1586, <variable>.H264MnAddr
+	str	ip, [r6, #1088]	@ PhyAddr.1589, <variable>.RcnTopAddr
+	str	r0, [r6, #1112]	@ PhyAddr.1592, <variable>.IntensityConvTabAddr
+	str	r1, [r6, #1120]	@ PhyAddr.1593, <variable>.DnrMbInfoAddr
+	blt	.L415	@,
+	mov	r0, #22	@,
+	movw	r1, #:lower16:.LC40	@,
+	movt	r1, #:upper16:.LC40	@,
+	bl	dprint_vfmw	@
+	mov	r0, r4	@, __p
+	bl	H264HAL_V200R004_InitHal	@
+	cmp	r0, #0	@ D.39048
+	mvnne	r0, #0	@, Ret,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}	@
+.L422:
+	mov	r0, r9	@, tmp168
+	movw	r1, #:lower16:.LC9	@,
+	mov	r2, #118	@,
+	movt	r1, #:upper16:.LC9	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ Ret,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}	@
+.L415:
+	mov	r3, r7	@, Size
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC41	@,
+	movt	r1, #:upper16:.LC41	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ Ret,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}	@
+.L421:
+	mov	r0, #0	@,
+	movw	r1, #:lower16:.LC1	@,
+	mov	r2, #114	@,
+	movt	r1, #:upper16:.LC1	@,
+	movw	r3, #:lower16:.LC37	@,
+	movt	r3, #:upper16:.LC37	@,
+	bl	dprint_vfmw	@
+	mvn	r0, #0	@ Ret,
+	ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}	@
+	.fnend
+	.size	VDMHAL_V200R004_OpenHAL, .-VDMHAL_V200R004_OpenHAL
+	.section	.rodata
+	.align	2
+.LANCHOR0 = . + 0
+	.type	__func__.39356, %object
+	.size	__func__.39356, 25
+__func__.39356:
+	.ascii	"VDMHAL_V200R004_CheckReg\000"
+	.section	.rodata.str1.4,"aMS",%progbits,1
+	.align	2
+.LC0:
+	.ascii	"VDM register not mapped yet!\012\000"
+	.space	2
+.LC1:
+	.ascii	"L%d: %s\012\000"
+	.space	3
+.LC2:
+	.ascii	"VDM register not mapped yet!\000"
+	.space	3
+.LC3:
+	.ascii	"WriteMsgSlot error!\012\000"
+	.space	3
+.LC4:
+	.ascii	"ReadUpMsgSlot error!\012\000"
+	.space	2
+.LC5:
+	.ascii	"BigTile1d_y\000"
+.LC6:
+	.ascii	"failed mem_allocMemBlock BigTile_yuv save!\012\000"
+.LC7:
+	.ascii	"BigTile1d_uv\000"
+	.space	3
+.LC8:
+	.ascii	"VdhId is wrong! VDMHAL_V200R004_StartHwDecode\012\000"
+	.space	1
+.LC9:
+	.ascii	"line: %d\012\000"
+	.space	2
+.LC10:
+	.ascii	"vdm register virtual address not mapped, reset fail"
+	.ascii	"ed!\012\000"
+.LC11:
+	.ascii	"can not map repair msg virtual address!\000"
+.LC12:
+	.ascii	"ValidGroupNum=%d out of range!\012\000"
+.LC13:
+	.ascii	"vdm register virtual address not mapped, VDMHAL_V20"
+	.ascii	"0R003_PrepareRepair failed!\012\000"
+.LC14:
+	.ascii	"FIRST_REPAIR Parameter Error!\012\000"
+	.space	1
+.LC15:
+	.ascii	"VDMHAL_NULL_FUN_PRINT,L%d\012\000"
+	.space	1
+.LC16:
+	.ascii	"SECOND_REPAIR Parameter Error!\012\000"
+.LC17:
+	.ascii	"can NOT map vir addr for up-msg\000"
+.LC18:
+	.ascii	"%s: VdhId(%d) Invalid!\012\000"
+.LC19:
+	.ascii	"%s: vdm register virtual address not mapped, reset "
+	.ascii	"failed!\012\000"
+.LC20:
+	.ascii	"%s: unkown reg_id = %d\012\000"
+.LC21:
+	.ascii	"VDMHAL_V200R004_ResetVdm: map vdm register fail, vi"
+	.ascii	"r(reg) = (%p)\012\000"
+	.space	2
+.LC22:
+	.ascii	"GLB Reset failed!\012\000"
+	.space	1
+.LC23:
+	.ascii	"VDH: %d VDMHAL_V200R004_ResetVdm ERROR!!!\012\000"
+	.space	1
+.LC24:
+	.ascii	"'pDecReport' is NULL\000"
+	.space	3
+.LC25:
+	.ascii	"\012***** UpMsg DecSliceNum=%d\012\000"
+	.space	3
+.LC26:
+	.ascii	"\012***** Up Msg (phy addr: %#8x) *****\012\000"
+	.space	2
+.LC27:
+	.ascii	"\0120x%02x 0x%08x 0x%08x 0x%08x 0x%08x\012\000"
+	.space	3
+.LC28:
+	.ascii	"\012***** Up Msg print finished *****\012\000"
+.LC29:
+	.ascii	"Mem addr is 0\000"
+	.space	2
+.LC30:
+	.ascii	"image size out of range\000"
+.LC31:
+	.ascii	"'pVdmMemArrange' is NULL\000"
+	.space	3
+.LC32:
+	.ascii	"MemSize not enough for pmv slot\000"
+.LC33:
+	.ascii	"VDMHAL_V200R003_ArrangeMem get ChanWidth/ChanHeight"
+	.ascii	" failed!\012\000"
+	.space	3
+.LC34:
+	.ascii	"ImgSlotLen > ChanSlotLen\000"
+	.space	3
+.LC35:
+	.ascii	"cann't allocate img slot\000"
+	.space	3
+.LC36:
+	.ascii	"cann't allocate PMV slot\000"
+	.space	3
+.LC37:
+	.ascii	"VDMHAL_V200R004_OpenHAL: input error!\000"
+	.space	2
+.LC38:
+	.ascii	"g_VdmRegVirAddr, g_VdmResetVirAddr = %p\012\000"
+	.space	3
+.LC39:
+	.ascii	"BPDRegVirAddr %p\012\000"
+	.space	2
+.LC40:
+	.ascii	"mem is enough!\012\000"
+.LC41:
+	.ascii	"!!!!!! HAL memory not enouph! need %d, have %d\012\000"
+	.ident	"GCC: (Hisilicon_v200(gcc4.4-290+glibc-2.11+eabi+nptl)) 4.4.1"
+	.section	.note.GNU-stack,"",%progbits

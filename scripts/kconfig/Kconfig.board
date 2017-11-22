@@ -1,0 +1,16 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+if !HI3110EV500 || HI_BOOT_USB2ETHER
+source "scripts/kconfig/Kconfig.board.eth"
+endif
+source "scripts/kconfig/Kconfig.flash"
+source "scripts/kconfig/Kconfig.board.tuner"
+source "scripts/kconfig/Kconfig.board.videodac"
+source "scripts/kconfig/Kconfig.keyled"
+source "scripts/kconfig/Kconfig.board.mutectrl"
+if HI_SCI_SUPPORT
+source "scripts/kconfig/Kconfig.board.sci"
+endif
+source "scripts/kconfig/Kconfig.board.bootreg"
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	

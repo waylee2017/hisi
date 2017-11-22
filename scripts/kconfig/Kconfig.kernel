@@ -1,0 +1,37 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+choice
+	prompt "Kernel Version"
+	default LINUX-3.10.y
+config  LINUX-3.10.y
+	bool "linux-3.10.y"
+config  LINUX-4.4.y
+    bool "linux-4.4.y"
+endchoice
+
+config  HI_KERNEL_VERSION
+	string
+	default linux-3.10.y if LINUX-3.10.y
+	default linux-4.4.y if LINUX-4.4.y
+
+config  HI_KERNEL_CFG
+	prompt "Kernel Config File"
+	string
+	default hi3716mv310_defconfig if HI3716M
+	help
+	  Input config file for kernel. Such as xxxxx_defconfig.
+	  Config files are located in kernel source: arch/arm/configs.
+
+#---------------------------------------------
+config  HI_FS_BUILDIN
+	bool "Build Rootbox in Kernel"
+	default n
+	help
+	  Say y to build rootbox in kernel.
+#---------------------------------------------
+config  HI_MSP_BUILDIN
+	bool "Build MSP in Kernel"
+	default n
+	help
+	  Say y to build MSP modules in kernel.	
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

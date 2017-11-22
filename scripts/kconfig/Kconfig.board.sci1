@@ -1,0 +1,68 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Second Sci Config"
+
+choice
+	prompt "Clock Mode"
+	help
+	    HI_UNF_SCI_MODE_CMOS means CMOS output, HI_UNF_SCI_MODE_OD means OD output.
+	default HI_SCI_CLK_MODE_CMOS
+
+config  HI_SCI1_CLK_MODE_CMOS
+	bool "CMOS"
+config  HI_SCI1_CLK_MODE_OD
+	bool "OD"
+endchoice
+
+choice
+	depends on HI3716MV330
+	prompt "VccEn Mode"
+	help
+	    HI_UNF_SCI_MODE_CMOS means CMOS output, HI_UNF_SCI_MODE_OD means OD output.
+	default HI_SCI_VCCEN_MODE_CMOS
+
+config  HI_SCI1_VCCEN_MODE_CMOS
+	bool "CMOS"
+config  HI_SCI1_VCCEN_MODE_OD
+	bool "OD"
+endchoice
+
+choice
+	depends on HI3716MV330
+	prompt "Reset Mode"
+	help
+	    HI_UNF_SCI_MODE_CMOS means CMOS output, HI_UNF_SCI_MODE_OD means OD output.
+	default HI_SCI_RESET_MODE_CMOS
+
+config  HI_SCI1_RESET_MODE_CMOS
+	bool "CMOS"
+config  HI_SCI1_RESET_MODE_OD
+	bool "OD"
+endchoice
+
+choice
+	prompt "VccEn Pin Active Level"
+	help
+	    Low level active or high level active.
+	default HI_SCI_VCCEN_LOW
+
+config  HI_SCI1_VCCEN_LOW
+	bool "Low Level"
+config  HI_SCI1_VCCEN_HIGH
+	bool "High Level"
+endchoice
+
+choice
+	prompt "Detect Pin Active Level"
+	help
+	    Low level active or high level active.
+	default HI_SCI_DETECT_LOW
+
+config  HI_SCI1_DETECT_LOW
+	bool "Low Level"
+config  HI_SCI1_DETECT_HIGH
+	bool "High Level"
+endchoice
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

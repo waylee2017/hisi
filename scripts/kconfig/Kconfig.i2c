@@ -1,0 +1,10 @@
+#++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "I2C Config"
+#--------------------------------
+config  HI_I2C_FIFO_SUPPORT
+	bool "I2C FIFO Support"
+	depends on HI3716MV330
+	default n
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

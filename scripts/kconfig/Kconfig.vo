@@ -1,0 +1,62 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "VO Config"
+
+choice
+	prompt "CVBS Circuit Type"
+	default HI_DISP_CVBS_VIDEO_BUFF
+	
+config	HI_DISP_CVBS_VIDEO_BUFF
+	bool "CVBS Video Buffer Type"
+	
+config	HI_DISP_CVBS_LC
+	bool "CVBS LC Type"
+endchoice
+
+choice
+	prompt "YPbPr Circuit Type"
+	default HI_DISP_YPBPR_LC
+	depends on !HI3110EV500
+	
+config	HI_DISP_YPBPR_VIDEO_BUFF
+	bool "YPbPr Video Buffer Type"
+	
+config	HI_DISP_YPBPR_LC
+	bool "YPbPr LC Type"
+endchoice
+
+config	HI_DISP_TTX_SUPPORT
+	bool "SD TTX Out Support"
+	depends on !HI3716MV330
+	help
+	  If you want enable VBI teletext , say y.
+	default y
+	
+config	HI_DISP_TTX_INBUFFERSIZE
+	hex "TTX Input Buffer Size"
+	depends on HI_DISP_TTX_SUPPORT
+	help 
+	  You can adjust teletext input buffer size if you need.
+	default 0x4000
+
+config	HI_DISP_CC_SUPPORT
+	bool "SD CC Output Support"
+	depends on !HI3716MV330
+	help
+	  If you want enable VBI Closed Caption transfer, say y.
+	default y
+
+config	HI_DISP_CC_INBUFFERSIZE
+	hex "SD CC Input Buffer Size"
+	depends on HI_DISP_CC_SUPPORT
+	help 
+	  You can adjust Closed Caption input buffer size if you need.
+	default 0x4000
+
+config	HI_VO_DUMPFRAME_SUPPORT
+	bool "Dump From VO For Debuging"
+	help 
+	  If you want to dump video frame from VO when debuging, say y.
+	default n
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,0 +1,356 @@
+
+                              SDK User Guide      
+
+You are advised to read this document before using the SDK.
+=========================================
+Compiling the SDK
+=========================================
+1. Requirements on the Linux Server
+   ---Linux version: Ubuntu 10 or later is recommended.
+   ---glibc         
+   ---GNU Make: Version 3.8.1 or later is recommended.
+   ---Shell (must be bash)
+      Run the following commands to set bash as the default shell on a Linux server:
+      rm -f /bin/sh
+      ln -s /bin/bash  /bin/sh
+   ---The ssh, samba, and nfs services are properly configured and started.
+   ---Bison (GNU Bison) 2.5,Flex 2.5.35 and byacc 1.9 are necessary for WIFI function.
+   
+2 Preparations
+  2.1 Installing the Cross Compilation Tool Chain  
+   ./server_install
+   [Note]
+    ---Perform the operations as the root or sudo user.
+    ---Restart the Linux server or re-log in to the Linux server after the installation.
+    ---The installed cross compilation tool chain will overwrite the existing compiler with the same name.
+    ---The installed cross compilation tool chain is available to all users of the server.
+
+  2.2 Installing Other Tools
+    make tools_install
+    After this command is executed, tools which will be used during compilation are generated and the permission for some tools are modified, facilitating SDK compilation.
+    
+3 Configurations
+  3.1 Selecting the Configuration File
+    The default configuration file dedicated for the demo board is stored in the configs directory.
+    cp  configs/xxxx.cfg  ./cfg.mak
+   
+  3.2 Checking and Modifying SDK Configurations
+    make menuconfig
+    If configuration options are modified, the system displays "Do you wish to save your new SDK configuration?" when you exit the menuconfig menu.
+    If you select Yes, the modification is saved in the ./cfg.mak file; if you select No, the modification is discarded.
+
+4 Compilation
+    One-click compilation and step-by-step compilation are both supported.
+  4.1 One-Click Compilation
+    make build
+    For a builded SDK package,please run make rebuild if you want to build it with a different cfg.mak.
+  4.2 Step-by-Step Compilation
+    make prepare    Prepare the compilation files. You must run this command before compilation.
+    make hiboot_install    Compile the boot. fastboot-burn.bin is generated.
+    make linux_install     Compile Linux. hi_kernel.bin is generated.
+    make rootfs_install    Compile the rootfs. The basic rootfs directory is generated, including the directory structure, BusyBox, library C, utils, and basic boot scripts.
+    make common_install    Compile the common. Common libraries and drivers are generated.
+    make msp_install       Compile the msp. The libraries and drivers for each module of the msp are generated.
+    make component_install Compile the component. The libraries and drivers for each module of the component are generated.
+    make rootbox_install   Compile the root box. The rootbox directory for making the root file system image is generated.
+    make fs                Compile the fs. The root file system images for burning the flash are generated: rootbox.jffs2/rootbox.yaffs/rootbox.cramfs.
+    Make sample            Compile samples. The executable sample programs are generated, located in the subdirectory of each sample.
+    make signature         make images of advanced ca signed.
+   [Note]	
+    ---You can modify rootbox.mk and determine the contents in the rootbox as required.
+    ---You can run make msp_install M=xxx to compile a module, for example, make msp_install M=demux. 
+    ---You can run make component_install M=xxx to compile a component.
+    ---You must run make prepare to prepare the compilation files before step-by-step compilation.
+    You must run make linux_install before compiling common/msp/component.
+    ---For details about the compilation commands, run make help.
+    
+  4.3 Compiling the Kernel 
+     To modify the default configuration of the kernel, perform the following operations to compile to the kernel image:
+     Step 1 Decompress the kernel in the SDK.
+     cd source/osdrv/kernel/
+     tar -xf linux-3.10.y.tar.bz2 
+  
+     Step 2 Select the configuration file.
+     Assume that the configuration file is hixxxx_yyy_defconfig.
+     cp ./linux-3.10.y.patch/arch/arm/configs/hixxxx/hixxxx_yyy_defconfig ./linux-3.10.y/arch/arm/configs
+     cd ./linux-3.10.y
+	           
+     Step 3 Open the kernel configuration menu.
+     cp arch/arm/configs/hixxxx_yyy_defconfig .config
+     make ARCH=arm CROSS_COMPILE=arm-hisiv200-linux- menuconfig
+     
+     Step 4 Compile the kernel.
+     make ARCH=arm CROSS_COMPILE=arm-hisiv200-linux- uImage -j 128
+     Note: Do not use zImage. Otherwise, the kernel cannot start.
+     
+  The compiled image is arch/arm/boot/uImage.
+
+=========================================
+Burning Images
+=========================================
+   If boot is not burnt or is damaged, you must use the HiTool to burn images. If boot can be used, you can use either the HiTool or the command line to burn images.
+   
+1. Burning Images Using the HiTool
+   The HiTool installation file is stored in tools/windows/HiTool.
+   For details about the usage, double-click the HiTool User Manual (Quick Start Video).exe.
+
+2. Burning Images Using the Boot Command Line
+   When the board starts, press CTRL+C to enter the boot command-line mode.
+   fastboot# 
+   Run help to view all commands supported by the boot command line.
+   Run help xxx to view the detailed help information about the xxx command.
+   The boot command line supports auto-completion of a command by pressing Tab.
+	
+  2.1 Configuring Network Parameters
+    setenv serverip xxx.xxx.xxx.xxx
+    setenv ipaddr xxx.xxx.xxx.xxx
+    setenv gatewayip xxx.xxx.xxx.xxx
+    setenv ethaddr 00:xx:xx:xx:xx:xx
+    setenv netmask 255.255.xxx.0
+    Run ping xxx.xxx.xxx.xxx to test the connectivity between the board and the FTP server after the configuration.
+
+  2.2 Partition Addresses
+    Assume that the partitions on the flash memory are as follows:
+    Partition Name    Offset        Capacity
+    boot:           0x00000000   0x0080000   
+    bootargs:       0x00080000   0x0100000   
+    kernel: 	    0x00100000   0x0400000   
+    rootfs:    	    0x00500000   0x3C00000   
+	
+   [Note]
+
+    ---The offset indicates the offset relative to the header address of the flash memory.
+    ---The flash memory can be an SPI, NAND, or eMMC flash. You can allocate the partitions based on the board configurations.
+    ---The flash address in the burning commands and the partition table in the system boot parameters must be consistent with the actual design of flash partitions on the board.
+    ---The burning commands and boot paramters described in this document are samples. Change them based on the actual flash usage scheme.
+    ---The HiTool in tools\windows\HiTool is recommended for burning.
+    ---Default partition tables and boot parameters for demo boards with various configurations are provided in pub\image\.
+    
+  2.3 Burning Commands
+    Assume that the start address of the memory is 0x80000000, 0x2000000 memory is reserved for the boot, and the memory after 0x82000000 can be used for downloading images.
+    NAND flash:
+    The commands for the NAND flash are as follows:
+        Help command: help nand
+        Erase command: nand erase startpos length
+        Read command: nand read ddroffset start length
+        Write command: nand write ddroffset start length
+
+    To download the boot, run the following commands:
+        mw.b 82000000 ff 80000             //Write 0xff to 0x82000000. 0x80000 space is used.
+        tftp 82000000 fastboot-burn.bin                //Download fastboot-burn.bin to 0x82000000.
+        nand erase 0 100000                            //Erase the 0x100000 flash space after the 0x0 address.
+        nand write 82000000 0 80000                    //Write fastboot-burn.bin (starting from 0x82000000 with the size of 0x80000) to 0x0 of the NAND flash.
+        Confirm that the boot is successfully downloaded to the memory before erasing the flash memory.
+
+    To download the Linux image, run the following commands:
+        mw.b 82000000 ff 400000                         
+        tftp 82000000 hi_kernel.bin                     
+        nand erase 100000 400000                        
+        nand write 82000000 100000 400000               
+
+    To download the file system image, run the following commands (the following is an example using yaffs):
+        mw.b 82000000 ff 3c00000              		
+        tftp 82000000 rootfs.yaffs          		
+        nand erase 500000 3C00000              		
+        nand write.yaffs 82000000 500000 $(filesize)  	//Write rootfs.yaffs (starting from 0x82000000 with the size of $(filesize)) to 0x500000 of the NAND flash.
+		                                                  The boot automatically sets the value of $(filesize) to the size of rootfs.yaffs.
+   [Note]
+    ---The NAND flash uses the yaffs, cramfs, or squashfs. 														  
+
+    SPI flash:
+    The commands for the SPI flash are as follows:
+        Help command: help sf
+        Probe command: sf probe 0
+        Erase command: sf erase startpos length
+        Read command: sf read ddroffset start length
+        Write command: sf write ddroffset start length
+
+    To download the U-boot, run the following commands:
+        sf probe 0                         //Detect whether an SPI flash exists.
+        mw.b 82000000 ff 80000             //Write 0xff to 0x82000000. 0x80000 space is used.
+        tftp 82000000 fastboot-burn.bin    //Download fastboot-burn.bin to 0x82000000.
+        nand erase 0 100000               //Erase the 0x100000 flash space after the 0x0 address.
+        sf write 82000000 0 80000          //Write fastboot-burn.bin (starting from 0x82000000 with the length of 0x80000) to 0x0 of the NAND flash.
+        Confirm that the boot is successfully downloaded to the memory before erasing the flash memory.
+
+    To download the Linux image, run the following commands:
+        mw.b 82000000 ff 400000              
+        tftp 82000000 hi_kernel.bin          
+        sf erase 100000 400000               
+        sf write 82000000 100000 400000      
+
+    To download the image of the file system, run the following commands:
+        sf probe 0                          
+        mw.b 82000000 ff b00000             
+        tftp 82000000 rootfs.jffs2          
+        sf erase 500000 b00000              
+        sf write 82000000 500000 b00000     
+    
+   [Note]
+    ---The SPI flash uses the yaffs, cramfs, or squashfs. 
+
+=========================================
+Setting System Boot Parameters
+=========================================
+   The system can start properly only when the bootargs parameter is properly configured or the bootargs image is burnt.
+
+1. Introduction to Bootargs Variables
+   The following describes the variables by using the bootargs as an example.
+   'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),4M(kernel),60M(rootfs),1M(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   The variables are described as follows:
+   mem
+      The DDR SDRAM is divided into two parts: system memory and media memory zone (MMZ). The mem specifies the size of the system memory, and the mmz specifies the size of the MMZ.
+      You can determine the size of the mem and mmz based on the board configurations and memory usage. For example, if the total memory size is 256 MB, you can allocate 96 MB (0x80000000¨C0x86000000) to the mem, and 160 MB to the mmz.
+   mmz: 
+      ddr,0,startpos,size indicates that the memory space starting from startpos is allocated to the mmz, and the memory size is size. For example, mmz=ddr,0,0x86000000,160M indicates that the 160 MB memory space starting from 0x86000000 is allocated to the mmz.
+   Console:
+      Console parameter. console=ttyAMA0,115200 indicates that serial port 0 is the console device, and the baud rate is 115200.
+   root:
+      root indicates the partition in which the root file system is located. For example, root=/dev/mtdblock2 indicates that /dev/mtdblock2 is the root file system. It corresponds to the rootfs partition of mtdparts.[Note]
+	  The partitions in mtdparts are numbered from 0. If an SPI flash exists on the board, even if the SPI flash is not partitioned, it corresponds to /dev/mtdblock0.
+   rootfstype:
+      rootfstype is the root file system type, which is yaffs in the preceding example.
+   mtdparts:
+      mtdparts is the partition division of the flash memory. The format is as follows: mtdparts=flashtype:size(name),size(name),...,-(others);flashtype:size(name),size(name),...,-(others);...
+   MuteCtl_GPIO: optional
+      MuteCtl_GPIO defines the GPIO pin and valid level for the mute circuit. The format is MuteCtl_GPIO=0xXXY, where 0xXX indicates the GPIO pin ID, and 0xY indicates the valid level.	
+	  If this parameter is specified in the boorargs, the specified value is used. Otherwise, the value specified in cfg.mak is used.  
+      
+2. Configuring the Boot Parameters
+   Assume that the contents of the bootargs are as follows: 'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),4M(kernel),60M(rootfs),1M(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   The following are the commands for configuring the boot parameters:
+   setenv bootargs 'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),4M(kernel),60M(rootfs),1M(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   setenv bootcmd 'nand read 0x82000000 0x100000 0x400000;bootm 0x82000000'  //Run the bootcmd command to load the kernel to 0x82000000, and then jump to 0x82000000.
+   saveenv
+   
+   The following are some examples of the boot parameters:
+   ---Hi3716mv310demo board: The SPI flash is 8 MB, and the DDR SDRAM is 128 MB. 
+    
+    setenv bootargs 'mem=62M console=ttyAMA0,115200 root=/dev/romblock8 rootfstype=squashfs mtdparts=hi_sfc:256K(boot),64K(bootargs),64K(loaderdb),64K(loaderdbbak),64K(stbid),64K(baseparam),128K(logo),1920K(kernel),-(rootfs) mmz=ddr,0,0x83e00000,66M'
+    setenv bootcmd 'sf probe 0;sf read 0x82000000 0xb0000 0x1e0000;bootm 0x82000000'
+   ---Hi3716mv310demo board: The NAND flash is 128 MB, and the DDR SDRAM is 256 MB.  
+    setenv bootargs 'mem=96M console=ttyAMA0,115200 root=/dev/mtdblock8 rootfstype=yaffs2 mtdparts=hinand:640K(boot),128K(bootargs),128K(stbid),8M(loader),8M(loaderbak),128K(loaderdb),128K(loaderdbbak),6M(kernel),60m(rootfs),128K(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+    setenv bootcmd 'nand read 0x82000000 0x1120000 0x600000;bootm 0x82000000'	  
+      You can refer to the bootargs configuration of the Hi3716M series and modify the size of partitions, mem, and mmz based on service requirements.
+   ---Bootargs for UBI file system
+   setenv bootargs 'mem=96M console=ttyAMA0,115200 ubi.mtd=rootfs root=ubi0:ubifs rootfstype=ubifs mtdparts=hinand:640K(boot),128K(bootargs),128K(stbid),8M(loader),8M(loaderbak),128K(loaderdb),128K(loaderdbbak),5M(kernel),96m(rootfs),128K(baseparam),1M(logo),20M(fastplay),-(others) mmz=ddr,0,0x86000000,160M'
+   
+   Beside setting through command line,bootargs can be set by burning bootargs_xxx.bin under path pub/image/ to flash partition.Start address and size of bootargs partition can be found in menuconfig->boot with running make menuconfig.Bootargs_xxx.bin is made with tools/linux/utils/mkbootargs.Input TXT files are kept here.Running ./mkbootargs in directory tools/linux/utils/ to get help info.
+3. Restarting the System	
+    Run reset in the boot command-line interface or press the Reset button on the board, the system is reset and HiLinux is started. The startup is successful if the following message is displayed:
+    Welcome to HiLinux.
+    # 
+
+=========================================
+using SPI-NAND
+=========================================   
+    1. make menuconfig, enable SPI-NAND
+    Board  --->
+			Flash Config  --->
+				[*] Nand Flash Support  --->
+						[*]   SPI_NAND Flash support //enable support for SPI-NAND 
+						(0x20000) Block Size         //set SPI-NAND blocksize
+						(2k)  Page Size              //set SPI-NAND pagesize
+						(4bit) ECC Type              //set SPI-NAND ecctype
+    2. config fastboot reg file, must use xxx_spi.reg, not xxx_nand.reg
+    3. refer to "4.3 Compiling the Kernel" above,config kernel defconfig file as follow:
+    Device Drivers  --->
+		<*> Memory Technology Device (MTD) support  --->
+			<*>   NAND Device Support  --->
+				<*>   Hisilicon SPI Nand Controller v400 device Support  --->  //select SPI-NAND v400
+				< >   Hisilicon NAND Controller v610 device Support  --->      //unselect NANDV610
+				< >   Hisilicon NAND Controller v504 device Support  --->      //unselect NANDV504
+    4. rebuild SDK
+
+    burn image like NAND¡£
+
+=========================================
+change user password
+=========================================
+   root privilege is required to change user password.
+1. login using as root;
+2. use "passwd $USERNAME" command, "Password for $USERNAME changed by root" indicates user password changed successfully¡£
+   if "passwd" command is not supported, modify busybox config file, including CONFIG_PASSWD, then rebuild rootfs image¡£
+   
+   for mass production:
+1. change user password according to the above method;
+2. replace pub/rootbox/etc/shadow using /etc/shadow on board£»
+3. make fs to rebuild rootfs image, which is used as rootfs image for mass production.
+
+=========================================
+display login interface
+=========================================
+1. modify /etc/inittab, replace "::respawn:-/bin/sh" by "::respawn:/sbin/getty -L ttyS000 115200 vt100"
+2. restart
+
+=========================================
+shutdown telnetd
+=========================================
+1. modify busybox config file, remove CONFIG_TELNETD;
+2. modify /etc/init.d/S90modules,comment out lines below, NOT start telnetd;
+#TELNETD=$(type -p telnetd)
+#if [ -f "${TELNETD}" ]; then
+#    ${TELNETD}&
+#else
+#    echo "Not find telnetd"
+#fi
+
+=========================================
+Mounting the NFS and Debugging Programs
+=========================================
+   After HiLinux is started, run the following commands to configure the network, mount the NFS, and debug programs.
+1. Configure the board network.
+   ifconfig eth0 hw ether 00:xx:xx:xx:xx:xx;               Set the MAC address of ETH0. Note that the MAC address on a network must be unique.
+   ifconfig eth0 xxx.xxx.xxx.xxx netmask 255.255.xxx.0;    Set the IP address and subnet mask of ETH0.
+   route add default gw xxx.xxx.xxx.x;                     Set the default route. The default route must be set if inter-network access is involved.
+
+2. Mount the NFS.    
+   Assume that the SDK code root directory on the cross compilation server is /xxx/sdk_root, run the following command to mount sdk_root to the /mnt directory under the root file system as an NFS.
+   mount -t nfs -o nolock -o tcp xxx.xxx.xxx.xxx:/xxx/sdk_root /mnt     
+   Ensure that the board is properly connected to the server, and the NFS service on the server is properly configured.
+
+3. Add the path for searching dynamic library files: /mnt/pub/libs/share.   
+   export LD_LIBRARY_PATH="/mnt/pub/libs/share:$LD_LIBRARY_PATH"  
+
+4. Replace the .ko file.
+   cd /mnt/pub/kmod/
+   rmmod xxx.ko
+   insmod xxx.ko
+
+5. Run the sample.
+   cd /mnt/sample/xxx
+   ./sample_xxx
+
+=========================================
+Mounting a USB Device
+=========================================
+   After HiLinux is started, if you want to mount /dev/sda to the /usb directory, perform the following operations:
+1. Load the .ko files.
+   insmod ehci-hcd.ko
+   insmod ohci-hcd.ko 
+   If the NTFS is to be supported, load ufsd.ko.   
+   insmod ufsd.ko
+2. Mount the USB device.
+   If the FAT32 is used, run the following command:
+   mount -t vfat /dev/sda /usb
+   If the NTFS is used, run the following command:
+   mount -t ufsd /dev/sda /usb  
+
+=========================================
+Startup Screen and Fastplay
+========================================= 
+For details, see the Startup Screen Development Guide.
+
+=========================================
+HiLoader
+========================================= 	
+For details, see the HiLoader Development Guide.
+
+
+=========================================
+Usage sepecification of SDK environment Advanced CA:
+=========================================
+For details,reference to
+   "04-SDK Advanced CA Compilation and Secure Running Environment Building Guide.pdf"
+   "05-Advanced Secure CA Development Guide.pdf"
+   "CASignTool Application Notes.pdf"

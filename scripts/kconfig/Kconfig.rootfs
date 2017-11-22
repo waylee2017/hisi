@@ -1,0 +1,122 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Board Tools Config"
+config  HI_TOOL_UDEV_SUPPORT
+	bool "Udev Tools Support"
+	default y
+config  HI_TOOL_MDEV_SUPPORT
+	bool "Mdev Tools Support"
+	default n 
+menuconfig  HI_TOOL_DOSFS_SUPPORT
+	bool "Dosfs Tools Support"
+	default n
+config  HI_MKDOSFS_TOOLS_SUPPORT
+	bool "Make Dosfs Tool Support"
+	depends on HI_TOOL_DOSFS_SUPPORT
+	default y
+config  HI_DOSFSCK_TOOLS_SUPPORT
+	bool "Check Dosfs Tool Support"
+	depends on HI_TOOL_DOSFS_SUPPORT
+	default y
+config  HI_TOOL_E2FSPROGS_SUPPORT
+	bool "Ext2/Ext3 Tools Support"
+	depends on (!HI3716MV310)&&(!HI3716MV330)
+	default n
+config  HI_TOOL_FILECAP_SUPPORT
+	bool "Filecap Tools Support"
+	default n
+	help
+	  Filecap is used to change permission of files/dirs.
+	  Only for CA user, if don't use CA, say n here.
+config  HI_TOOL_GDB_SUPPORT
+	bool "GDB/GDBServer Tools Support"
+	default n
+config  HI_TOOL_IPTABLES_SUPPORT
+	bool "Iptables Tools Support"
+	default n
+config  HI_TOOL_MTDUTILS_SUPPORT
+	bool "Mtdutils Tools Support"
+	default n
+config  HI_TOOL_REG_SUPPORT
+	bool "Read/Write Registers Tools Support"
+	default y
+config  HI_TOOL_SANDBOX_SUPPORT
+	bool "Sandbox Tool Support"
+	default y
+	depends on HI_ADVCA_SANDBOX_SUPPORT
+	help
+	  This tools is used only for CA, if no CA,say n here.
+config  HI_TOOL_TOP_SUPPORT
+	bool "Standard Top Tools Support"
+	default n
+config  HI_TOOL_PPPD_SUPPORT
+	bool "PPPD Tool Support"
+	default n
+config  HI_TOOL_IPERF_SUPPORT
+	bool "Iperf Support"
+	default n
+config  HI_TOOL_MSP_DEBUG_SUPPORT
+	bool "Msp Debug Tool Support"
+	default n
+config  HI_TOOL_SOC_SERVER
+	bool "SOC Server Tool Support"
+	default n
+config  HI_LXC_CONTAINER_SUPPORT
+	bool "LXC Container Tools Support"
+	default n
+config  HI_TOOL_MEMTESTER_SUPPORT
+	bool "Memtester Tool Support"
+	default n
+endmenu
+#---------------------------------------------
+menu "Busybox Config"
+choice
+	prompt "Busybox Version"
+	default BUSYBOX_1.16.1 if (ARM_HISIV200_LINUX)
+	default BUSYBOX_1.26.2 if (ARM_HISTBV310_LINUX)
+config  BUSYBOX_1.16.1
+	bool "busybox-1.16.1"
+	depends on ARM_HISIV200_LINUX
+config  BUSYBOX_1.26.2
+	bool "busybox-1.26.2"
+endchoice
+
+config  HI_BUSYBOX_CFG_NAME
+	string "Busybox Config File For Root" 
+	default glibc.config      if ARM_HISIV200_LINUX
+	default glibc.config      if ARM_HISTBV310_LINUX
+	help
+	  Input config file for root busybox. Such as xxxxx.config.
+	  Config files are located in busybox source: busybox-1.*.1.config/
+
+config  HI_BUSYBOX_CFG_SANDBOX_NAME
+	string "Busybox Config File For Sandbox User" 
+	default glibc_ca_sandbox.config      if ARM_HISIV200_LINUX
+	default glibc_ca_sandbox.config      if ARM_HISTBV310_LINUX
+	depends on HI_ADVCA_SANDBOX_SUPPORT
+	help
+	  Input config file for sandbox user busybox. Such as xxxxx.config.
+	  Config files are located in busybox source: busybox-1.*.1.config/
+
+endmenu
+
+choice  HI_LIBC_SUPPORT
+	bool "C Runtime Libarary Config"
+	default HI_LIBC_LITE_SUPPORT
+config  HI_LIBC_FULL_SUPPORT
+	bool "C Runtime Libarary Full Support"
+	help
+	  If you need full C libarary support, say y here.
+config  HI_LIBC_LITE_SUPPORT
+	bool "C Runtime Libarary Lite Support"
+	help
+	  If you need lite C libarary support, say y here.This can save flash
+	  size.
+endchoice
+config  HI_LIBCPP_SUPPORT
+	bool "C++ Runtime Libarary Support"
+	default y
+	help
+	  If you need use C++ libarary, say y here.
+
+#---------------------------------------------
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,0 +1,78 @@
+		本文介绍产线上烧录高安镜像。
+		产线上烧录高安镜像，过程一般是单板上电，引导厂测程序，厂测程序完成后烧录高安镜像，并把芯片烧录成高安芯片。
+		需准备的环境：厂测环境的boot、内核以及只读的文件系统镜像，文件系统镜像中包含本文中所用到的所有烧录工具、高安镜像。
+		厂测程序由厂家自行完成，不在本文描述范围内。
+		本文介绍如何生成烧录高安镜像的镜像、工具、以及烧录命令。
+		
+一、数据准备
+	 
+   1. 生成不含校验功能的全功能boot以及内核，squashfs文件系统，用于产线烧写
+      操作：
+        1) cfg.mak中:
+           CFG_ADVCA_TYPE=CONAX
+           不定义CFG_ADVCA_FUNCTION
+        2) make cleanall, make build
+
+      注意：因烧写过程中会覆盖文件系统，必须用squashfs内存文件系统，不能用yaffs等Flash文件系统。
+
+   2. 制作最终Boot的sample：
+      功能：完成boot代码的加密，以及SWPK的加密，并将加密后的SWPK与boot代码合并，仅适用于boot使用r2r_root_key加密的场景。
+      输入：Conax签名后的boot，以及明文SWPK (代码中定义)
+      操作：./sample_product_encrypt_boot signed_clear_boot  encrypted_boot
+      示例：./sample_product_encrypt_boot FinalBoot_SE13395_Conax.bin enc_FinalBoot_SE13395_Conax.bin
+
+
+   3. 制作加密的分区镜像的sample：
+      功能：对数据进行R2R加密。
+      输入：签名后的bootargs,stbid,system,loader分区镜像，或者baseparam,logo镜像。
+      操作：./sample_product_crypto crypto_flag  key_flag input_file output_file
+            说明：crypto_flag ---- 0, 加密；1，解密
+            说明：key_flag: 0--SWPK 1--key1, 2--key2
+      示例：./sample_product_crypto 0 1 system.sig enc_system.bin
+      要求：各分区镜像必须16字节对齐，各key在代码中定义。
+
+   4. 烧写各分区数据:
+      功能：完成分区数据烧写
+      输入：各分区数据
+      操作：./sample_product_burn_partition  partition_name  image_file
+      示例：./sample_product_burn_partition kernel enc_system.bin
+
+      注意：烧写system (签名后的kernel+rootfs) 分区时，partition_name可以是kernel，也可以是system，取决于当前bootargs配置。
+
+   5. 烧写HDCP Key
+      功能：完成HDCP key的烧写
+      输入：hdcp key数据
+      操作：./sample_sethdcp_orgkey hdcpkey.bin
+
+      注意：hdcp key必须在烧写PV值前烧写。
+
+   6. PV值烧写:
+      功能：完成包括MSID,VERSIONID在内的PV值烧写。
+      输入：PV值配置文件pv_cfg.txt文件。
+      操作：读取pv值列表：./sample_product_pv_stb 0 pv_out_file
+            示例：./sample_product_pv_stb 0 pv_out_r.txt
+
+            设置pv值：./sample_product_pv_stb 1 otp_debug pv_cfg_file [pv_out_file]
+            参数说明： otp_debug : enable--enable OTP debug mode, disable--disable OTP debug mode 
+            示例：./sample_product_pv_stb 1 enable pv_cfg_dbg.txt pv_out_w.txt
+
+      注意：1) 烧写PV值必须谨慎，请选择正确的配置文件，并确保MSID和Version_ID正确。
+            2) 参数otp_debug为enable字符串时，打开OTP的debug mode，不会实际烧写到OTP中。确认烧写数据OK后，再设置为disable字符串关闭OTP的debug mode，烧写OTP。
+
+   7. 产线烧写脚本
+      功能：调用以上2~6步对应sample，完成所有分区镜像制作及烧写，PV值烧写。
+      操作：./sample_product_burn.sh
+        
+二、实验室烧写方法
+    
+    1. 在NFS服务器准备好所有sample以及对应数据。 
+    2. 启动调试版本文件系统
+    3. 挂载到NFS服务器
+    4. 执行烧写脚本 
+
+三、产线烧写方法
+    1. 把以上所有sample和脚本，以及各分区镜像数据，以及生产测试程序都制作到产线测试用文件系统镜像中。
+    2. 把产线测试用文件系统烧写到Flash。
+    3. Flash贴片。
+    4. 启动机顶盒，执行产线测试程序。
+    5. 执行数据烧写脚本，完成所有镜像加密及烧写，完成hdcp key和PV值烧写。

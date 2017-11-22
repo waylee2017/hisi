@@ -1,0 +1,128 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Video Decoder Config"
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+choice
+	prompt "VFMW Decode Capability"
+	default HD_FULL 
+
+config  HD_FULL
+	bool "All Support" 
+	depends on !HI3110EV500
+	help
+		All Support.
+config  HD_SIMPLE
+	bool "H264,MPEG2,MPEG4 Only"
+	help
+		H264,MPEG2,MPEG4 Support.
+config HD_BASIC
+    bool "H264,MPEG2,MPEG4,AVS,AVS+ Only"
+    help 
+        H264,MPEG2,MPEG4,AVS,AVS+ Support.
+endchoice
+
+config  HI_VFMW_DECODE_CAPABILITY
+	string 
+	default "HD_FULL"             if HD_FULL
+	default "HD_SIMPLE"           if HD_SIMPLE
+	default "HD_BASIC"            if HD_BASIC
+
+choice
+	prompt "VFMW_DECODE_PREALLOC_MMZ"
+	default FHD if !HI3110EV500
+	default D1  if HI3110EV500 
+
+config  FHD
+	bool "FHD"
+	depends on !HI3110EV500
+	help
+		PREALLOC MMZ According to FHD resolution ratio.
+		
+config  D1
+	bool "D1 "
+	help
+		PREALLOC MMZ According to D1 resolution ratio.
+		
+endchoice
+
+config  HI_VFMW_DECODE_PREALLOC_MMZ
+	string 
+	default "D1"             if D1
+	default "FHD"           if FHD
+	
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+config  HI_VDEC_MAX_INSTANCE
+	int "Video Decoder Max Instance Number(1~16)"
+	range 1 16
+	default 1 if !HI_MCE_SUPPORT
+        default 2 if HI_MCE_SUPPORT
+	help
+		It is necessarily set to bigger than 1 to support mce-fastpaly.
+
+config  HI_VDEC_MAX_REF_FRAME
+	int "Max Reference Frame Number(4~10)"
+	range 4 10
+	help
+		Larger number means better compatibility. Recommend 7, at least 4.
+	default 7
+	
+config  HI_VDEC_MAX_DISP_FRAME
+	int "Max Display Frame Number(3~12)"
+	range 3 12
+	help
+		Larger number means better effect. Recommend 8, at least 3.
+	default 8
+	
+config  HI_VDEC_SCD_BUFFER_SIZE
+	hex "SCD Buffer Size(0xa0000~0x500000)"
+	range 0xa0000 0x500000
+	help
+		SCD buffer. Recommend 0x200000.
+	default 0x200000
+
+config  HI_VDEC_DEINTERLACE_SUPPORT
+	bool "Deinterlace Support"
+	help
+		Open deinterlace function, if you have enough memory, say y.
+	default y
+
+config  HI_VDEC_SVDEC_SUPPORT
+	bool "Soft Video Decode(hi_svdec.ko) Support"
+	help
+		If you want to support H263, say y;
+	default y
+
+config  HI_VDEC_REG_CODEC_SUPPORT
+	bool "External Video Codec Register Support"
+	help
+		If you want to use API "HI_UNF_AVPLAY_RegisterVcodecLib()", say y.
+	default n
+	
+config  HI_VDEC_MJPEG_SUPPORT
+	bool "Motion JPEG Decoder Support"
+	help
+		If you want to use decode Motion JPEG stream, say y.
+	default y
+	
+config  HI_VDEC_USERDATA_CC_SUPPORT
+	bool "Closed Caption User Data Support"
+	help
+		If you want to receive closed caption user data, say y.
+	default n
+	
+config  HI_VDEC_USERDATA_CC_BUFSIZE
+	hex "Closed Caption User Data Buffer Size(0x4000~0x40000)"
+	depends on HI_VDEC_USERDATA_CC_SUPPORT
+	range 0x4000 0x40000
+	help
+		Closed caption user data buffer size. Recommend 0xC000.
+	default 0xC000
+
+config  HI_VDEC_DSD_SUPPORT
+	bool "Dynamic Switch DNR Support"
+	help
+		If you want to Dynamic Switch DNR, say y.
+	default n
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

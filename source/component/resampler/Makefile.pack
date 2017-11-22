@@ -1,0 +1,45 @@
+#===============================================================================
+# export variable
+#===============================================================================
+ifeq ($(CFG_HI_EXPORT_FLAG),)
+SDK_DIR ?= $(CURDIR)/../../..
+
+include $(SDK_DIR)/cfg.mak
+include $(SDK_DIR)/base.mak
+endif
+
+RESAMPLER_DIR = $(SDK_DIR)/source/component/resampler
+
+#===============================================================================
+# local variable
+#===============================================================================
+CFLAGS  +=  -I$(COMMON_UNF_INCLUDE)                 \
+            -I$(COMMON_API_INCLUDE)                 \
+            -I$(RESAMPLER_DIR)/include              \
+            -I$(RESAMPLER_DIR)/src
+
+LIBS := libhi_resampler
+
+OBJS := $(RESAMPLER_DIR)/src/resampler.o    \
+	$(RESAMPLER_DIR)/src/resampler2X.o  \
+	$(RESAMPLER_DIR)/src/resample_v2.o  \
+	$(RESAMPLER_DIR)/src/resample_rom.o \
+	$(RESAMPLER_DIR)/src/linear_src.o
+
+#===============================================================================
+# rules
+#===============================================================================
+.PHONY : all clean
+
+all : 
+	mkdir -p $(RESAMPLER_DIR)/lib/$(CFG_HI_TOOLCHAINS_NAME)
+	make $(LIBS)
+
+clean:
+	$(AT)rm -rf $(OBJS)
+
+$(LIBS) : $(OBJS)
+	$(AT)$(AR) -rsv $@.a $^
+	$(AT)$(CC) -shared -o $@.so $^
+	$(AT)mv -f  $(LIBS).a           $(RESAMPLER_DIR)/lib/$(CFG_HI_TOOLCHAINS_NAME)
+	$(AT)mv -f  $(LIBS).so          $(RESAMPLER_DIR)/lib/$(CFG_HI_TOOLCHAINS_NAME)

@@ -1,0 +1,285 @@
+################################################################################
+#    source/boot/Makefile
+#    Create By Lyj
+#    2014.03.17
+################################################################################
+
+ifeq ($(CFG_HI_EXPORT_FLAG),)
+SDK_DIR := $(shell pwd)/../..
+include $(SDK_DIR)/base.mak
+endif
+
+CONFIG_SYSREG  := $(CFG_HI_BOOT_REG_NAME)
+
+ifneq ($(BOOT_ADVCA_PROGRAMMER),y) 
+CONFIG_PRODUCT_WITH_BOOT := $(CFG_HI_BUILD_WITH_PRODUCT)
+endif
+
+#TODO: XXX
+ifeq ($(findstring fpga,$(CFG_HI_BOOT_REG_NAME)), fpga)
+CFG_S40_FPGA := 1
+else
+CFG_S40_FPGA := 0
+endif
+
+HI3712        := 1
+HI3715        := 2
+HI3716C       := 3
+HI3716H       := 4
+HI3716M       := 5
+HI3716MV310   := 6
+HI3716MV320   := 7
+HI3110EV500   := 8
+HI3716MV330   := 9
+################################################################################
+TARGET := miniboot.bin
+
+#
+# local variable.
+#
+CURRDIR        = $(shell pwd)
+
+ifneq ($(O),)
+OBJ_DIR := $(O)
+BUILD_DIR := $(OBJ_DIR)
+OBJ_TARGET := $(OBJ_DIR)/miniboot.bin
+BOOT_DIR := $(OBJ_DIR)
+export BOOT_DIR
+PREFIX         = $(OBJ_DIR)
+else
+BUILD_DIR := $(CURRDIR)
+PREFIX         = $(CURRDIR)/../../pub/image
+endif
+
+PRODUCT        = $(BUILD_DIR)/product
+FASTBOOT       = $(BUILD_DIR)/fastboot
+MINIBOOT       = $(BUILD_DIR)/miniboot
+SYSREGDIR      = $(CURRDIR)/sysreg
+LIBSPRODUCT    = $(PRODUCT)/libproduct.a
+BOOTCONFIG     = hi3716mv310
+
+ifneq ($(findstring $(CFG_HI_CHIP_TYPE), hi3798mv100 hi3796mv100),)
+BOOTCONFIG     = hi3798mx
+endif
+
+export BOOTCONFIG
+
+SYSREG         = $(SYSREGDIR)/$(CONFIG_SYSREG)
+
+export PRODUCT MINIBOOT
+
+################################################################################
+CONFIG_EXTERN_FLAGS := \
+                $(if $(CFG_HI_SDK_VERSION),SDK_VERSION_STRING=\"$(CFG_HI_SDK_VERSION)\",) \
+                $(if $(CFG_HI_NAND_SUPPORT),CONFIG_GENERIC_NAND=$(CFG_HI_NAND_SUPPORT),) \
+                $(if $(CFG_HI_NAND_SUPPORT),CONFIG_GENERIC_SPI_NAND=$(CFG_HI_NAND_SUPPORT),) \
+                $(if $(CFG_HI_SPI_SUPPORT),CONFIG_GENERIC_SFC=$(CFG_HI_SPI_SUPPORT),) \
+                $(if $(CFG_HI_BOOT_USB_SUPPORT),CONFIG_GENERIC_USB=$(CFG_HI_BOOT_USB_SUPPORT),) \
+                $(if $(CFG_HI_ETH_SUPPORT),CONFIG_NET=$(CFG_HI_ETH_SUPPORT),) \
+                $(if $(CFG_HI_ETH_UP_PHYADDR),HISFV_PHY_U=$(CFG_HI_ETH_UP_PHYADDR),) \
+                $(if $(CFG_HI_ETH_DOWN_PHYADDR),HISFV_PHY_D=$(CFG_HI_ETH_DOWN_PHYADDR),) \
+                $(if $(CFG_HI_EMMC_SUPPORT),CONFIG_GENERIC_MMC=$(CFG_HI_EMMC_SUPPORT),) \
+                $(if $(CFG_HI_BOOT_ENV_STARTADDR),CONFIG_ENV_FROM=$(CFG_HI_BOOT_ENV_STARTADDR),) \
+                $(if $(CFG_HI_BOOT_ENV_SIZE),CONFIG_ENV_SIZE=$(CFG_HI_BOOT_ENV_SIZE),) \
+                $(if $(CFG_HI_BOOT_ENV_RANGE),CONFIG_ENV_RANGE=$(CFG_HI_BOOT_ENV_RANGE),) \
+                $(if $(CFG_HI_BOOT_ENV_BAK_SUPPORT),CONFIG_ENV_BACKUP=$(CFG_HI_BOOT_ENV_BAK_SUPPORT),) \
+                $(if $(CFG_HI_BOOT_ENV_STARTADDR_BAKUP),CONFIG_ENV_BACKUP_FROM=$(CFG_HI_BOOT_ENV_STARTADDR_BAKUP),)\
+                $(if $(CONFIG_PRODUCT_WITH_BOOT),CONFIG_PRODUCT_WITH_BOOT=$(CONFIG_PRODUCT_WITH_BOOT),) \
+                $(if $(CFG_HI_CHIP_TYPE),CONFIG_CHIP_TYPE=$(CFG_HI_CHIP_TYPE),) \
+                $(if $(CFG_HI_BOOT_REG_NAME),CONFIG_BOOT_REG_NAME=$(CFG_HI_BOOT_REG_NAME),) \
+                $(if $(CFG_HI_CHIP_TYPE),CHIP_TYPE_$(CFG_HI_CHIP_TYPE)=1,) \
+                $(if $(CFG_HI_AVS_SUPPORT),CONFIG_AVS_SUPPORT=$(CFG_HI_AVS_SUPPORT),) \
+                $(if $(CFG_HI_PMU_DEVICE_SELECT),CONFIG_PMU_DEVICE=$(CFG_HI_PMU_DEVICE_SELECT),) \
+                $(if $(CFG_HI_BOOT_USB_SUPPORT),CONFIG_USB_SUPPORT=$(CFG_HI_BOOT_USB_SUPPORT),) \
+		$(if $(CFG_HI_BOOT_COMPRESSED),CONFIG_COMPRESS=$(CFG_HI_BOOT_COMPRESSED),) \
+		$(if $(CFG_HI_MINIBOOT_SUPPORT),CFG_HI_MINIBOOT_SUPPORT=$(CFG_HI_MINIBOOT_SUPPORT),) \
+		$(if $(CFG_HI_BOOT_LOGOUT_DISABLE),CONFIG_PRINT=,CONFIG_PRINT=y) \
+		$(if $(CFG_HI_BOOT_LOGOUT_DISABLE),CONFIG_UART=,CONFIG_UART=y) \
+		$(if $(CFG_HI_BOOT_LOGOUT_DISABLE),CONFIG_DEBUG=,CONFIG_DEBUG=y) \
+		$(if $(CFG_HI_BOOT_LOGOUT_DISABLE),CONFIG_UART_P101X=,CONFIG_UART_P101X=y) 
+
+ifneq ($(findstring $(CFG_HI_CHIP_TYPE), hi3716mv410 hi3716mv420 hi3716mv330 hi3798cv200 hi3798hv100),)
+CONFIG_EXTERN_FLAGS     += $(if $(CFG_HI_NAND_SUPPORT),CONFIG_GENERIC_HIFMC100_NAND=$(CFG_HI_NAND_SUPPORT),)
+CONFIG_EXTERN_FLAGS     += $(if $(CFG_HI_NAND_SUPPORT),CONFIG_GENERIC_HIFMC100_SPI_NAND=$(CFG_HI_NAND_SUPPORT),)
+CONFIG_EXTERN_FLAGS     += $(if $(CFG_HI_SPI_SUPPORT),CONFIG_GENERIC_HIFMC100_SPI_SPI_NOR=$(CFG_HI_SPI_SUPPORT),)
+endif
+ifeq ($(CFG_HI_FORCE_ENV_TO_MEDIA), y)
+CONFIG_EXTERN_FLAGS += $(if $(CFG_FORCE_ENV_IN_NAND),CONFIG_FORCE_ENV_IN_NAND=$(CFG_FORCE_ENV_IN_NAND),)
+CONFIG_EXTERN_FLAGS += $(if $(CFG_FORCE_ENV_IN_SPI),CONFIG_FORCE_ENV_IN_SPI=$(CFG_FORCE_ENV_IN_SPI),)
+CONFIG_EXTERN_FLAGS += $(if $(CFG_FORCE_ENV_IN_EMMC),CONFIG_FORCE_ENV_IN_EMMC=$(CFG_FORCE_ENV_IN_EMMC),)
+endif
+
+BOOTCONFIG_FILE     := hi3716mv310
+ifneq ($(findstring $(CFG_HI_CHIP_TYPE), hi3716mv310 hi3716mv320 hi3110ev500),)
+BOOTCONFIG_FILE     := hi3716mv310
+endif
+ifneq ($(findstring $(CFG_HI_CHIP_TYPE), hi3716mv330 ),)
+BOOTCONFIG_FILE     := hi3716mv330
+endif
+ifeq ($(CFG_HI_BOOT_LOGOUT_DISABLE),y)
+CFG_HI_CFLAGS += -DHI_ADVCA_FUNCTION_RELEASE
+endif
+#+++++++++++++++++++++ADVCA compile options+++++++++++++++++++++++++++++++++++++++++++++
+ifneq ($(BOOT_ADVCA_PROGRAMMER),y)
+    ifeq ($(CFG_HI_ADVCA_SUPPORT),y)
+CONFIG_EXTERN_FLAGS +=  CONFIG_SUPPORT_CA=$(CFG_HI_ADVCA_TYPE)
+CONFIG_EXTERN_FLAGS +=  CONFIG_SUPPORT_CA_$(CFG_HI_ADVCA_TYPE)=y
+    ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE,$(CFG_HI_CFLAGS)),-DHI_ADVCA_FUNCTION_RELEASE)
+CONFIG_EXTERN_FLAGS +=  CONFIG_SUPPORT_CA_RELEASE=y
+    endif
+    ifeq ($(findstring -DHI_ADVCA_FUNCTION_DEBUG,$(CFG_HI_CFLAGS)),-DHI_ADVCA_FUNCTION_DEBUG)
+CONFIG_EXTERN_FLAGS +=  CONFIG_SUPPORT_CA_DEBUG=y
+    endif
+    endif
+endif
+################################################################################
+
+MKFLAGS    := CROSS_COMPILE=$(CROSS_COMPILE) \
+              LIBSPRODUCT=$(LIBSPRODUCT) \
+              $(CONFIG_EXTERN_FLAGS) \
+              O=
+ifeq (y,$(CFG_HI_BENCH_SUPPORT))
+    MKFLAGS += CONFIG_MERGE_IMAGE=$(FASTBOOT)/merge.img
+else
+    MKFLAGS += CONFIG_MERGE_IMAGE=
+endif
+
+ifeq ($(BOOT_ADVCA_PROGRAMMER),y)
+    MKFLAGS += CONFIG_BOOTROM_CA_SUPPORT=y
+endif
+
+################################################################################
+PHONYS += install all product prepare miniboot
+
+install: all
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	@cp -fv $(MINIBOOT)/$(TARGET) $(PREFIX)/miniboot.bin
+ifeq (NAGRA, $(CFG_HI_ADVCA_TYPE))
+	@cp -fv $(MINIBOOT)/miniboot.text $(PREFIX)/boot-ca.code
+	@cp -fv $(PRODUCT)/driver/advca/nagra/bep/bep.bin $(PREFIX)/bep.bin
+endif
+ifeq (y, $(CFG_HI_BOOTLOADER_SUPPORT))
+	@cp -fv $(MINIBOOT)/$(TARGET) $(SDK_DIR)/tools/windows/HiPro-serial/HiPro-serial_cn/program.bin
+	@cp -fv $(MINIBOOT)/$(TARGET) $(SDK_DIR)/tools/windows/HiPro-serial/HiPro-serial_en/program.bin
+endif
+
+all: \
+   $(if $(OBJ_DIR), $(OBJ_DIR)/copy_code,) \
+   $(if $(CONFIG_PRODUCT_WITH_BOOT),product,) \
+   miniboot \
+   advca_programmer_install
+
+ifneq ($(OBJ_DIR),)
+	@cp -f $(MINIBOOT)/$(TARGET) $(OBJ_TARGET)
+endif
+
+$(OBJ_DIR)/copy_code:
+	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
+	-@cp -rf $(CURRDIR)/miniboot $(OBJ_DIR)
+	-@cp -rf $(CURRDIR)/product $(OBJ_DIR)
+	-@cp -rf $(CURRDIR)/fastboot $(OBJ_DIR)
+	touch $@
+
+
+product: $(if $(OBJ_DIR), $(OBJ_DIR)/copy_code,)
+	make -C $(MINIBOOT) $(MKFLAGS) $(BOOTCONFIG_FILE)_config
+	#-@make -C $(MINIBOOT) $(MKFLAGS) $(BOOTCONFIG_FILE)
+	make -C $(PRODUCT) $(MKFLAGS) O=$(O)
+
+miniboot: prepare $(if $(CONFIG_PRODUCT_WITH_BOOT),product,)
+	make -C $(MINIBOOT) $(MKFLAGS) $(BOOTCONFIG_FILE)
+
+################################### programmer #################################
+FASTBOOT       =  $(BUILD_DIR)/fastboot
+CONFIG_FILE    = $(FASTBOOT)/include/configs/$(BOOTCONFIG)_config.h
+CONFIG_EXPORT  = $(FASTBOOT)/include/configs/export.sh
+PROGRAMMER_TARGET := mini-boot.bin
+
+
+PROGRAM_MKFLAGS    := CROSS_COMPILE=$(CROSS_COMPILE) O=
+
+advca_programmer_install: programmer_prepare
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) CONFIG_BOOTROM_CA_SUPPORT=y  $(BOOTCONFIG)
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) mini-boot.bin
+	@cp -fv $(FASTBOOT)/$(PROGRAMMER_TARGET) $(PREFIX)/advca_programmer.bin
+	make -C $(FASTBOOT)  $(PROGRAM_MKFLAGS) distclean
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) mini-boot.clean
+	-@rm -f $(FASTBOOT)/*.reg
+
+$(PREFIX)/non-advca_programmer.bin: programmer_prepare
+	@test -d $(PREFIX)/ || mkdir -p $(PREFIX)/
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) $(BOOTCONFIG)
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) mini-boot.bin
+	@cp -fv $(FASTBOOT)/$(PROGRAMMER_TARGET) $(PREFIX)/non-advca_programmer.bin
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) distclean
+	make -C $(FASTBOOT) $(PROGRAM_MKFLAGS) mini-boot.clean
+	-@rm -f $(FASTBOOT)/*.reg
+
+$(CONFIG_FILE): $(if $(OBJ_DIR), $(OBJ_DIR)/copy_code,) force
+	@test ! -f $(CONFIG_FILE) || rm -rvf $(CONFIG_FILE)
+	chmod 0755 $(CONFIG_EXPORT)
+	@$(CONFIG_EXPORT) "CONFIG_NAND_SUPPORT=y" \
+		"nand flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_SPIFLASH_SUPPORT=$(CFG_HI_SPI_SUPPORT)" \
+		"spi flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_NET_SUPPORT=y" \
+		"eth support" $@
+	@$(CONFIG_EXPORT) "HISFV_PHY_U=$(CFG_HI_ETH_UP_PHYADDR)" \
+		"eth upport phy address" $@
+	@$(CONFIG_EXPORT) "HISFV_PHY_D=$(CFG_HI_ETH_DOWN_PHYADDR)" \
+		"eth downport phy address" $@
+	@$(CONFIG_EXPORT) "CONFIG_EMMC_SUPPORT=$(CFG_HI_EMMC_SUPPORT)" \
+		"emmc flash support" $@
+	@$(CONFIG_EXPORT) "CONFIG_PRODUCT_WITH_BOOT=" \
+		"build product with boot" $@
+	@$(CONFIG_EXPORT) "CONFIG_CHIP_TYPE=$(CFG_HI_CHIP_TYPE)" \
+		"chip type" $@
+	@$(CONFIG_EXPORT) "CONFIG_BOOT_REG_NAME=$(CFG_HI_BOOT_REG_NAME)" \
+		"boot regfile name" $@
+	@$(CONFIG_EXPORT) "CONFIG_BOOT_SIMULATE=$(CONFIG_BOOT_SIMULATE)" \
+		"Simulate boot" $@
+	@$(CONFIG_EXPORT) "hi3712=$(HI3712)"   "macro for hi3712" $@
+	@$(CONFIG_EXPORT) "hi3715=$(HI3715)"   "macro for hi3715" $@
+	@$(CONFIG_EXPORT) "hi3716c=$(HI3716C)" "macro for hi3716c" $@
+	@$(CONFIG_EXPORT) "hi3716h=$(HI3716H)" "macro for hi3716h" $@
+	@$(CONFIG_EXPORT) "hi3716m=$(HI3716M)" "macro for hi3716m" $@
+	@$(CONFIG_EXPORT) "hi3716m310=$(HI3716MV310)" "macro for hi3716mv310" $@
+	@$(CONFIG_EXPORT) "hi3716m320=$(HI3716MV320)" "macro for hi3716mv320" $@
+	@$(CONFIG_EXPORT) "hi3110ev500=$(HI3110EV500)" "macro for hi3110ev500" $@
+	@$(CONFIG_EXPORT) "hi3716mv330=$(HI3716MV330)" "macro for hi3716mv330" $@
+	@$(CONFIG_EXPORT) "CHIP_TYPE_$(CFG_HI_CHIP_TYPE)=1" \
+		"Chip type" $@
+force: ;
+
+programmer_prepare: $(SYSREG) $(CONFIG_FILE)
+	@rm -f $(FASTBOOT)/*.reg
+	@cp -fv $(SYSREG) $(FASTBOOT)
+
+###################################################################################
+prepare: $(SYSREG)
+	@rm -f $(MINIBOOT)/*.reg
+	@cp -fv $(SYSREG) $(MINIBOOT)
+
+
+################################################################################
+PHONYS += uninstall clean distclean
+
+uninstall:
+	-@rm -f $(PREFIX)/miniboot.bin
+
+distclean: clean
+
+clean :
+ifeq ($(OBJ_DIR),)
+	make -C $(PRODUCT)  $(MKFLAGS) clean
+	make -C $(FASTBOOT) $(MKFLAGS) distclean
+	make -C $(MINIBOOT) distclean
+	-@rm -f $(MINIBOOT)/*.reg
+else
+	-@rm -rf $(OBJ_DIR)
+endif
+
+################################################################################
+.PHONY: $(PHONYS)
+################################################################################

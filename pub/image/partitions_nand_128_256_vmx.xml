@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info>
+<Part Sel="1" PartitionName="fastboot" FlashType="nand" FileSystem="none" Start="0" Length="640K" SelectFile=""/>
+<Part Sel="1" PartitionName="bootargs" FlashType="nand" FileSystem="none" Start="640K" Length="128K" SelectFile=""/>
+<Part Sel="0" PartitionName="stbid" FlashType="nand" FileSystem="none" Start="768K" Length="128K" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderdb" FlashType="nand" FileSystem="none" Start="896K" Length="256K" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderdbbak" FlashType="nand" FileSystem="none" Start="1152K" Length="256K" SelectFile=""/>
+<Part Sel="0" PartitionName="baseparam" FlashType="nand" FileSystem="none" Start="1408K" Length="512K" SelectFile=""/>
+<Part Sel="0" PartitionName="logo" FlashType="nand" FileSystem="none" Start="1920K" Length="1M" SelectFile=""/>
+<Part Sel="1" PartitionName="kernel" FlashType="nand" FileSystem="none" Start="2944K" Length="4M" SelectFile=""/>
+<Part Sel="1" PartitionName="rootfs" FlashType="nand" FileSystem="squashfs" Start="7040K" Length="60M" SelectFile=""/>
+<Part Sel="1" PartitionName="loader" FlashType="nand" FileSystem="none" Start="68480K" Length="8M" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderbak" FlashType="nand" FileSystem="none" Start="76672K" Length="8M" SelectFile=""/>
+<Part Sel="0" PartitionName="cadata" FlashType="nand" FileSystem="none" Start="84864K" Length="8M" SelectFile=""/>
+</Partition_Info>

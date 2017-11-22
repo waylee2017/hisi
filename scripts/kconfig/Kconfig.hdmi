@@ -1,0 +1,37 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "HDMI Config"
+config	HI_HDMI_SUPPORT_DVI
+	bool "DVI Support"
+	depends on HI_DISP_LCD_SUPPORT
+	help
+	  If you want to enable DVI, say y.
+	default n 
+
+config	HI_HDMI_SUPPORT_HDCP
+	bool "HDCP Support"
+	help
+	  If you want to enable HDCP, say y. 
+	default n 
+
+config	HI_HDMI_SUPPORT_CEC
+	bool "CEC Support"
+	help
+	  If you want to enable CEC, say y.
+	default n
+
+config  HI_HDMI_SUPPORT_DEBUG
+	bool "DEBUG Support"
+	help
+		If you want to enable debug, say y.
+	default n   
+
+config  HI_HDMI_DEBUG_MEM_SIZE
+	depends on HI_HDMI_SUPPORT_DEBUG
+	hex "DEBUG Memory Size (BYTE)"
+	help
+		If you want to enable debug, say y.
+	default 0x80000
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+

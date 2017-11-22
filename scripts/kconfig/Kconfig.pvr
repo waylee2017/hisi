@@ -1,0 +1,13 @@
+
+menu "PVR Config"
+config HI_PVR_SUPPORT
+	bool "PVR Support"
+	default y
+config HI_PVR_EXTRA_BUF_SUPPORT
+	bool "use Extra PVR Buffer to optimize the recording"
+	depends on HI_PVR_SUPPORT
+	help
+	     With this option selected, 2*u32DavbufSize more memory will be allocated to buffer ts data by PVR,instead of saving data directly without 
+	     buffering.Buffering ts data would  promote recording performance and avoid HI_UNF_EVENT_REC_DISK_SLOW event.
+	default n
+endmenu

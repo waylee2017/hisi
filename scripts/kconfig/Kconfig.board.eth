@@ -1,0 +1,22 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Ethernet Config"
+config  HI_ETH_SUPPORT
+	bool "Ethernet Support"
+	default y
+	help
+	  Support ethernet function enables you to use ethernet.
+	  You should say y here, unless you really know what are 
+	  you doing. Say no here can get a smaller fastboot.
+config  HI_ETH_UP_PHYADDR
+	int "Up Port Phyaddr (0, 31)"
+	depends on HI_ETH_SUPPORT
+	range 0 31
+	default 1
+config  HI_ETH_DOWN_PHYADDR
+	int "Down Port Phyaddr(0, 31)"
+	depends on HI_ETH_SUPPORT
+	range 0 31
+	default 3
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+

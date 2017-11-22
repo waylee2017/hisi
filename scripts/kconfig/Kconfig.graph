@@ -1,0 +1,116 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "Graphic Config"
+
+choice
+    prompt "jpeg version"
+    default LIB_JPEG_VERSION_6B
+
+config  LIB_JPEG_VERSION_6B
+    bool "libjpeg-6b"
+config  LIB_JPEG_VERSION_NEWEST
+    bool "libjpeg"
+endchoice
+
+choice
+    prompt "png version"
+    default LIB_PNG_VERSION_1_4_16
+
+config  LIB_PNG_VERSION_1_6_25
+    bool "libpng-1.6.25"
+config  LIB_PNG_VERSION_1_4_16
+    bool "libpng-1.4.16"
+endchoice
+
+config HI_JPEG_SOFT_ENCODE_SUPPORT
+    bool "jpeg soft encode support"
+    default n
+
+menuconfig HI_DIRECTFB_SUPPORT
+    bool "DirectFB Support"
+    default n
+
+choice
+    prompt "DirectFB Version"
+    default HI_DIRECTFB_1_4_2
+    depends on HI_DIRECTFB_SUPPORT
+
+config HI_DIRECTFB_1_4_2
+    bool "DirectFB-1.4.2"
+    
+endchoice
+
+config HI_DIRECTFB_MULTI_SUPPORT
+    bool "DirectFB Multi Process support"
+    default n
+    depends on HI_DIRECTFB_SUPPORT
+
+config HI_DIRECTFB_DEBUG_SUPPORT
+    bool "DirectFB Debug support"
+    default n
+    depends on HI_DIRECTFB_SUPPORT
+
+config HI_DIRECTFB_CA_SUPPORT
+    bool "DirectFB Ca Support"
+    default n
+    depends on HI_DIRECTFB_SUPPORT && HI_ADVCA_SUPPORT
+
+config  HIFB_CURSOR_SUPPORT
+        bool "Cursor in FB Support"
+        default n
+
+config	HIFB_SCROLLTEXT_SUPPORT
+	bool "Scrolltext in FB Support"
+	default y
+	
+config	HI_PNG_DECODER_SUPPORT
+	bool "Png Decoder Support"
+	default n
+		
+config	HI_FREETYPE_FONT_SUPPORT
+	bool "Freetype Font Support"
+	default n	
+	
+config	HI_FREETYPE_MINI_LIB_SUPPORT
+	depends on HI_FREETYPE_FONT_SUPPORT
+	bool "Mini Freetype Lib"
+	default n
+		
+config 	HI_TDE_CSCTMPBUFFER_SIZE
+	hex "TDE Temporary Buffer Size"
+        default 0x0
+	help
+	  Regard to low quality, the size is 0. 
+	  Regard to middle quality, the size is (input width * input height * 2).
+	  Regard to high quality, the size is(output width * output height * 3).
+	  This Buffer Used to YUV Semi-planar to YUV Package 422 or ARGB Conversion.
+
+config 	HI_JPEG6B_STREAMBUFFER_SIZE
+	hex "JPEG Stream Buffer Size"
+        default 0x80000
+
+config 	HI_HD_FB_VRAM_SIZE
+	depends on HI3716MV310 || HI3716MV320 || HI3716MV330
+	int "KB, HD FrameBuffer Size"
+	default 7368  if HI3716MV310 || HI3716MV320 || HI3716MV330
+        help
+          For 1280*720, triple buffer, ARGB8888 format, the size is calculated as below:
+          (1280*720*4*2/1024)KB
+        
+config 	HI_SD_FB_VRAM_SIZE
+	depends on HI3110EV500
+	int "KB, SD FrameBuffer Size"
+	default 3600
+        help
+          For 720*576, triple buffer, ARGB1555 format, the size is calculated as below:
+          (720*576*2*2/1024)KB      
+        
+config 	HI_AD0_FB_VRAM_SIZE
+	depends on HIFB_SCROLLTEXT_SUPPORT || HIFB_CURSOR_SUPPORT
+	int "KB, AD0 FrameBuffer Size"
+	default 400
+	help
+          For 1280*80, double buffer, ARGB8888 format, the size is calculated as below:
+          (1280*80*2*2/1024)KB
+          
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++

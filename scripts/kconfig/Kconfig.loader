@@ -1,0 +1,88 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menuconfig  HI_LOADER_SUPPORT
+	bool "HiLoader Support"
+	depends on HI_BUILD_WITH_PRODUCT
+	default y
+
+#------------------------------------------------
+#menu	"HiLoader Config"
+#	depends on HI_LOADER_SUPPORT
+	
+choice
+	prompt "Loader Type"
+	default HI_LOADER_BOOTLOADER
+	depends on HI_LOADER_SUPPORT	
+config  HI_LOADER_BOOTLOADER
+	bool "BootLoader"
+config  HI_LOADER_APPLOADER
+	bool "AppLoader"
+endchoice
+	
+#------------------------------------------------
+config  HI_LOADER_BACKUP_SUPPORT
+	bool "Loader Backup Support"
+	default y
+	depends on (HI_LOADER_APPLOADER && HI_LOADER_SUPPORT)
+
+#------------------------------------------------
+config  HI_LOADER_MODE_USB
+	bool "USB Upgrade Support"
+	default y
+	depends on HI_LOADER_SUPPORT
+
+#------------------------------------------------
+choice
+        prompt "Protocol Type"
+        default HI_LOADER_USB_PROTOCOL_HISI_FILE
+        depends on HI_LOADER_MODE_USB
+config  HI_LOADER_USB_PROTOCOL_HISI_FILE
+        bool "Hisi File Protocol"
+endchoice
+#------------------------------------------------
+config  HI_LOADER_MODE_IP
+	bool "IP Upgrade Support"
+	default y
+	depends on (HI_LOADER_APPLOADER && HI_LOADER_SUPPORT)	
+#------------------------------------------------
+choice
+        prompt "Protocol Type"
+        default HI_LOADER_IP_PROTOCOL_HISI_FILE
+        depends on HI_LOADER_MODE_IP
+config  HI_LOADER_IP_PROTOCOL_HISI_FILE
+        bool "Hisi File Protocol"
+endchoice
+#------------------------------------------------
+config  HI_LOADER_MODE_OTA
+	bool "OTA Upgrade Support"
+	default y
+	depends on HI_LOADER_SUPPORT
+
+#------------------------------------------------
+choice
+	prompt "Tuner Type"
+	default HI_LOADER_TUNER_CAB
+	depends on HI_LOADER_MODE_OTA
+config  HI_LOADER_TUNER_CAB
+	bool "Cable"
+config  HI_LOADER_TUNER_TER
+	bool "Terrestrial"
+config  HI_LOADER_TUNER_SAT
+	bool "Satellite"
+endchoice
+
+#------------------------------------------------
+choice
+	prompt "Protocol Type"
+	default HI_LOADER_PROTOCOL_HISI_OTA
+	depends on HI_LOADER_MODE_OTA
+config  HI_LOADER_PROTOCOL_SSU_OTA
+	bool "SSU Protocol"
+config  HI_LOADER_PROTOCOL_HISI_OTA
+	bool "Hisi OTA Protocol"
+endchoice
+
+
+#------------------------------------------------
+#endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+

@@ -1,0 +1,26 @@
+#!/bin/sh
+#./configure CC=arm-hismall-linux-gcc CFLAGS=-I/opt/hisi-linux/x86-arm/gcc-3.4.3-csl-uClibc-0.9.30-softvfp/usr/include --host=arm --without-x --with-kerneldir=/home/q46153/hd/develop/source/os/linux-2.6.31/linux-2.6.31 --with-driver=serial 
+#./configure CC=arm-hisiv200-linux-gcc CFLAGS=-I/opt/hisi-linux/x86-arm/arm-hisiv200-linux/target/usr/include/ --host=arm --without-x --with-kerneldir=/home/x57522/X5HD/20101127/Develop/source/osdrv/kernel/linux-2.6.35/ --with-driver=serial
+#if [ $# -lt 2 ];then
+#echo "usage:$0 cross-gcc kerneldir"
+#exit 1
+#./configure CC=arm-hisiv200-linux-gcc CFLAGS=-g --host=arm --without-x --with-kerneldir=${PWD}/../../../../../osdrv/kernel/linux-2.6.35/ --with-driver=serial --enable-debug
+#exit 0
+#fi
+
+if [ -e Makefile ];then
+OLD_CC=`grep "^CC = " Makefile | awk '{print $3}'`
+OLD_KERNELDIR=`grep "^kerneldir = " Makefile | awk '{print $3}'`
+echo "OLD_CC = $OLD_CC OLD_KERNELDIR = $OLD_KERNELDIR"
+echo "CUR_CC = $1 CUR_KERNELDIR = $2/"
+if [ $OLD_CC = $1 -a $OLD_KERNELDIR = $2/ ];then
+exit 0	
+fi
+fi
+#./configure CC=$1 CFLAGS=-g --host=arm --without-x --with-kerneldir=$2 --with-driver=serial --enable-debug
+
+if [ $3 = 'NO' ];then
+./configure CC=$1 CFLAGS=-g --host=arm --without-x --with-kerneldir=$2 --with-driver=serial
+else
+	./configure --host=arm-linux CC=$1 CFLAGS="-g -I $3/system/core/include -I $3/hardware/libhardware/include -I $3/hardware/libhardware_legacy/include -I $3/hardware/ril/include -I $3/dalvik/libnativehelper/include -I $3/frameworks/base/include -I $3/frameworks/base/opengl/include -I $3/external/skia/include -I $3/out/target/product/Hi3716C/obj/include -I $3/bionic/libc/arch-arm/include -I $3/bionic/libc/include -I $3/bionic/libstdc++/include -I $3/bionic/libc/kernel/common -I $3/bionic/libc/kernel/arch-arm -I $3/bionic/libm/include -I $3/bionic/libm/include/arch/arm -I $3/bionic/libthread_db/include -fno-exceptions -Wno-multichar -msoft-float -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-short-enums -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -I $3/system/core/include/arch/linux-arm/ -include $3/system/core/include/arch/linux-arm/AndroidConfig.h -mthumb-interwork -DANDROID -fmessage-length=0 -W -Wall -Wno-unused -Winit-self -Wpointer-arith -Werror=return-type -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -DNDEBUG -g -Wstrict-aliasing=2 -finline-functions -fno-inline-functions-called-once -fgcse-after-reload -frerun-cse-after-loop -frename-registers -DNDEBUG -UDEBUG -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64" LIBS="-nostdlib -Bdynamic -Wl,-T,$3/build/core/armelf.x -Wl,-dynamic-linker,/system/bin/linker -Wl,--gc-sections -Wl,-z,nocopyreloc -L$3/out/target/product/Hi3716C/obj/lib -Wl,-rpath-link=$3/out/target/product/Hi3716C/obj/lib -lc -lstdc++ -lm $3/out/target/product/Hi3716C/obj/lib/crtbegin_dynamic.o -Wl,--no-undefined -Wl,--fix-cortex-a8 $3/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/../lib/gcc/arm-eabi/4.4.0/interwork/libgcc.a $3/out/target/product/Hi3716C/obj/lib/crtend_android.o" --disable-debug --enable-static --disable-shared --without-x --with-kerneldir=$2 --with-driver=serial
+fi

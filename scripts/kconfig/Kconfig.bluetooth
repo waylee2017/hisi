@@ -1,0 +1,14 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+#--------------------------------
+menuconfig HI_BLUETOOTH_SUPPORT
+	bool "Bluetooth Support"
+	default n
+	help
+	  ALSA will support too when support Bluetooth.
+
+menu    "BlueTooth Device Type"
+	depends on HI_BLUETOOTH_SUPPORT
+
+config  HI_BLUETOOTH_DEVICE_RTL8723BU
+	bool "Realtek RTL8723BU bluetooth driver"
+endmenu

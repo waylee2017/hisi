@@ -1,0 +1,79 @@
+#
+# drivers/mtd/nand/hisfc400/Kconfig
+# add by caizhiyong 2010.11.04
+#
+
+menuconfig MTD_NAND_HISFC400
+	tristate "Hisilicon SPI Nand Controller v400 device Support"
+	depends on MTD_NAND
+	default n
+	select YAFFS_FS
+	select MISC_FILESYSTEMS
+	select MTD_BLOCK
+	select YAFFS_YAFFS2
+	help
+	  Hisilicon SPI NAND Controller v400 device Support
+
+if MTD_NAND_HISFC400
+
+config HISFC400_REG_BASE_ADDRESS
+	hex "nand controller's register base address"
+	default 0x60040000 if (ARCH_HI3716MV310)
+	help
+	  register base address of nand controller
+
+config HISFC400_BUFFER_BASE_ADDRESS
+	hex "nand controller's buffer base address"
+	default 0x2A000000 if (ARCH_HI3716MV310)
+	help
+	  buffer base address of nand controller
+
+config HISFC400_PERIPHERY_REGBASE
+	hex "nand controller's peripher base address"
+	default 0x101F5000 if (ARCH_HI3716MV310)
+	help
+	  peripher base address of nand controller,for clk setting
+
+config HISFC400_MAX_CHIP
+	int "number of nand flash chip (1,4)"
+	default 1
+	help
+	  nand controller v400 device only support 1 or 2 nand flash chip,
+	  your should not config other value.
+
+config HISFC400_DBG_NAND_PROC_FILE
+	bool "Debug: create /proc/nand_logs file"
+	help
+	  Create /proc/nand_logs file for debug.
+
+config HISFC400_DBG_NAND_PE_PROC_FILE
+	bool "Debug: create /proc/nand_erase file"
+	help
+	  Create /proc/nand_erase file record nand erase times for every block.
+
+config HISFC400_DBG_NAND_EC_NOTICE
+	bool "Debug: notice uncorrectable error"
+	help
+	  Notice nand uncorrectable error
+
+choice
+	prompt "Pagesize and Ecc Type Select"
+
+config HISFC400_HARDWARE_PAGESIZE_ECC
+	bool "Hardware"
+	help
+	  pagesize and ecc type use hardware config
+
+config HISFC400_AUTO_PAGESIZE_ECC
+	bool "Auto"
+	help
+	  pagesize and ecc type use hardware config
+
+config HISFC400_PAGESIZE_AUTO_ECC_NONE
+	bool "Pagesize Auto, Ecc None"
+	help
+	  select pagesize 2K, ecc none.
+
+endchoice
+
+endif # MTD_NAND_HISFC400

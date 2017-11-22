@@ -1,0 +1,18 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menuconfig HI_PLAYER_SUPPORT
+	depends on HI_CAPTION_SUBT_SUPPORT && HI_CAPTION_SO_SUPPORT
+	bool "HiPlayer Support"
+	default y
+
+#------------------------------------------------
+choice
+	prompt "HiPlayer Version"
+	depends on HI_PLAYER_SUPPORT	
+	default HI_PLAYER_FULL_SUPPORT
+config  HI_PLAYER_FULL_SUPPORT
+	bool "HiPlayer Full Support"	
+config  HI_PLAYER_NORMAL_SUPPORT
+	bool "HiPlayer Normal Support"		
+endchoice
+
+

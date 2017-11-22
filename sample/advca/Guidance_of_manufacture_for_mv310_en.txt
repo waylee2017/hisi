@@ -1,0 +1,84 @@
+		This article describes the production line to burn CA image.
+ 		Burn high security images on production line, the process is generally powered on, boot factory test procedures, 
+ 		burn high-security images and put the chip into a high-security chip burn after test procedures are completed.
+ 		Prepare the environment:  factory test environment including boot image, kernel image, 
+ 		and read-only file system image, the file system image contains all the tools used in this paper, the high-security image.
+ 		Factory test program is completed by the manufacturers themselves, not within the scope of this article describes.
+ 		This article describes how to generate CA images to burn , tools , and execute commands.
+ 	
+a) Preparation before product. 
+
+   1. Generate all images without authentication including boot, kernel, squashfs.
+      These images are used to manufacture. 
+      Opreation:
+        1) cfg.mak:
+           CFG_ADVCA_TYPE=CONAX
+           /***Not define CFG_ADVCA_FUNCTION like this:*/
+           #CFG_ADVCA_FUNCTION=DEBUG
+           #CFG_ADVCA_FUNCTION=RELEASE
+        2) make cleanall, make build
+        
+      Note: Squashfs should be selected as Root File System and runs in Ramdisk device, if the yaffs2 file system is be selected, overwirting the fs partition will make the system coredump.
+      
+   2. The sample of make encrypted boot image
+      Function: encrypting singed boot image and SWPK, and merge them into one boot image, only for the case boot is encrypted with r2r_root_key.
+      Input: the name of signed boot image, the plain SWPK is defined in this sample.
+      operation: ./sample_product_encrypt_boot signed_clear_boot  encrypted_boot
+      Example: ./sample_product_encrypt_boot FinalBoot_SE13395_Conax.bin enc_FinalBoot_SE13395_Conax.bin
+
+   3. The sample of generating the encpryped image by R2R
+      Function: encrypt the data by R2R
+      Input: The signed images such as bootargs,stbid,system,loader or baseparam,logo etc.
+      Operation: ./sample_product_crypto crypto_flag  key_flag input_file output_file
+            parameter£ºcrypto_flag:  0---encrypt£»1---decrypt
+                       key_flag: 0--SWPK 1--key1, 2--key2   
+      Example: ./sample_product_crypto 0 1 system.sig enc_system.bin
+      Note: the length of image must be 16 bytes align. 
+
+
+   4. The sample of burning image into flash partition     
+      Function: Burn image into flash partition
+      Input: the image file of the partition
+      Operation: ./sample_product_burn_partition  partition_name  image_file
+      Example: ./sample_product_burn_partition kernel enc_system.bin
+      Note: For burning system image(signed the image of kernel+rootfs), partition_name may be kernel or system that depends on the parameters in bootargs
+
+   5. The sample of burning HDCP Key into STB
+      Function: Burn HDCP Key into STB
+      Input: hdcp key data
+      Operation: ./sample_sethdcp_orgkey hdcpkey.bin
+
+      Note: The hdcp key burn must be completed before setting PV value into STB
+
+   6. The sample of burning PV value:     
+      Function: Burn PV values into STB including MSID,boot_mode_sel etc. 
+      Input: The configration file of PV value like pv_cfg_rel.txt or pv_cfg_dbg.txt
+      Opreration: Getting PV list: ./sample_product_pv_stb 0 pv_out_file
+		  Example:         ./sample_product_pv_stb 0 pv_out_r.txt
+			
+                  Setting PV list: ./sample_product_pv_stb 1 otp_debug pv_cfg_file [pv_out_file]
+                  Parameters description:  otp_debug : enable--enable OTP debug mode, disable--disable OTP debug mode 
+		  Example:         ./sample_product_pv_stb 1 enable pv_cfg_dbg.txt pv_out_w.txt
+                  
+      Note: The file pv_cfg_rel.txt is only for final product.
+            The file pv_cfg_dbg.txt is for usage of debug. 
+            STB manufacture must be cautious to use them, and make sure that the MSID and Version_ID are correct, Otherwise the chip will be crippled.
+            When the parameter otp_debug for set PV list is string "enable", the OTP debug mode is enabled, the PV data will not be burned into OTP. 
+            To set the parameter otp_debug to be "disable" to disable the OTP debug mode only when the PV data is confirmed OK.
+
+   7. The sample of script for the whole procedure.
+      Function: Call above functions in turn and encrypt all images and burn relavate PV value.
+      Opreration:./sample_product_burn.sh 
+   
+b) Burn the image in laboratory
+   Step 1: prepare all the above samples, script and images on NFS server.
+   Step 2: launch the debug filesystem.
+   Step 3: mount to NFS server.
+   Step 4: execute the burning script product_burn.sh.
+
+c) Relevant data process on product line.   
+   Step 1: make all the above samples, script, signed images and test application into producing file system image.
+   Step 2: burn this producing file system image into flash with programmer.
+   Step 3: weld the flash on PCB.
+   Step 4: power on the STB, execute test application.
+   Step 5: execute the burning script sample_product_burn.sh.

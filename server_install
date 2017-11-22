@@ -1,0 +1,25 @@
+
+GREEN="\33[32m"
+NORMAL="\33[39m"
+RED="\33[31m"
+
+echo -e ${GREEN}
+echo "you must use 'root' to execute this shell "
+echo -e ${NORMAL}
+
+
+if [ -d ./tools/linux/toolchains/arm-hisiv110-linux ]
+then
+    cd ./tools/linux/toolchains/arm-hisiv110-linux
+    chmod 777 cross.install
+    ./cross.install
+    cd -
+fi
+
+if [ -d ./tools/linux/toolchains/arm-hisiv200-linux ]
+then
+    cd ./tools/linux/toolchains/arm-hisiv200-linux
+    chmod 777 cross.install
+    ./cross.install
+    cd -
+fi

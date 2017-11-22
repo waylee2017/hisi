@@ -1,0 +1,147 @@
+#===============================================================================
+# export variables
+#===============================================================================
+ifeq ($(CFG_HI_EXPORT_FLAG),)
+    ifneq ($(KERNELRELEASE),)
+    KERNEL_DIR := $(CURDIR)
+
+    SDK_DIR := $(KERNEL_DIR)/../../..
+    else
+    SDK_DIR := $(CURDIR)/../../../..
+    endif
+
+include $(SDK_DIR)/cfg.mak
+include $(SDK_DIR)/base.mak
+
+endif
+KBUILD_EXTRA_SYMBOLS += $(COMMON_DIR)/drv/Module.symvers
+#===============================================================================
+#   rules
+#===============================================================================
+.PHONY: all clean cfg_cap_all cfg_cap_clean clean_s_file
+
+VFMW_DIR = vfmw_v4.0
+
+#===============================================================================
+#   cap_type
+#===============================================================================
+ifeq ($(VFMW_CFG_CAP_TYPE),SD_ONLY)
+CFG_CAP_DIR_S = SD_ONLY_Source
+CFG_CAP_DIR = SD_ONLY
+endif
+
+ifeq ($(VFMW_CFG_CAP_TYPE),HD_SIMPLE)
+CFG_CAP_DIR_S = HD_SIMPLE_Source
+CFG_CAP_DIR = HD_SIMPLE
+endif
+
+ifeq ($(VFMW_CFG_CAP_TYPE),HD_BASIC)
+CFG_CAP_DIR_S = HD_BASIC_Source
+CFG_CAP_DIR = HD_BASIC
+endif
+
+ifeq ($(VFMW_CFG_CAP_TYPE),HD_FULL)
+CFG_CAP_DIR_S = HD_FULL_Source
+CFG_CAP_DIR = HD_FULL
+endif
+
+#===============================================================================
+#   chip_type 
+#===============================================================================
+
+ifeq ($(CFG_HI_CHIP_TYPE),hi3716mv310)
+
+ifeq ($(CFG_HI_TOOLCHAINS_NAME),arm-hisiv200-linux)
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE, $(CFG_HI_CFLAGS)), -DHI_ADVCA_FUNCTION_RELEASE)
+export PRODUCT_DIR = Hi3716MV310_advca
+else
+export PRODUCT_DIR = Hi3716MV310
+endif
+endif
+
+ifeq ($(CFG_HI_TOOLCHAINS_NAME),arm-histbv300-linux)
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE, $(CFG_HI_CFLAGS)), -DHI_ADVCA_FUNCTION_RELEASE)
+export PRODUCT_DIR = Hi3716MV310_advca_hisiv300
+else
+export PRODUCT_DIR = Hi3716MV310_hisiv300
+endif
+endif
+
+ifeq ($(CFG_HI_TOOLCHAINS_NAME),arm-histbv310-linux)
+#ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE, $(CFG_HI_CFLAGS)), -DHI_ADVCA_FUNCTION_RELEASE)
+ifeq ($(CFG_ADVCA_FUNCTION),y)
+export PRODUCT_DIR = Hi3716MV310_advca_hisiv310
+else
+export PRODUCT_DIR = Hi3716MV310_hisiv310
+endif
+endif
+
+endif
+
+ifeq ($(CFG_HI_CHIP_TYPE),hi3716mv330)
+
+ifeq ($(CFG_HI_TOOLCHAINS_NAME),arm-hisiv200-linux)
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE, $(CFG_HI_CFLAGS)), -DHI_ADVCA_FUNCTION_RELEASE)
+export PRODUCT_DIR = Hi3716MV330_advca
+else
+export PRODUCT_DIR = Hi3716MV330
+endif
+endif
+
+ifeq ($(CFG_HI_TOOLCHAINS_NAME),arm-histbv300-linux)
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE, $(CFG_HI_CFLAGS)), -DHI_ADVCA_FUNCTION_RELEASE)
+export PRODUCT_DIR = Hi3716MV330_advca_hisiv300
+else
+export PRODUCT_DIR = Hi3716MV330_hisiv300
+endif
+endif
+
+ifeq ($(CFG_HI_TOOLCHAINS_NAME),arm-histbv310-linux)
+ifeq ($(findstring -DHI_ADVCA_FUNCTION_RELEASE, $(CFG_HI_CFLAGS)), -DHI_ADVCA_FUNCTION_RELEASE)
+export PRODUCT_DIR = Hi3716MV330_advca_hisiv310
+else
+export PRODUCT_DIR = Hi3716MV330_hisiv310
+endif
+endif
+
+endif
+
+
+
+
+all: cfg_cap_all cfg_cap_clean
+	
+cfg_cap_all:
+
+	$(AT)cp -rf $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR_S)/vfmw_config.cfg  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)
+	$(AT)cp -rf $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR_S)/vfmw_make_pak.cfg  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/vfmw_make.cfg
+	$(AT)make -C vfmw_v4.0/ all A=1
+	$(AT)cp $(VFMW_DIR)/firmware/common  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR) -rf
+	$(AT)cp $(VFMW_DIR)/firmware/driver  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR) -rf
+	$(AT)cp $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/vfmw.S $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)
+	$(AT)cp $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/vfmw_svdec_intf.S $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)
+	$(AT)cp $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/vfmw_intf.S $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)
+	$(AT)cp $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/osal/linux_kernel/vfmw_osal.S $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)
+	-$(AT)mv $(VFMW_DIR)/firmware/common/vfmw_proc.c $(VFMW_DIR)/firmware/common/vfmw_proc.c-bak
+#	$(AT)make -C softlib/ all
+#	[ -e $(VFMW_DIR)/../softlib/softlib_release/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/ ] || mkdir -p $(VFMW_DIR)/../softlib/softlib_release/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/
+#	$(AT)cp softlib/hi_svdec.ko $(VFMW_DIR)/../softlib/softlib_release/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/hi_svdec.ko.save
+	$(AT)make -f Make_release.pak clean_s_file
+
+cfg_cap_clean:
+	$(AT)find  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/common -name "*.o" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/common -name "*.c" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/common -name "*.h" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/driver -name "*.o" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/driver -name "*.c" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/driver -name "*.h" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/ -name "*.o.cmd" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/../softlib/  -name "*.o" | xargs rm -rf
+	$(AT)rm    $(VFMW_DIR)/../softlib/hi_svdec.ko -rf
+	$(AT)cp $(VFMW_DIR)/firmware/common/vfmw_proc.c-bak $(VFMW_DIR)/firmware/product/$(PRODUCT_DIR)/$(CFG_CAP_DIR)/common/vfmw_proc.c
+	$(AT)cp $(VFMW_DIR)/firmware/common/vfmw_proc.c-bak $(VFMW_DIR)/firmware/common/vfmw_proc.c
+
+clean_s_file:
+	$(AT)find  $(VFMW_DIR)/firmware/common/  -name "*.S" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/firmware/driver/  -name "*.S" | xargs rm -rf
+	$(AT)find  $(VFMW_DIR)/  -name "*.o.cmd" | xargs rm -rf

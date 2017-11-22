@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info>
+<Part Sel="0" PartitionName="fastboot" FlashType="nand" FileSystem="none" Start="0" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="bootargs" FlashType="nand" FileSystem="none" Start="1M" Length="1M" SelectFile="bootargs_nand_128_256_ca_common.bin"/>
+<Part Sel="0" PartitionName="loader" FlashType="nand" FileSystem="none" Start="2M" Length="8M" SelectFile=""/>
+<Part Sel="0" PartitionName="loader_sign" FlashType="nand" FileSystem="none" Start="10M" Length="128K" SelectFile=""/>
+<Part Sel="0" PartitionName="kernel" FlashType="nand" FileSystem="none" Start="10368K" Length="5M" SelectFile="hi_kernel.bin"/>
+<Part Sel="0" PartitionName="kernel_sign" FlashType="nand" FileSystem="none" Start="15488K" Length="128K" SelectFile="hi_kernel.sig"/>
+<Part Sel="0" PartitionName="rootfs" FlashType="nand" FileSystem="squashfs" Start="15616K" Length="43M" SelectFile="rootfs.squashfs"/>
+<Part Sel="0" PartitionName="rootfs_sign" FlashType="nand" FileSystem="none" Start="59648K" Length="128K" SelectFile="rootfs.sig"/>
+<Part Sel="0" PartitionName="cadata" FlashType="nand" FileSystem="none" Start="59776K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderdb" FlashType="nand" FileSystem="none" Start="60800K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="stbid" FlashType="nand" FileSystem="none" Start="61824K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="db" FlashType="nand" FileSystem="none" Start="62848K" Length="2M" SelectFile=""/>
+<Part Sel="0" PartitionName="predb" FlashType="nand" FileSystem="none" Start="64896K" Length="2M" SelectFile=""/>
+<Part Sel="0" PartitionName="syscfg" FlashType="nand" FileSystem="none" Start="66944K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="history" FlashType="nand" FileSystem="none" Start="67968K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="baseparam" FlashType="nand" FileSystem="none" Start="68992K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="logo" FlashType="nand" FileSystem="none" Start="70016K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="privatedata" FlashType="nand" FileSystem="none" Start="71040K" Length="1M" SelectFile=""/>
+</Partition_Info>

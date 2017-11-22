@@ -1,0 +1,19 @@
+#!/bin/sh
+
+interface=eth0
+
+
+mount -o remount,rw /
+mount -t cgroup none /sys/fs/cgroup
+
+# start bridge
+brctl addbr br0
+ifconfig br0 192.168.1.8
+ifconfig $interface up
+udhcpc -b -i $interface -t 30 -R
+
+
+
+lxc-start -n stb -f /etc/lxc/stb/config -d
+lxc-start -n stb1 -f /etc/lxc/stb1/config -d
+

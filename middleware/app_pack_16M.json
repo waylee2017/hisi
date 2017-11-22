@@ -1,0 +1,47 @@
+{
+	"outfile": "app_pack.bin",
+	"sections": [
+		{
+			"id": "0AF50104",
+			"compress": false,
+			"file": "./res/ovt_font.TTF",
+			"name": "ovt_font",
+			"version": "00000001"
+		},
+		{
+			"id": "0AF50105",
+			"compress": true,
+			"file": "./res/ovt_bmpdata.bin",
+			"name": "ovt_bmpdata",
+			"version": "00000001"
+		},
+		{
+			"id": "0AF50106",
+			"compress": false,
+			"file": "./res/ovt_radio.m2v",
+			"name": "ovt_radio",
+			"version": "00000001"
+		},
+		{
+			"id": "0AF50107",
+			"compress": false,
+			"file": "./res/ovt_logo.jpg",
+			"name": "ovt_logo",
+			"version": "00000001"
+		},
+		{
+			"id": "0AF50108",
+			"compress": false,
+			"file": "./res/startgif.gif",
+			"name": "startgif",
+			"version": "00000001"
+		},
+		{
+			"id": "0AF50109",
+			"compress": false,
+			"file": "./res/ovt_waterlogo.png",
+			"name": "ovt_waterlogo",
+			"version": "00000001"
+		}
+	]
+}

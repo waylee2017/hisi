@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<Partition_Info>
+<Part Sel="1" PartitionName="fastboot" FlashType="nand" FileSystem="none" Start="0" Length="640K" SelectFile="fastboot-burn.bin"/>
+<Part Sel="1" PartitionName="bootargs" FlashType="nand" FileSystem="none" Start="640K" Length="128K" SelectFile="bootargs_nand_128_256.bin"/>
+<Part Sel="0" PartitionName="stbid" FlashType="nand" FileSystem="none" Start="768K" Length="128K" SelectFile=""/>
+<Part Sel="0" PartitionName="loader" FlashType="nand" FileSystem="none" Start="896K" Length="8M" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderbak" FlashType="nand" FileSystem="none" Start="9088K" Length="8M" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderdb" FlashType="nand" FileSystem="none" Start="17280K" Length="128K" SelectFile=""/>
+<Part Sel="0" PartitionName="loaderdbbak" FlashType="nand" FileSystem="none" Start="17M" Length="128K" SelectFile=""/>
+<Part Sel="1" PartitionName="kernel" FlashType="nand" FileSystem="none" Start="17536K" Length="6M" SelectFile="hi_kernel.bin"/>
+<Part Sel="1" PartitionName="rootfs" FlashType="nand" FileSystem="yaffs" Start="23680K" Length="60M" SelectFile="rootfs_2k4b.yaffs"/>
+<Part Sel="0" PartitionName="baseparam" FlashType="nand" FileSystem="none" Start="85120K" Length="128K" SelectFile=""/>
+<Part Sel="0" PartitionName="logo" FlashType="nand" FileSystem="none" Start="85248K" Length="1M" SelectFile=""/>
+<Part Sel="0" PartitionName="fastplay" FlashType="nand" FileSystem="none" Start="86272K" Length="20M" SelectFile=""/>
+</Partition_Info>

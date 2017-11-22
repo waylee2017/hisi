@@ -1,0 +1,61 @@
+  
+###########################################################
+choice
+	prompt "Chip Type"
+	default HI3716MV310
+config  HI3716MV310
+	bool "hi3716mv310"
+config  HI3110EV500
+	bool "hi3110ev500"
+config  HI3716MV330
+	bool "hi3716mv330"
+endchoice
+
+config  HI_CHIP_TYPE
+	string 
+	default hi3716mv310      if HI3716MV310
+	default hi3110ev500      if HI3110EV500
+	default hi3716mv330      if HI3716MV330
+
+###########################################################
+choice
+	prompt "Toolchains Type"
+	default ARM_HISTBV310_LINUX if HI3716MV330
+
+config  ARM_HISIV200_LINUX
+	bool "arm-hisiv200-linux"
+config  ARM_HISTBV310_LINUX
+	bool "arm-histbv310-linux"
+endchoice
+
+config  HI_TOOLCHAINS_NAME
+	string 
+	default arm-hisiv200-linux 	if ARM_HISIV200_LINUX
+	default arm-histbv310-linux 	if ARM_HISTBV310_LINUX
+	
+###########################################################
+menuconfig  HI_LOADER_SUPPORT
+	bool "HiLoader Support"	
+	default n
+
+#------------------------------------------------
+#menu	"HiLoader Config"
+#	depends on HI_LOADER_SUPPORT
+	
+choice
+	prompt "Support Loader Type"
+	default HI_APPLOADER_SUPPORT
+	depends on HI_LOADER_SUPPORT
+
+config  HI_BOOTLOADER_SUPPORT
+	bool "BootLoader"
+	select HI_BUILD_WITH_PRODUCT
+
+config  HI_APPLOADER_SUPPORT
+	bool "AppLoader"
+endchoice
+	
+###########################################################	
+config HI_OPTM_SIZE_SUPPORT
+	bool "Optimize For Size"
+	default n

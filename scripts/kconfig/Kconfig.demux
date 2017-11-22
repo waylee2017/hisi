@@ -1,0 +1,39 @@
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+menu "DEMUX Config"
+config  HI_DEMUX_SUPPORT_PROC
+	bool "Demux Proc Support"
+	depends on HI_PROC_SUPPORT
+	help 
+	  If you want to enable show demux inner debug info, say y.
+	default y
+
+config  HI_DEMUX_SUPPORT_REC
+	bool "Demux Rec Support"
+	help 
+	  If you want to support pvr, say y.
+	default y
+config  HI_DEMUX_SUPPORT_SCD
+	bool "Demux Scd Support"
+	depends on HI_DEMUX_SUPPORT_REC
+	default y
+
+config  HI_DEMUX_SUPPORT_TSO
+	bool "Demux TSO Support"
+	help 
+	  If you want to support tso port, say y.
+	default y
+
+config	HI_DEMUX_SUPPORT_DESC
+	bool "Desc Support"
+	help
+	  If you want to enable Desc, say y.
+	default n 
+	
+config HI_DEMUX_POOLBUF_SIZE
+	hex "DEMUX Poolbuf Size"
+	default 0x200000
+	help
+	    Configure section, pes and post channel memory.
+
+endmenu
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
